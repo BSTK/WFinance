@@ -1,14 +1,20 @@
 package dev.bstk.wfinance.api;
 
+import dev.bstk.wfinance.api.request.NovaCategoriaRequest;
+import dev.bstk.wfinance.api.response.CategoriaResponse;
 import dev.bstk.wfinance.domain.entidade.Categoria;
 import dev.bstk.wfinance.domain.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/categorias")
@@ -18,7 +24,49 @@ public class CategoriaResource {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> categorias() {
-        return ResponseEntity.ok(categoriaRepository.findAll());
+    public ResponseEntity<List<CategoriaResponse>> categorias() {
+        final var categorias = categoriaRepository.findAll();
+        final var categoriasResponse = categorias.stream()
+            .map(categoria -> new CategoriaResponse(
+                categoria.getId(),
+                categoria.getNome()))
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(categoriasResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaResponse> categoriaPorId(@PathVariable("id") final Long id) {
+        final Optional<Categoria> categoriaPorId = categoriaRepository.findById(id);
+
+        if (categoriaPorId.isPresent()) {
+            final var categoria = categoriaPorId.get();
+            final var categoriaResponse = new CategoriaResponse(
+                categoria.getId(),
+                categoria.getNome());
+            return ResponseEntity.ok(categoriaResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<CategoriaResponse> novaCategoria(
+        @RequestBody final NovaCategoriaRequest request,
+        final HttpServletResponse httpServletResponse) {
+
+        final var categoriaSalva = categoriaRepository.save(new Categoria(request.getNome()));
+        final var categoriaResponse = new CategoriaResponse(
+            categoriaSalva.getId(),
+            categoriaSalva.getNome());
+
+        final var uri = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(categoriaResponse.getId())
+            .toUri();
+
+        httpServletResponse.setHeader(HttpHeaders.LOCATION, uri.toASCIIString());
+        return ResponseEntity.ok(categoriaResponse);
     }
 }

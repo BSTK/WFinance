@@ -22,4 +22,9 @@ public class Categoria implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
+    public Categoria() { }
+
+    public Categoria(@NotNull @NotEmpty String nome) {
+        this.nome = nome;
+    }
 }
