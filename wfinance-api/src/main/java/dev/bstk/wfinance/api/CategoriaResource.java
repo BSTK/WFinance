@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,7 +54,7 @@ public class CategoriaResource {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CategoriaResponse> novaCategoria(
-        @RequestBody final NovaCategoriaRequest request,
+        @RequestBody @Valid final NovaCategoriaRequest request,
         final HttpServletResponse httpServletResponse) {
 
         final var categoriaSalva = categoriaRepository.save(new Categoria(request.getNome()));
