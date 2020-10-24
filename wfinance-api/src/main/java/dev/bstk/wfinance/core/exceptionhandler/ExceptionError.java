@@ -10,12 +10,12 @@ import java.util.List;
 @Data
 @ToString
 @AllArgsConstructor
-public class WFinanceExceptionError {
+public class ExceptionError {
 
     private String mensagem;
     private String metodo;
     private String urlRequest;
     private LocalDateTime data;
-    private List<WFinanceExceptionErrorItem> erros;
+    private List<ExceptionErrorItem> erros;
 
 }

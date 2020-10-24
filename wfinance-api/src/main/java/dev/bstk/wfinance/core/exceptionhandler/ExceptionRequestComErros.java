@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WFinanceExceptionRequestComErros {
+public class ExceptionRequestComErros {
 
     private static final String DADOS_INVALIDOS = "Dados inválidos";
     private static final String CAMPOS_DESCONHECIDOS = "Campos Desconhecidos";
 
-    private WFinanceExceptionRequestComErros() { }
+    private ExceptionRequestComErros() { }
 
-    public static WFinanceExceptionError criaListaDeErrosOcorridos(final WebRequest request,
-                                                                   final BindingResult bindingResult) {
-        final List<WFinanceExceptionErrorItem> erros = new ArrayList<>();
+    public static ExceptionError criaListaDeErrosOcorridos(final WebRequest request,
+                                                           final BindingResult bindingResult) {
+        final List<ExceptionErrorItem> erros = new ArrayList<>();
 
         bindingResult.getFieldErrors().forEach(atributoDaRequestComErro -> {
-            final var erroOcorrido = new WFinanceExceptionErrorItem(
+            final var erroOcorrido = new ExceptionErrorItem(
                 atributoDaRequestComErro.getField(),
                 atributoDaRequestComErro.getDefaultMessage(),
                 String.valueOf(atributoDaRequestComErro.getRejectedValue())
@@ -40,10 +40,10 @@ public class WFinanceExceptionRequestComErros {
             Collections.emptyList());
     }
 
-    private static WFinanceExceptionError wFinanceExceptionError(final String mensagem,
-                                                                 final WebRequest request,
-                                                                 final List<WFinanceExceptionErrorItem> erros) {
-        return new WFinanceExceptionError(
+    private static ExceptionError wFinanceExceptionError(final String mensagem,
+                                                         final WebRequest request,
+                                                         final List<ExceptionErrorItem> erros) {
+        return new ExceptionError(
             mensagem,
             ((ServletWebRequest) request).getHttpMethod().name(),
             ServletUriComponentsBuilder.fromCurrentRequest()

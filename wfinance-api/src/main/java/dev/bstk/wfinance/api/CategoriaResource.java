@@ -2,14 +2,14 @@ package dev.bstk.wfinance.api;
 
 import dev.bstk.wfinance.api.request.NovaCategoriaRequest;
 import dev.bstk.wfinance.api.response.CategoriaResponse;
+import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.domain.entidade.Categoria;
 import dev.bstk.wfinance.domain.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,6 +23,9 @@ public class CategoriaResource {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @GetMapping
     public ResponseEntity<List<CategoriaResponse>> categorias() {
@@ -62,12 +65,10 @@ public class CategoriaResource {
             categoriaSalva.getId(),
             categoriaSalva.getNome());
 
-        final var uri = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(categoriaResponse.getId())
-            .toUri();
+        applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
+            this, httpServletResponse, categoriaSalva.getId()
+        ));
 
-        httpServletResponse.setHeader(HttpHeaders.LOCATION, uri.toASCIIString());
         return ResponseEntity.ok(categoriaResponse);
     }
 }

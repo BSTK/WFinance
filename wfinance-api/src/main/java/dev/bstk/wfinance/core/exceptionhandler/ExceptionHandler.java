@@ -10,14 +10,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class WFinanceExceptionHandler extends ResponseEntityExceptionHandler {
+public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        final var errosOcorridosNaRequest = WFinanceExceptionRequestComErros
+        final var errosOcorridosNaRequest = ExceptionRequestComErros
             .criaListaDeErrosOcorridos(request);
 
         return handleExceptionInternal(ex, errosOcorridosNaRequest, headers, HttpStatus.BAD_REQUEST, request);
@@ -28,7 +28,7 @@ public class WFinanceExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        final var errosOcorridosNaRequest = WFinanceExceptionRequestComErros
+        final var errosOcorridosNaRequest = ExceptionRequestComErros
             .criaListaDeErrosOcorridos(request, ex.getBindingResult());
 
         return super.handleExceptionInternal(ex, errosOcorridosNaRequest, headers, status, request);
