@@ -1,16 +1,17 @@
 package dev.bstk.wfinance.categoria.api;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.io.Serializable;
 
 @Data
 @ToString
-@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CategoriaResponse implements Serializable {
 
-    private final Long id;
-    private final String nome;
+    @EqualsAndHashCode.Include
+    private Long id;
+    private String nome;
 }

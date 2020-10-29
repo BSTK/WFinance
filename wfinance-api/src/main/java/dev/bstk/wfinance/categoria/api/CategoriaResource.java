@@ -3,6 +3,7 @@ package dev.bstk.wfinance.categoria.api;
 import dev.bstk.wfinance.categoria.domain.Categoria;
 import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/categorias")
 public class CategoriaResource {
 
+    private final ModelMapper mapper;
     private final CategoriaRepository categoriaRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public CategoriaResource(final CategoriaRepository categoriaRepository,
+    public CategoriaResource(final ModelMapper mapper,
+                             final CategoriaRepository categoriaRepository,
                              final ApplicationEventPublisher applicationEventPublisher) {
+        this.mapper = mapper;
         this.categoriaRepository = categoriaRepository;
         this.applicationEventPublisher = applicationEventPublisher;
     }
@@ -33,9 +37,7 @@ public class CategoriaResource {
     public ResponseEntity<List<CategoriaResponse>> categorias() {
         final var categorias = categoriaRepository.findAll();
         final var categoriasResponse = categorias.stream()
-            .map(categoria -> new CategoriaResponse(
-                categoria.getId(),
-                categoria.getNome()))
+            .map(categoria -> mapper.map(categoria, CategoriaResponse.class))
             .collect(Collectors.toList());
 
         return ResponseEntity.ok(categoriasResponse);
@@ -47,9 +49,7 @@ public class CategoriaResource {
 
         if (categoriaPorId.isPresent()) {
             final var categoria = categoriaPorId.get();
-            final var categoriaResponse = new CategoriaResponse(
-                categoria.getId(),
-                categoria.getNome());
+            final var categoriaResponse = mapper.map(categoria, CategoriaResponse.class);
             return ResponseEntity.ok(categoriaResponse);
         }
 
@@ -58,14 +58,10 @@ public class CategoriaResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CategoriaResponse> novaCategoria(
-        @RequestBody @Valid final NovaCategoriaRequest request,
-        final HttpServletResponse httpServletResponse) {
-
+    public ResponseEntity<CategoriaResponse> novaCategoria(@RequestBody @Valid final NovaCategoriaRequest request,
+                                                           final HttpServletResponse httpServletResponse) {
         final var categoriaSalva = categoriaRepository.save(new Categoria(request.getNome()));
-        final var categoriaResponse = new CategoriaResponse(
-            categoriaSalva.getId(),
-            categoriaSalva.getNome());
+        final var categoriaResponse = mapper.map(categoriaSalva, CategoriaResponse.class);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
             this, httpServletResponse, categoriaSalva.getId()
