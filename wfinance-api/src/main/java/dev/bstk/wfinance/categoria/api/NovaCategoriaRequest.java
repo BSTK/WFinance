@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.api.request;
+package dev.bstk.wfinance.categoria.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

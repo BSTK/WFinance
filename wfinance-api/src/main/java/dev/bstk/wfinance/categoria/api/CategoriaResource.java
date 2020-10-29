@@ -1,10 +1,8 @@
-package dev.bstk.wfinance.api;
+package dev.bstk.wfinance.categoria.api;
 
-import dev.bstk.wfinance.api.request.NovaCategoriaRequest;
-import dev.bstk.wfinance.api.response.CategoriaResponse;
+import dev.bstk.wfinance.categoria.domain.Categoria;
+import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
-import dev.bstk.wfinance.domain.entidade.Categoria;
-import dev.bstk.wfinance.domain.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -21,11 +19,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/categorias")
 public class CategoriaResource {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+    public CategoriaResource(final CategoriaRepository categoriaRepository,
+                             final ApplicationEventPublisher applicationEventPublisher) {
+        this.categoriaRepository = categoriaRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @GetMapping
     public ResponseEntity<List<CategoriaResponse>> categorias() {

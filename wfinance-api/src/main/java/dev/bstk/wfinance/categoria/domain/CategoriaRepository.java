@@ -1,6 +1,5 @@
-package dev.bstk.wfinance.domain.repository;
+package dev.bstk.wfinance.categoria.domain;
 
-import dev.bstk.wfinance.domain.entidade.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

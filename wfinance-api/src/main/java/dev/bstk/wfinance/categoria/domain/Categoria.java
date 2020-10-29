@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.domain.entidade;
+package dev.bstk.wfinance.categoria.domain;
 
 import lombok.Data;
 
