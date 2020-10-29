@@ -10,22 +10,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ExceptionRequestComErros {
+public class ExceptionRequestErros {
 
     private static final String DADOS_INVALIDOS = "Dados inválidos";
     private static final String CAMPOS_DESCONHECIDOS = "Campos Desconhecidos";
 
-    private ExceptionRequestComErros() { }
+    private ExceptionRequestErros() { }
 
     public static ExceptionError criaListaDeErrosOcorridos(final WebRequest request,
                                                            final BindingResult bindingResult) {
         final List<ExceptionErrorItem> erros = new ArrayList<>();
 
-        bindingResult.getFieldErrors().forEach(atributoDaRequestComErro -> {
+        bindingResult.getFieldErrors().forEach(erroRequest -> {
             final var erroOcorrido = new ExceptionErrorItem(
-                atributoDaRequestComErro.getField(),
-                atributoDaRequestComErro.getDefaultMessage(),
-                String.valueOf(atributoDaRequestComErro.getRejectedValue())
+                erroRequest.getField(),
+                erroRequest.getDefaultMessage(),
+                String.valueOf(erroRequest.getRejectedValue())
             );
 
             erros.add(erroOcorrido);
