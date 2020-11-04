@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import static dev.bstk.wfinance.core.exceptionhandler.ExceptionRequestErros.criaListaDeErrosOcorridos;
 
 @ControllerAdvice
-public class ExceptionHandler extends ResponseEntityExceptionHandler {
+public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
@@ -33,5 +33,4 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(request, ex.getBindingResult());
         return super.handleExceptionInternal(ex, errosOcorridosNaRequest, headers, status, request);
     }
-
 }

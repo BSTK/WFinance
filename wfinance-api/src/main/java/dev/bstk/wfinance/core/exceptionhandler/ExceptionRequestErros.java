@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ExceptionRequestErros {
+class ExceptionRequestErros {
 
     private static final String DADOS_INVALIDOS = "Dados inválidos";
     private static final String CAMPOS_DESCONHECIDOS = "Campos Desconhecidos";
 
     private ExceptionRequestErros() { }
 
-    public static ExceptionError criaListaDeErrosOcorridos(final WebRequest request,
-                                                           final BindingResult bindingResult) {
+    static ExceptionError criaListaDeErrosOcorridos(final WebRequest request,
+                                                    final BindingResult bindingResult) {
         final List<ExceptionErrorItem> erros = new ArrayList<>();
 
         bindingResult.getFieldErrors().forEach(erroRequest -> {
@@ -31,16 +31,16 @@ public class ExceptionRequestErros {
             erros.add(erroOcorrido);
         });
 
-        return wFinanceExceptionError(DADOS_INVALIDOS, request, erros);
+        return criaListaDeErrosOcorridos(DADOS_INVALIDOS, request, erros);
     }
 
-    public static Object criaListaDeErrosOcorridos(WebRequest request) {
-        return wFinanceExceptionError(CAMPOS_DESCONHECIDOS,
+    static Object criaListaDeErrosOcorridos(final WebRequest request) {
+        return criaListaDeErrosOcorridos(CAMPOS_DESCONHECIDOS,
             request,
             Collections.emptyList());
     }
 
-    private static ExceptionError wFinanceExceptionError(final String mensagem,
+    private static ExceptionError criaListaDeErrosOcorridos(final String mensagem,
                                                          final WebRequest request,
                                                          final List<ExceptionErrorItem> erros) {
         return new ExceptionError(

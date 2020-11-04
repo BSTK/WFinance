@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.pessoa.api;
+package dev.bstk.wfinance.pessoa.api.response;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,8 @@ import java.io.Serializable;
 @Data
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PessoaResponse implements Serializable {
+public
+class PessoaResponse implements Serializable {
 
     @EqualsAndHashCode.Include
     private Long id;

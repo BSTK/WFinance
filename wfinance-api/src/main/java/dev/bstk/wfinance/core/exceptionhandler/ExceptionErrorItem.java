@@ -7,7 +7,7 @@ import lombok.ToString;
 @Data
 @ToString
 @AllArgsConstructor
-public class ExceptionErrorItem {
+class ExceptionErrorItem {
 
     private String atributo;
     private String mensagem;

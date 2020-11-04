@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @ToString
 @AllArgsConstructor
-public class ExceptionError {
+class ExceptionError {
 
     private String mensagem;
     private String metodo;
