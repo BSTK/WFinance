@@ -1,7 +1,6 @@
 package dev.bstk.wfinance.pessoa.api;
 
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
-import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import dev.bstk.wfinance.pessoa.domain.Pessoa;
@@ -88,7 +87,7 @@ public class PessoaResource {
         final var pessoaSalvaResponse = mapper.map(pessoaSalva, PessoaResponse.class);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
-            this,httpServletResponse, pessoaSalva.getId()));
+            this, httpServletResponse, pessoaSalva.getId()));
 
         return ResponseEntity.ok(pessoaSalvaResponse);
     }

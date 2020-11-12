@@ -47,8 +47,8 @@ class ExceptionRequestErros {
     }
 
     private static ExceptionError criaListaDeErrosOcorridos(final String mensagem,
-                                                         final WebRequest request,
-                                                         final List<ExceptionErrorItem> erros) {
+                                                            final WebRequest request,
+                                                            final List<ExceptionErrorItem> erros) {
         return new ExceptionError(
             mensagem,
             ((ServletWebRequest) request).getHttpMethod().name(),
