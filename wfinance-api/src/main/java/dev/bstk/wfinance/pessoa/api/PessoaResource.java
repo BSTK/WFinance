@@ -44,6 +44,7 @@ public class PessoaResource {
         final var pessoasResponse = pessoas.stream()
             .map(pessoa -> mapper.map(pessoa, PessoaResponse.class))
             .collect(Collectors.toList());
+
         return ResponseEntity.ok(pessoasResponse);
     }
 
@@ -90,5 +91,11 @@ public class PessoaResource {
             this, httpServletResponse, pessoaSalva.getId()));
 
         return ResponseEntity.ok(pessoaSalvaResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
+        pessoaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
