@@ -1,11 +1,13 @@
 package dev.bstk.wfinance.core.exceptionhandler;
 
+import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -32,5 +34,13 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
 
         final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(request, ex.getBindingResult());
         return super.handleExceptionInternal(ex, errosOcorridosNaRequest, headers, status, request);
+    }
+
+    @ExceptionHandler(value = { EnderecoJaCadastradoException.class })
+    public ResponseEntity<Object> enderecoJaCadastradoException(EnderecoJaCadastradoException ex,
+                                                                WebRequest request) {
+
+        final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(ex, request);
+        return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }

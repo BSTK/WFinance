@@ -40,6 +40,12 @@ class ExceptionRequestErros {
             Collections.emptyList());
     }
 
+    static Object criaListaDeErrosOcorridos(final RuntimeException ex, final WebRequest request) {
+        return criaListaDeErrosOcorridos(ex.getMessage(),
+            request,
+            Collections.emptyList());
+    }
+
     private static ExceptionError criaListaDeErrosOcorridos(final String mensagem,
                                                          final WebRequest request,
                                                          final List<ExceptionErrorItem> erros) {

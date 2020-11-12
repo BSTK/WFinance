@@ -1,10 +1,13 @@
 package dev.bstk.wfinance.pessoa.api;
 
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
+import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import dev.bstk.wfinance.pessoa.domain.Pessoa;
 import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
+import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/pessoas")
 public class PessoaResource {
@@ -61,9 +66,22 @@ public class PessoaResource {
     public ResponseEntity<PessoaResponse> novaPessoa(@RequestBody @Valid final NovaPessoaRequest request,
                                                      final HttpServletResponse httpServletResponse) {
 
-        // TODO: SE ENDEREÇO FOR INFORMADO, ENTÃO TODOS OS CAMPOS DEVEM SER INFORMADOS MENOS "complemento"
-        // TODO: SE ENDEREÇO FOR INFORMADO, VERIFICAR SE JÁ HÁ UMA PESSOA CADASTRADA COM O MESMO ENDEREÇO
-        //  (CAMPOS QUE DEVEM SER LEVADOS EM CONSIDERAÇÃO: CEP, LOGRADOURO, NUMERO)
+        if (Objects.nonNull(request)) {
+            /// TODO: SE ENDEREÇO FOR INFORMADO, ENTÃO TODOS OS CAMPOS DEVEM SER INFORMADOS MENOS "complemento"
+        }
+
+        if (Objects.nonNull(request)) {
+            final var endereco = request.getEndereco();
+            final var existeEnderecoCadastrado = pessoaRepository.existeEnderecoCadastrado(endereco.getCep(),
+                                                                                           endereco.getLogradouro(),
+                                                                                           endereco.getNumero());
+
+            if (existeEnderecoCadastrado) {
+                log.warn("Já existe uma pessoa cadastrada com este endereco. Dados: Cep: {}, Logradouro: {}, Numero: {}",
+                    endereco.getCep(), endereco.getLogradouro(), endereco.getNumero());
+                throw new EnderecoJaCadastradoException("Já existe uma pessoa cadastrada com este endereco.");
+            }
+        }
 
         final var novaPessoa = mapper.map(request, Pessoa.class);
         final var pessoaSalva = pessoaRepository.save(novaPessoa);
