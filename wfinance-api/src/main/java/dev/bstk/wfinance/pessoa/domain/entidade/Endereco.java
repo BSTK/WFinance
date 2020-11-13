@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.pessoa.domain;
+package dev.bstk.wfinance.pessoa.domain.entidade;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-class Endereco implements Serializable {
+public class Endereco implements Serializable {
 
     @Column(name = "ESTADO")
     private String estado;
