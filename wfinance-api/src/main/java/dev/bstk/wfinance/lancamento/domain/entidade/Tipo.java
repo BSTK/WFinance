@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.lancamento.domain;
+package dev.bstk.wfinance.lancamento.domain.entidade;
 
 public enum Tipo {
 

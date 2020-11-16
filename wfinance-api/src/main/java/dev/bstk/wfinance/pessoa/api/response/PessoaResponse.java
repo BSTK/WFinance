@@ -9,8 +9,7 @@ import java.io.Serializable;
 @Data
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public
-class PessoaResponse implements Serializable {
+public class PessoaResponse implements Serializable {
 
     @EqualsAndHashCode.Include
     private Long id;

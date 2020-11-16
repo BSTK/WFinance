@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.lancamento.domain;
+package dev.bstk.wfinance.lancamento.domain.entidade;
 
 import dev.bstk.wfinance.categoria.domain.Categoria;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
