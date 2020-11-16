@@ -1,6 +1,7 @@
 package dev.bstk.wfinance.core.exceptionhandler;
 
 import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,14 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { EnderecoJaCadastradoException.class })
     public ResponseEntity<Object> handlerException(EnderecoJaCadastradoException ex,
+                                                   WebRequest request) {
+
+        final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(ex, request);
+        return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = { DataIntegrityViolationException.class })
+    public ResponseEntity<Object> handlerException(DataIntegrityViolationException ex,
                                                    WebRequest request) {
 
         final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(ex, request);

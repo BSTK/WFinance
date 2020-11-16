@@ -4,7 +4,7 @@ import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.LancamentoRepository;
-import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
+import dev.bstk.wfinance.lancamento.domain.LancamentoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,14 +24,18 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 public class LancamentoResource {
 
     private final ModelMapper mapper;
+    private final LancamentoService lancamentoService;
     private final LancamentoRepository lancamentoRepository;
+
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     public LancamentoResource(final ModelMapper mapper,
+                              final LancamentoService lancamentoService,
                               final LancamentoRepository lancamentoRepository,
                               final ApplicationEventPublisher applicationEventPublisher) {
         this.mapper = mapper;
+        this.lancamentoService = lancamentoService;
         this.lancamentoRepository = lancamentoRepository;
         this.applicationEventPublisher = applicationEventPublisher;
     }
@@ -93,7 +97,8 @@ public class LancamentoResource {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LancamentoResponse> novoLancamento(@RequestBody @Valid final NovoLancamentoRequest request,
                                                              final HttpServletResponse httpServletResponse) {
-        final var lancamento = mapper.map(request, Lancamento.class);
+
+        final var lancamento = lancamentoService.novoLancamento(request);
         final var lancamentoSalvo = lancamentoRepository.save(lancamento);
         final var lancamentoResponse = mapper.map(lancamentoSalvo, LancamentoResponse.class);
 
