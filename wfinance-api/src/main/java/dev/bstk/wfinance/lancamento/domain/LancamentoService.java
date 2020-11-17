@@ -1,57 +1,52 @@
 package dev.bstk.wfinance.lancamento.domain;
 
 import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
+import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import static dev.bstk.wfinance.lancamento.domain.LancamentoMapper.entidade;
 
 @Service
 public class LancamentoService {
 
-    private final ModelMapper mapper;
     private final PessoaRepository pessoaRepository;
     private final CategoriaRepository categoriaRepository;
     private final LancamentoRepository lancamentoRepository;
 
     @Autowired
-    public LancamentoService(final ModelMapper mapper,
-                             final PessoaRepository pessoaRepository,
+    public LancamentoService(final PessoaRepository pessoaRepository,
                              final CategoriaRepository categoriaRepository,
                              final LancamentoRepository lancamentoRepository) {
-        this.mapper = mapper;
         this.pessoaRepository = pessoaRepository;
         this.categoriaRepository = categoriaRepository;
         this.lancamentoRepository = lancamentoRepository;
     }
 
     public Lancamento novoLancamento(final NovoLancamentoRequest request) {
+        final var pessoaOptional = pessoaRepository.findById(request.getPessoa().getId());
 
-        final var pessoa = pessoaRepository.getOne(request.getPessoa().getId());
-
-        if (Objects.isNull(pessoa)) {
-            /// TODO: VALIDAR SE EXISTE A PESSOA CADASTRADA PARA ESTE LANÇAMENTO
-            /// TODO: LANÇAR EXCEÇÃO GENERICA DE DADOS INVALIDOS
-            /// TODO: COM MSG: PESSOA NÃO CADASTRADA
+        if (pessoaOptional.isEmpty()) {
+            throw new DadosInvalidosException(
+                "Pessoa.Id", Long.toString(request.getPessoa().getId()), "Pessoa não cadastrada");
         }
 
+        final var pessoa = pessoaOptional.get();
+
         if (!pessoa.isAtivo()) {
-            /// TODO: LANÇAR EXCEÇÃO GENERICA DE DADOS INVALIDOS
-            /// TODO: COM MSG: PESSOA INATIVA NO SISTEMA
+            throw new DadosInvalidosException(
+                "Pessoa.Ativo", Boolean.toString(pessoa.isAtivo()), "Pessoa inativa no sistema");
         }
 
         if (!categoriaRepository.existeCategoriaCadastrada(request.getCategoria().getId())) {
-            /// TODO: VALIDAR SE EXISTE A CATEGORIA CADASTRADA PARA ESTE LANÇAMENTO
-            /// TODO: LANÇAR EXCEÇÃO GENERICA DE DADOS INVALIDOS
-            /// TODO: COM MSG: CATEGORIA NÃO CADASTRADA
+            throw new DadosInvalidosException(
+                "Categoria.Id", Long.toString(request.getCategoria().getId()), "Categoria não cadastrada");
         }
 
-        final var lancamento = mapper.map(request, Lancamento.class);
-
+        final var lancamento = entidade(request);
         return lancamentoRepository.save(lancamento);
     }
 

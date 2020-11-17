@@ -1,5 +1,6 @@
 package dev.bstk.wfinance.core.exceptionhandler;
 
+import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -35,15 +36,16 @@ class ExceptionRequestErros {
     }
 
     static Object criaListaDeErrosOcorridos(final WebRequest request) {
-        return criaListaDeErrosOcorridos(CAMPOS_DESCONHECIDOS,
-            request,
-            Collections.emptyList());
+        return criaListaDeErrosOcorridos(CAMPOS_DESCONHECIDOS, request, Collections.emptyList());
+    }
+
+    static Object criaListaDeErrosOcorridos(final DadosInvalidosException ex, final WebRequest request) {
+        final var erro = new ExceptionErrorItem(ex.getCampo(), ex.getMensagem(), ex.getValor());
+        return criaListaDeErrosOcorridos(ex.getMensagem(), request, Collections.singletonList(erro));
     }
 
     static Object criaListaDeErrosOcorridos(final RuntimeException ex, final WebRequest request) {
-        return criaListaDeErrosOcorridos(ex.getMessage(),
-            request,
-            Collections.emptyList());
+        return criaListaDeErrosOcorridos(ex.getMessage(), request, Collections.emptyList());
     }
 
     private static ExceptionError criaListaDeErrosOcorridos(final String mensagem,
