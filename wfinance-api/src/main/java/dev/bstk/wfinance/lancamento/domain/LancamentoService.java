@@ -4,6 +4,7 @@ import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
+import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

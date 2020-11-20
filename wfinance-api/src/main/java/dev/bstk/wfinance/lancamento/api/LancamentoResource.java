@@ -1,10 +1,11 @@
 package dev.bstk.wfinance.lancamento.api;
 
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
+import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
-import dev.bstk.wfinance.lancamento.domain.LancamentoRepository;
 import dev.bstk.wfinance.lancamento.domain.LancamentoService;
+import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,8 @@ public class LancamentoResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<LancamentoResponse>> lancamentos() {
-        final var lancamentos = lancamentoRepository.findAll();
+    public ResponseEntity<List<LancamentoResponse>> lancamentos(final LancamentoFiltroRequest request) {
+        final var lancamentos = lancamentoRepository.filtar(request);
         final var lancamentosResponse = response(lancamentos);
         return ResponseEntity.ok(lancamentosResponse);
     }

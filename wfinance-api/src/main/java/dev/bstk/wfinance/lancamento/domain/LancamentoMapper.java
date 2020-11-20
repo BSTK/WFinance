@@ -5,6 +5,7 @@ import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class LancamentoMapper {
 
     public static List<Lancamento> entidade(final List<LancamentoResponse> responses) {
         if (isEmpty(responses)) {
-            throw new IllegalArgumentException("LancamentoResponse nulo ou vazio");
+            return Collections.emptyList();
         }
 
         return responses
@@ -54,7 +55,7 @@ public class LancamentoMapper {
 
     public static List<LancamentoResponse> response(final List<Lancamento> lancamentos) {
         if (isEmpty(lancamentos)) {
-            throw new IllegalArgumentException("Lancamentos nulo ou vazio");
+            return Collections.emptyList();
         }
 
         return lancamentos

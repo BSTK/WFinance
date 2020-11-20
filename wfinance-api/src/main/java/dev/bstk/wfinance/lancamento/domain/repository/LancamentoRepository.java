@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.lancamento.domain;
+package dev.bstk.wfinance.lancamento.domain.repository;
 
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
+public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, LancamentoRepositoryQuery {
 
     @Query("SELECT l FROM Lancamento l WHERE l.pessoa.id = :id")
     List<Lancamento> lancamentosPorPessoa(@Param("id") final Long id);
