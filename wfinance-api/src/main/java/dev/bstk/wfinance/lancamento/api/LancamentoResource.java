@@ -8,6 +8,8 @@ import dev.bstk.wfinance.lancamento.domain.LancamentoService;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +39,9 @@ public class LancamentoResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<LancamentoResponse>> lancamentos(final LancamentoFiltroRequest request) {
-        final var lancamentos = lancamentoRepository.filtar(request);
+    public ResponseEntity<Page<LancamentoResponse>> lancamentos(final Pageable pageable,
+                                                                final LancamentoFiltroRequest request) {
+        final var lancamentos = lancamentoRepository.filtar(pageable, request);
         final var lancamentosResponse = response(lancamentos);
         return ResponseEntity.ok(lancamentosResponse);
     }
@@ -84,7 +87,6 @@ public class LancamentoResource {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LancamentoResponse> novoLancamento(@RequestBody @Valid final NovoLancamentoRequest request,
                                                              final HttpServletResponse httpServletResponse) {
-
         final var lancamentoSalvo = lancamentoService.novoLancamento(request);
         final var lancamentoResponse = response(lancamentoSalvo);
 
@@ -92,5 +94,11 @@ public class LancamentoResource {
             this, httpServletResponse, lancamentoSalvo.getId()));
 
         return ResponseEntity.ok(lancamentoResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
+        lancamentoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

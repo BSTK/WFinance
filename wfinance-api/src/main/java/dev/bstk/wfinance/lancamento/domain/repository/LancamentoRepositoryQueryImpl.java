@@ -3,11 +3,13 @@ package dev.bstk.wfinance.lancamento.domain.repository;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,7 +21,7 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
     private EntityManager manager;
 
     @Override
-    public List<Lancamento> filtar(final LancamentoFiltroRequest request) {
+    public Page<Lancamento> filtar(final Pageable pageable, final LancamentoFiltroRequest request) {
         final var qlString = formatarQuery(request);
         final var query = manager.createQuery(qlString, Lancamento.class);
 
@@ -29,7 +31,15 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
             }
         });
 
-        return query.getResultList();
+        final var totalRegistrosPorPagina = pageable.getPageSize();
+        final var primeiraPgaina = pageable.getPageNumber() * pageable.getPageSize();
+
+        query.setFirstResult(primeiraPgaina);
+        query.setMaxResults(totalRegistrosPorPagina);
+
+        final var resultado = query.getResultList();
+
+        return new PageImpl<>(resultado, pageable, resultado.size());
     }
 
     private Map<String, Object> filtroMap(final LancamentoFiltroRequest request) {

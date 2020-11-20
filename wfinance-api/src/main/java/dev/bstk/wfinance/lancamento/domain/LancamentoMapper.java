@@ -4,6 +4,8 @@ import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,5 +64,12 @@ public class LancamentoMapper {
             .stream()
             .map(lancamento -> mapper.map(lancamento, LancamentoResponse.class))
             .collect(Collectors.toList());
+    }
+
+    public static Page<LancamentoResponse> response(final Page<Lancamento> lancamentos) {
+        final var lancamentosResponse = response(lancamentos.getContent());
+        return new PageImpl<>(lancamentosResponse,
+                              lancamentos.getPageable(),
+                              lancamentosResponse.size());
     }
 }
