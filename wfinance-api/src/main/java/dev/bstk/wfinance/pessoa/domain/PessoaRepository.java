@@ -16,8 +16,4 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     boolean existeEnderecoCadastrado(@Param("cep") final String cep,
                                      @Param("logradouro") final String logradouro,
                                      @Param("numero") final String numero);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Pessoa p WHERE p.id  = :id")
-    boolean existePessoaCadastrada(@Param("id") final Long id);
-
 }

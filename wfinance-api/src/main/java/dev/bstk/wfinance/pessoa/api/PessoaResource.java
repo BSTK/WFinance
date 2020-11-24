@@ -5,9 +5,7 @@ import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
-import dev.bstk.wfinance.pessoa.domain.entidade.Endereco;
-import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
-import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
+import dev.bstk.wfinance.pessoa.domain.PessoaService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,14 +25,17 @@ import java.util.stream.Collectors;
 public class PessoaResource {
 
     private final ModelMapper mapper;
+    private final PessoaService pessoaService;
     private final PessoaRepository pessoaRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     public PessoaResource(final ModelMapper mapper,
+                          final PessoaService pessoaService,
                           final PessoaRepository pessoaRepository,
                           final ApplicationEventPublisher applicationEventPublisher) {
         this.mapper = mapper;
+        this.pessoaService = pessoaService;
         this.pessoaRepository = pessoaRepository;
         this.applicationEventPublisher =applicationEventPublisher;
     }
@@ -67,25 +67,7 @@ public class PessoaResource {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PessoaResponse> novaPessoa(@RequestBody @Valid final NovaPessoaRequest request,
                                                      final HttpServletResponse httpServletResponse) {
-        if (Objects.nonNull(request)) {
-            /// TODO: SE ENDEREÇO FOR INFORMADO, ENTÃO TODOS OS CAMPOS DEVEM SER INFORMADOS MENOS "complemento"
-        }
-
-        if (Objects.nonNull(request)) {
-            final var endereco = request.getEndereco();
-            final var existeEnderecoCadastrado = pessoaRepository.existeEnderecoCadastrado(endereco.getCep(),
-                                                                                           endereco.getLogradouro(),
-                                                                                           endereco.getNumero());
-
-            if (existeEnderecoCadastrado) {
-                log.warn("Já existe uma pessoa cadastrada com este endereco. Dados: Cep: {}, Logradouro: {}, Numero: {}",
-                    endereco.getCep(), endereco.getLogradouro(), endereco.getNumero());
-                throw new EnderecoJaCadastradoException("Já existe uma pessoa cadastrada com este endereco.");
-            }
-        }
-
-        final var novaPessoa = mapper.map(request, Pessoa.class);
-        final var pessoaSalva = pessoaRepository.save(novaPessoa);
+        final var pessoaSalva = pessoaService.novaPessoa(request);
         final var pessoaSalvaResponse = mapper.map(pessoaSalva, PessoaResponse.class);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
@@ -97,16 +79,12 @@ public class PessoaResource {
     @PutMapping("/{id}")
     public ResponseEntity<PessoaResponse> atualizar(@PathVariable("id") final Long id,
                                                     @RequestBody @Valid final NovaPessoaRequest request) {
-        final var pessoaOptional = pessoaRepository.findById(id);
+        final var pessoaOptional = pessoaService.atualizar(id, request);
 
         if (pessoaOptional.isPresent()) {
-            final var pessoaAtualizada = mapper.map(request, Pessoa.class);
-            pessoaAtualizada.setId(id);
-
-            final var pessoaSalva = pessoaRepository.save(pessoaAtualizada);
-            final var pessoaSalvaResponse = mapper.map(pessoaSalva, PessoaResponse.class);
-
-            return ResponseEntity.ok(pessoaSalvaResponse);
+            final var pessoa = pessoaOptional.get();
+            final var pessoaResponse = mapper.map(pessoa, PessoaResponse.class);
+            return ResponseEntity.ok(pessoaResponse);
         }
 
         return ResponseEntity.notFound().build();
@@ -115,15 +93,10 @@ public class PessoaResource {
     @PutMapping("/{id}/endereco")
     public ResponseEntity<PessoaResponse> atualizarEndereco(@PathVariable("id") final Long id,
                                                             @RequestBody @Valid final EnderecoRequest request) {
-        final var pessoaOptional = pessoaRepository.findById(id);
+        final var pessoaOptional = pessoaService.atualizarEndereco(id, request);
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var endereco = mapper.map(request, Endereco.class);
-            pessoa.setEndereco(endereco);
-
-            pessoaRepository.save(pessoa);
-
             final var pessoaSalvaResponse = mapper.map(pessoa, PessoaResponse.class);
             return ResponseEntity.ok(pessoaSalvaResponse);
         }
@@ -134,14 +107,10 @@ public class PessoaResource {
     @PutMapping("/{id}/ativo")
     public ResponseEntity<PessoaResponse> atualizarAtivo(@PathVariable("id") final Long id,
                                                          @RequestBody final Boolean ativo) {
-        final var pessoaOptional = pessoaRepository.findById(id);
+        final var pessoaOptional = pessoaService.atualizarAtivo(id,ativo);
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            pessoa.setAtivo(ativo);
-
-            pessoaRepository.save(pessoa);
-
             final var pessoaSalvaResponse = mapper.map(pessoa, PessoaResponse.class);
             return ResponseEntity.ok(pessoaSalvaResponse);
         }
