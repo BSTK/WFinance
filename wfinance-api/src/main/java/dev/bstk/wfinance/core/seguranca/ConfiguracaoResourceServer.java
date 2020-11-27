@@ -7,17 +7,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@EnableResourceServer
 public class ConfiguracaoResourceServer extends ResourceServerConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ConfiguracaoResourceServer(PasswordEncoder passwordEncoder) {
+    public ConfiguracaoResourceServer(final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,7 +49,7 @@ public class ConfiguracaoResourceServer extends ResourceServerConfigurerAdapter 
     }
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.stateless(Boolean.FALSE);
+    public void configure(final ResourceServerSecurityConfigurer resources) {
+        resources.stateless(Boolean.TRUE);
     }
 }
