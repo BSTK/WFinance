@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
@@ -16,26 +17,30 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
 
     private final TokenStore tokenStore;
     private final PasswordEncoder passwordEncoder;
+    private final JwtAccessTokenConverter tokenConverter;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
     public ConfiguracaoAutorizadorServer(final TokenStore tokenStore,
                                          final PasswordEncoder passwordEncoder,
+                                         final JwtAccessTokenConverter tokenConverter,
                                          final AuthenticationManager authenticationManager) {
         this.tokenStore = tokenStore;
+        this.tokenConverter = tokenConverter;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+    public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
             .tokenStore(tokenStore)
+            .accessTokenConverter(tokenConverter)
             .authenticationManager(authenticationManager);
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
             .withClient("web-angular")
             .secret(passwordEncoder.encode("web-angular-pwd"))
