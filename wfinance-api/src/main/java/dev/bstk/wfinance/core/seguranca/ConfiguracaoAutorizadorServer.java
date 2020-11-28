@@ -15,6 +15,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableAuthorizationServer
 public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurerAdapter {
 
+    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 30;
+    private static final int TEMPO_DE_VIDA_REFRESH_TOKEN = 3600 * 24;
+
+    private static final String GRANT_TYPE_PASSWORD = "password";
+    private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
+
     private final TokenStore tokenStore;
     private final PasswordEncoder passwordEncoder;
     private final JwtAccessTokenConverter tokenConverter;
@@ -36,7 +42,8 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
         endpoints
             .tokenStore(tokenStore)
             .accessTokenConverter(tokenConverter)
-            .authenticationManager(authenticationManager);
+            .authenticationManager(authenticationManager)
+            .reuseRefreshTokens(Boolean.FALSE);
     }
 
     @Override
@@ -45,7 +52,8 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
             .withClient("web-angular")
             .secret(passwordEncoder.encode("web-angular-pwd"))
             .scopes("read", "write")
-            .authorizedGrantTypes("password")
-            .accessTokenValiditySeconds(1800);
+            .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
+            .refreshTokenValiditySeconds(TEMPO_DE_VIDA_REFRESH_TOKEN)
+            .accessTokenValiditySeconds(TEMPO_DE_VIDA_ACCESS_TOKEN);
     }
 }

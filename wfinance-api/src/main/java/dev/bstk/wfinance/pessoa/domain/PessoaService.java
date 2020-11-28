@@ -31,9 +31,8 @@ public class PessoaService {
         validarCadastroDeEndereco.executar(request);
 
         final var novaPessoa = mapper.map(request, Pessoa.class);
-        final var pessoaSalva = pessoaRepository.save(novaPessoa);
 
-        return pessoaSalva;
+        return pessoaRepository.save(novaPessoa);
     }
 
     public Optional<Pessoa> atualizar(final Long id, final NovaPessoaRequest request) {

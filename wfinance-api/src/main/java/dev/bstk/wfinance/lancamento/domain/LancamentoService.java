@@ -9,7 +9,7 @@ import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static dev.bstk.wfinance.lancamento.domain.LancamentoMapper.entidade;
+import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.entidade;
 
 @Service
 public class LancamentoService {

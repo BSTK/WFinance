@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
-import static dev.bstk.wfinance.lancamento.domain.LancamentoMapper.response;
+import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.response;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @RestController
