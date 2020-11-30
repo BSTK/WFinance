@@ -5,24 +5,23 @@ import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.domain.entidade.Endereco;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
 import dev.bstk.wfinance.pessoa.domain.validacao.ValidarCadastroDeEndereco;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static dev.bstk.wfinance.core.Mapper.map;
+import static dev.bstk.wfinance.pessoa.PessoaMapper.entidade;
+
 @Service
 public class PessoaService {
 
-    private final ModelMapper mapper;
     private final PessoaRepository pessoaRepository;
     private final ValidarCadastroDeEndereco validarCadastroDeEndereco;
 
     @Autowired
-    public PessoaService(final ModelMapper mapper,
-                         final PessoaRepository pessoaRepository,
+    public PessoaService(final PessoaRepository pessoaRepository,
                          final ValidarCadastroDeEndereco validarCadastroDeEndereco) {
-        this.mapper = mapper;
         this.pessoaRepository = pessoaRepository;
         this.validarCadastroDeEndereco = validarCadastroDeEndereco;
     }
@@ -30,7 +29,7 @@ public class PessoaService {
     public Pessoa novaPessoa(final NovaPessoaRequest request) {
         validarCadastroDeEndereco.executar(request);
 
-        final var novaPessoa = mapper.map(request, Pessoa.class);
+        final var novaPessoa = entidade(request);
 
         return pessoaRepository.save(novaPessoa);
     }
@@ -39,7 +38,7 @@ public class PessoaService {
         final var pessoaOptional = pessoaRepository.findById(id);
 
         if (pessoaOptional.isPresent()) {
-            final var pessoaAtualizada = mapper.map(request, Pessoa.class);
+            final var pessoaAtualizada = entidade(request);
             pessoaAtualizada.setId(id);
 
             final var pessoaSalva = pessoaRepository.save(pessoaAtualizada);
@@ -54,7 +53,7 @@ public class PessoaService {
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var endereco = mapper.map(request, Endereco.class);
+            final var endereco = map(request, Endereco.class);
             pessoa.setEndereco(endereco);
 
             final var pessoaSalva = pessoaRepository.save(pessoa);

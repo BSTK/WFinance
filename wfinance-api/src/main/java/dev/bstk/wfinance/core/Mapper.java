@@ -6,7 +6,7 @@ public abstract class Mapper {
 
     private static final ModelMapper INSTANCE = new ModelMapper();
 
-    protected static <D> D map(Object objeto, Class<D> klass) {
+    public static <D> D map(Object objeto, Class<D> klass) {
         return getInstance().map(objeto, klass);
     }
 

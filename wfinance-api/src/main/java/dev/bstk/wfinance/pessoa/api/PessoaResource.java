@@ -7,7 +7,6 @@ import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.PessoaService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -17,24 +16,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static dev.bstk.wfinance.pessoa.PessoaMapper.response;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/pessoas")
 public class PessoaResource {
 
-    private final ModelMapper mapper;
     private final PessoaService pessoaService;
     private final PessoaRepository pessoaRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public PessoaResource(final ModelMapper mapper,
-                          final PessoaService pessoaService,
+    public PessoaResource(final PessoaService pessoaService,
                           final PessoaRepository pessoaRepository,
                           final ApplicationEventPublisher applicationEventPublisher) {
-        this.mapper = mapper;
         this.pessoaService = pessoaService;
         this.pessoaRepository = pessoaRepository;
         this.applicationEventPublisher =applicationEventPublisher;
@@ -43,10 +40,7 @@ public class PessoaResource {
     @GetMapping
     public ResponseEntity<List<PessoaResponse>> pessoas() {
         final var pessoas = pessoaRepository.findAll();
-        final var pessoasResponse = pessoas.stream()
-            .map(pessoa -> mapper.map(pessoa, PessoaResponse.class))
-            .collect(Collectors.toList());
-
+        final var pessoasResponse = response(pessoas);
         return ResponseEntity.ok(pessoasResponse);
     }
 
@@ -56,7 +50,7 @@ public class PessoaResource {
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var pessoaResponse = mapper.map(pessoa, PessoaResponse.class);
+            final var pessoaResponse = response(pessoa);
             return ResponseEntity.ok(pessoaResponse);
         }
 
@@ -68,7 +62,7 @@ public class PessoaResource {
     public ResponseEntity<PessoaResponse> novaPessoa(@RequestBody @Valid final NovaPessoaRequest request,
                                                      final HttpServletResponse httpServletResponse) {
         final var pessoaSalva = pessoaService.novaPessoa(request);
-        final var pessoaSalvaResponse = mapper.map(pessoaSalva, PessoaResponse.class);
+        final var pessoaSalvaResponse = response(pessoaSalva);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
             this, httpServletResponse, pessoaSalva.getId()));
@@ -83,7 +77,7 @@ public class PessoaResource {
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var pessoaResponse = mapper.map(pessoa, PessoaResponse.class);
+            final var pessoaResponse = response(pessoa);
             return ResponseEntity.ok(pessoaResponse);
         }
 
@@ -97,7 +91,7 @@ public class PessoaResource {
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var pessoaSalvaResponse = mapper.map(pessoa, PessoaResponse.class);
+            final var pessoaSalvaResponse = response(pessoa);
             return ResponseEntity.ok(pessoaSalvaResponse);
         }
 
@@ -111,7 +105,7 @@ public class PessoaResource {
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();
-            final var pessoaSalvaResponse = mapper.map(pessoa, PessoaResponse.class);
+            final var pessoaSalvaResponse = response(pessoa);
             return ResponseEntity.ok(pessoaSalvaResponse);
         }
 
