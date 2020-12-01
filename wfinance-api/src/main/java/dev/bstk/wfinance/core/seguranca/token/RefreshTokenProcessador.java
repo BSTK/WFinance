@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
+import static dev.bstk.wfinance.core.seguranca.token.RefreshTokenConstants.*;
+
 @ControllerAdvice
 public class RefreshTokenProcessador implements ResponseBodyAdvice<OAuth2AccessToken> {
 
     private static final Integer MAX_AGE_30_DIAS = 2_592_000;
-    private static final String POST_ACESS_TOKEN = "postAcessToken";
-    private static final String PATH_OAUTH_TOKEN = "\"/oauth/token\"";
 
     @Override
     public boolean supports(final MethodParameter methodParameter,
@@ -37,8 +39,8 @@ public class RefreshTokenProcessador implements ResponseBodyAdvice<OAuth2AccessT
                                              final MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
                                              final ServerHttpRequest serverHttpRequest,
                                              final ServerHttpResponse serverHttpResponse) {
-        final HttpServletRequest request = (HttpServletRequest) serverHttpRequest;
-        final HttpServletResponse response = (HttpServletResponse) serverHttpResponse;
+        final HttpServletRequest request = ((ServletServerHttpRequest) serverHttpRequest).getServletRequest();
+        final HttpServletResponse response = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse();
 
         final String refreshToken = oAuth2AccessToken.getRefreshToken().getValue();
         final Cookie refreshTokenCookie = criarCookieRefreshToken(refreshToken, request);
@@ -52,7 +54,7 @@ public class RefreshTokenProcessador implements ResponseBodyAdvice<OAuth2AccessT
 
     private Cookie criarCookieRefreshToken(final String refreshToken,
                                            final HttpServletRequest request) {
-        final Cookie refreshTokenCookie = new Cookie(OAuth2AccessToken.REFRESH_TOKEN, refreshToken);
+        final Cookie refreshTokenCookie = new Cookie(REFRESH_TOKEN, refreshToken);
         /// TODO: SETAR TRUE EM PRODUÇÃO
         refreshTokenCookie.setSecure(Boolean.FALSE);
 
