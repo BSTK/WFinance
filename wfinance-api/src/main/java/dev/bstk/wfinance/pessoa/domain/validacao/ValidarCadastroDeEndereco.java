@@ -47,7 +47,7 @@ public class ValidarCadastroDeEndereco {
     }
 
     private void validar(final String valor, final String campo, final String mensagem) {
-        if (StringUtils.isEmpty(valor)) {
+        if (Objects.nonNull(valor) && StringUtils.isEmpty(valor)) {
             log.warn(mensagem);
             throw new DadosInvalidosException(campo, valor, mensagem);
         }
