@@ -50,10 +50,10 @@ public class ConfiguracaoCorsFilter implements Filter {
                 HttpHeaders.ACCEPT
             );
 
+            response.setStatus(HttpServletResponse.SC_OK);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, MAX_AGE);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, metodosHttpPermitidos);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, headersHttpPermitidos);
-            response.setStatus(HttpServletResponse.SC_OK);
 
         } else {
             chain.doFilter(request, response);

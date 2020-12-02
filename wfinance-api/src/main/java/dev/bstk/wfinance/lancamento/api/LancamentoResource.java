@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +40,7 @@ public class LancamentoResource {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public ResponseEntity<Page<LancamentoResponse>> lancamentos(final Pageable pageable,
                                                                 final LancamentoFiltroRequest request) {
         final var lancamentos = lancamentoRepository.filtar(pageable, request);
@@ -47,6 +49,7 @@ public class LancamentoResource {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public ResponseEntity<LancamentoResponse> lancamentos(@PathVariable("id") final Long id) {
         final var lancamentoOptional = lancamentoRepository.findById(id);
 
@@ -60,6 +63,7 @@ public class LancamentoResource {
     }
 
     @GetMapping("/categoria/{id}")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public ResponseEntity<List<LancamentoResponse>> lancamentosPorCategoria(@PathVariable("id") final Long id) {
         final var lancamentos = lancamentoRepository.lancamentosPorCategoria(id);
 
@@ -72,6 +76,7 @@ public class LancamentoResource {
     }
 
     @GetMapping("/pessoa/{id}")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public ResponseEntity<List<LancamentoResponse>> lancamentosPorPessoa(@PathVariable("id") final Long id) {
         final var lancamentos = lancamentoRepository.lancamentosPorPessoa(id);
 
@@ -85,6 +90,7 @@ public class LancamentoResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
     public ResponseEntity<LancamentoResponse> novoLancamento(@RequestBody @Valid final NovoLancamentoRequest request,
                                                              final HttpServletResponse httpServletResponse) {
         final var lancamentoSalvo = lancamentoService.novoLancamento(request);
@@ -97,6 +103,7 @@ public class LancamentoResource {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('write')")
     public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
         lancamentoRepository.deleteById(id);
         return ResponseEntity.noContent().build();

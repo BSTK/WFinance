@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +39,7 @@ public class PessoaResource {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
     public ResponseEntity<List<PessoaResponse>> pessoas() {
         final var pessoas = pessoaRepository.findAll();
         final var pessoasResponse = response(pessoas);
@@ -45,6 +47,7 @@ public class PessoaResource {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
     public ResponseEntity<PessoaResponse> pessoaPorId(@PathVariable("id") final Long id) {
         final var pessoaOptional = pessoaRepository.findById(id);
 
@@ -59,6 +62,7 @@ public class PessoaResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<PessoaResponse> novaPessoa(@RequestBody @Valid final NovaPessoaRequest request,
                                                      final HttpServletResponse httpServletResponse) {
         final var pessoaSalva = pessoaService.novaPessoa(request);
@@ -71,6 +75,7 @@ public class PessoaResource {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<PessoaResponse> atualizar(@PathVariable("id") final Long id,
                                                     @RequestBody @Valid final NovaPessoaRequest request) {
         final var pessoaOptional = pessoaService.atualizar(id, request);
@@ -85,6 +90,7 @@ public class PessoaResource {
     }
 
     @PutMapping("/{id}/endereco")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<PessoaResponse> atualizarEndereco(@PathVariable("id") final Long id,
                                                             @RequestBody @Valid final EnderecoRequest request) {
         final var pessoaOptional = pessoaService.atualizarEndereco(id, request);
@@ -99,6 +105,7 @@ public class PessoaResource {
     }
 
     @PutMapping("/{id}/ativo")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<PessoaResponse> atualizarAtivo(@PathVariable("id") final Long id,
                                                          @RequestBody final Boolean ativo) {
         final var pessoaOptional = pessoaService.atualizarAtivo(id,ativo);
@@ -113,6 +120,7 @@ public class PessoaResource {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_REMOVER_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
         pessoaRepository.deleteById(id);
         return ResponseEntity.noContent().build();
