@@ -4,11 +4,14 @@ import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
+import dev.bstk.wfinance.lancamento.api.response.ResumoLancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.LancamentoService;
+import dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
+import static dev.bstk.wfinance.core.Mapper.map;
 import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.response;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
@@ -46,6 +51,29 @@ public class LancamentoResource {
         final var lancamentos = lancamentoRepository.filtar(pageable, request);
         final var lancamentosResponse = response(lancamentos);
         return ResponseEntity.ok(lancamentosResponse);
+    }
+
+    @GetMapping("/resumo")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+    public ResponseEntity<Page<ResumoLancamentoResponse>> resumo(final Pageable pageable,
+                                                                 final LancamentoFiltroRequest request) {
+        Page<ResumoLancamento> pageresumoLancamentos = lancamentoRepository.resumo(pageable, request);
+        List<ResumoLancamento> resumoLancamentos = pageresumoLancamentos.getContent();
+
+        List<ResumoLancamentoResponse> dados = new ArrayList<>();
+
+        for (ResumoLancamento resumoLancamento : resumoLancamentos) {
+            ResumoLancamentoResponse response = map(resumoLancamento, ResumoLancamentoResponse.class);
+            response.setCategoria(resumoLancamento.getCategoria());
+            response.setPessoa(resumoLancamento.getPessoa());
+            dados.add(response);
+        }
+
+        final var pageImpl = new PageImpl<>(dados,
+            pageresumoLancamentos.getPageable(),
+            dados.size());
+
+        return ResponseEntity.ok(pageImpl);
     }
 
     @GetMapping("/{id}")

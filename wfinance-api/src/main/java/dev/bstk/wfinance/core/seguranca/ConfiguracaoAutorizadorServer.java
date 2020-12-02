@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableAuthorizationServer
 public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurerAdapter {
 
-    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 30;
+    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 1000;
     private static final int TEMPO_DE_VIDA_REFRESH_TOKEN = 3600 * 24;
 
     private static final String GRANT_TYPE_PASSWORD = "password";
