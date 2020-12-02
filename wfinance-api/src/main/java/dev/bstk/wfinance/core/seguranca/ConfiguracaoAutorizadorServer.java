@@ -1,9 +1,9 @@
 package dev.bstk.wfinance.core.seguranca;
 
+import dev.bstk.wfinance.usuario.domain.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -21,19 +21,20 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
+
     private final TokenStore tokenStore;
-    private final PasswordEncoder passwordEncoder;
+    private final UsuarioService usuarioService;
     private final JwtAccessTokenConverter tokenConverter;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
     public ConfiguracaoAutorizadorServer(final TokenStore tokenStore,
-                                         final PasswordEncoder passwordEncoder,
+                                         final UsuarioService usuarioService,
                                          final JwtAccessTokenConverter tokenConverter,
                                          final AuthenticationManager authenticationManager) {
         this.tokenStore = tokenStore;
+        this.usuarioService = usuarioService;
         this.tokenConverter = tokenConverter;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
 
@@ -41,6 +42,7 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
             .tokenStore(tokenStore)
+            .userDetailsService(usuarioService)
             .accessTokenConverter(tokenConverter)
             .authenticationManager(authenticationManager)
             .reuseRefreshTokens(Boolean.FALSE);
@@ -50,7 +52,7 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
             .withClient("web-angular")
-            .secret(passwordEncoder.encode("web-angular-pwd"))
+            .secret("$2a$10$51JK4K3kEMdlui9Aj6fkmOb/IVT1e4aqPXAxTKGAm3dT/tsYOOHBG")
             .scopes("read", "write")
             .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
             .refreshTokenValiditySeconds(TEMPO_DE_VIDA_REFRESH_TOKEN)

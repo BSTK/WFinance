@@ -8,12 +8,12 @@ import java.util.Map;
 
 import static dev.bstk.wfinance.core.seguranca.token.RefreshTokenConstants.REFRESH_TOKEN;
 
-public final class RefreshTokenProcessadorRequestWrapper extends HttpServletRequestWrapper {
+public final class RefreshTokenRequestWrapper extends HttpServletRequestWrapper {
 
     private final String refreshToken;
 
-    RefreshTokenProcessadorRequestWrapper(final String refreshToken,
-                                          final HttpServletRequest request) {
+    RefreshTokenRequestWrapper(final String refreshToken,
+                               final HttpServletRequest request) {
         super(request);
         this.refreshToken = refreshToken;
     }

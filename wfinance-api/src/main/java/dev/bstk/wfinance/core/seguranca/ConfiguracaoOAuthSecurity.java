@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableWebSecurity
-public class ConfiguracaoBeansSecurity extends WebSecurityConfigurerAdapter {
+public class ConfiguracaoOAuthSecurity extends WebSecurityConfigurerAdapter {
 
     @Bean
     public TokenStore tokenStore() {
@@ -37,5 +37,4 @@ public class ConfiguracaoBeansSecurity extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-
 }

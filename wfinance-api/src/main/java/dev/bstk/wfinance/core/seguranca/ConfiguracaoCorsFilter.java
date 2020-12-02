@@ -16,9 +16,8 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConfiguracaoCorsFilter implements Filter {
 
-    /// TODO: REFATORAR PARA PEGAR DA CONFIGURAÇÃO DE AMBIENTE/PROFILE
     @Value("${configuracao.cors.origem}")
-    private String origem = "http://localhost:8000";
+    private String origem;
 
     private static final String MAX_AGE = "3600";
     private static final String FORMAT_HEADERS_HTTP_PERMITIDOS = "%s, %s, %s";
@@ -32,7 +31,7 @@ public class ConfiguracaoCorsFilter implements Filter {
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         final boolean interceptarCors = HttpMethod.OPTIONS.name().equals(request.getMethod())
-            && request.getHeader(HttpHeaders.ORIGIN).equals(origem);
+                                     && request.getHeader(HttpHeaders.ORIGIN).equals(origem);
 
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origem);
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, Boolean.TRUE.toString());

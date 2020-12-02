@@ -32,7 +32,7 @@ public class RefreshTokenProcessadorFilter implements Filter {
             for (Cookie cookie : request.getCookies()) {
                 if (REFRESH_TOKEN.equals(cookie.getName())) {
                     final String cookieRefreshToken = cookie.getValue();
-                    request = new RefreshTokenProcessadorRequestWrapper(cookieRefreshToken, request);
+                    request = new RefreshTokenRequestWrapper(cookieRefreshToken, request);
                 }
             }
         }
