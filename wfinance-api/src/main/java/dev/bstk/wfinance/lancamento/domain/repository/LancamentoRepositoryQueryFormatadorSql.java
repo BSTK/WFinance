@@ -3,6 +3,8 @@ package dev.bstk.wfinance.lancamento.domain.repository;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import org.apache.commons.lang3.StringUtils;
 
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQuery.QUERY_FILTRO;
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQuery.QUERY_RESUMO;
 import static java.util.Objects.nonNull;
 
 class LancamentoRepositoryQueryFormatadorSql {
@@ -12,14 +14,11 @@ class LancamentoRepositoryQueryFormatadorSql {
     }
 
     static String queryFiltro(final LancamentoFiltroRequest request) {
-        return query("SELECT l FROM Lancamento l JOIN FETCH l.pessoa JOIN FETCH l.categoria", request);
+        return query(QUERY_FILTRO, request);
     }
 
     static String queryResumo(final LancamentoFiltroRequest request) {
-        return query("SELECT NEW dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento( "
-            + " l.id, l.descricao, l.dataVencimento, l.dataPagamento, l.valor, "
-            + " l.observacao, l.tipo, c.nome, p.nome) "
-            + " FROM Lancamento l JOIN l.pessoa p JOIN l.categoria c", request);
+        return query(QUERY_RESUMO, request);
     }
 
     private static String query(String query, final LancamentoFiltroRequest request) {
