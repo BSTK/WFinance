@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -23,32 +24,24 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
     private EntityManager manager;
 
     @Override
-    public Page<Lancamento> filtar(final Pageable pageable, final LancamentoFiltroRequest request) {
+    public Page<Lancamento> filtar(final Pageable pageable,
+                                   final LancamentoFiltroRequest request) {
         final var qlString = queryFiltro(request);
         final var query = manager.createQuery(qlString, Lancamento.class);
-
-        filtroMap(request).forEach((k, v) -> {
-            if (StringUtils.isNotEmpty(v.toString())) {
-                query.setParameter(k, v);
-            }
-        });
-
-        final var totalRegistrosPorPagina = pageable.getPageSize();
-        final var primeiraPgaina = pageable.getPageNumber() * pageable.getPageSize();
-
-        query.setFirstResult(primeiraPgaina);
-        query.setMaxResults(totalRegistrosPorPagina);
-
-        final var resultado = query.getResultList();
-
-        return new PageImpl<>(resultado, pageable, resultado.size());
+        return executar(query, pageable, request);
     }
 
     @Override
-    public Page<ResumoLancamento> resumo(Pageable pageable, LancamentoFiltroRequest request) {
+    public Page<ResumoLancamento> resumo(final Pageable pageable,
+                                         final LancamentoFiltroRequest request) {
         final var qlString = queryResumo(request);
         final var query = manager.createQuery(qlString);
+        return executar(query, pageable, request);
+    }
 
+    private <T> Page<T> executar(final Query query,
+                                 final Pageable pageable,
+                                 final LancamentoFiltroRequest request) {
         filtroMap(request).forEach((k, v) -> {
             if (StringUtils.isNotEmpty(v.toString())) {
                 query.setParameter(k, v);
