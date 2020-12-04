@@ -33,6 +33,6 @@ public class UsuarioService implements UserDetailsService {
             .map(permissao -> new SimpleGrantedAuthority(permissao.getDescricao().toUpperCase()))
             .collect(Collectors.toSet());
 
-        return new User(usuario.getEmail(), usuario.getSenha(), permissoes);
+        return new UsuarioSistema(usuario, permissoes);
     }
 }
