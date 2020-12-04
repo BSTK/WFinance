@@ -16,7 +16,7 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConfiguracaoCorsFilter implements Filter {
 
-    @Value("${configuracao.cors.origem}")
+    @Value("${wfinance.configuracao.cors.origem}")
     private String origem;
 
     private static final String MAX_AGE = "3600";

@@ -1,5 +1,6 @@
 package dev.bstk.wfinance.core.seguranca.token;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -23,6 +24,9 @@ import static dev.bstk.wfinance.core.seguranca.token.RefreshTokenConstants.*;
 public class RefreshTokenProcessador implements ResponseBodyAdvice<OAuth2AccessToken> {
 
     private static final Integer MAX_AGE_30_DIAS = 2_592_000;
+
+    @Value("${wfinance.configuracao.cookie-secure}")
+    private boolean cookieSecure;
 
     @Override
     public boolean supports(final MethodParameter methodParameter,
@@ -55,12 +59,10 @@ public class RefreshTokenProcessador implements ResponseBodyAdvice<OAuth2AccessT
     private Cookie criarCookieRefreshToken(final String refreshToken,
                                            final HttpServletRequest request) {
         final Cookie refreshTokenCookie = new Cookie(REFRESH_TOKEN, refreshToken);
-        /// TODO: SETAR TRUE EM PRODUÇÃO
-        refreshTokenCookie.setSecure(Boolean.FALSE);
-
+        refreshTokenCookie.setSecure(cookieSecure);
         refreshTokenCookie.setHttpOnly(Boolean.TRUE);
-        refreshTokenCookie.setPath(request.getContextPath() + PATH_OAUTH_TOKEN);
         refreshTokenCookie.setMaxAge(MAX_AGE_30_DIAS);
+        refreshTokenCookie.setPath(request.getContextPath() + PATH_OAUTH_TOKEN);
         return refreshTokenCookie;
     }
 }
