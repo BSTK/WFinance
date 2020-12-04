@@ -8,6 +8,7 @@ import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.PessoaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,9 @@ public class PessoaResource {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
-    public ResponseEntity<List<PessoaResponse>> pessoas() {
-        final var pessoas = pessoaRepository.findAll();
+    public ResponseEntity<List<PessoaResponse>> pessoas(@RequestParam(value = "nome", defaultValue = "", required = false)
+                                                        final String nome) {
+        final var pessoas = pessoaService.pessoas(nome);
         final var pessoasResponse = response(pessoas);
         return ResponseEntity.ok(pessoasResponse);
     }

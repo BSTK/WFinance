@@ -8,6 +8,7 @@ import dev.bstk.wfinance.pessoa.domain.validacao.ValidarCadastroDeEndereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static dev.bstk.wfinance.core.Mapper.map;
@@ -24,6 +25,12 @@ public class PessoaService {
                          final ValidarCadastroDeEndereco validarCadastroDeEndereco) {
         this.pessoaRepository = pessoaRepository;
         this.validarCadastroDeEndereco = validarCadastroDeEndereco;
+    }
+
+    public List<Pessoa> pessoas(final String nome) {
+        return nome.isEmpty()
+            ? pessoaRepository.findAll()
+            : pessoaRepository.buscarPorNome(nome);
     }
 
     public Pessoa novaPessoa(final NovaPessoaRequest request) {
