@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class NovoLancamentoCategoriaRequest {
+public class LancamentoCategoriaRequest {
 
     @NotNull
     private Long id;

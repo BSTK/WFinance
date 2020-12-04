@@ -2,6 +2,7 @@ package dev.bstk.wfinance.lancamento.domain;
 
 import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
+import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
@@ -51,4 +52,36 @@ public class LancamentoService {
         return lancamentoRepository.save(lancamento);
     }
 
+    public Lancamento atualizarLancamento(final Long id, final AtualizarLancamentoRequest request) {
+        final var lancamentoOptional = lancamentoRepository.findById(id);
+
+        if (lancamentoOptional.isEmpty()) {
+            throw new DadosInvalidosException("Lancamento.Id",
+                String.valueOf(id), "Lançamento não encontrado");
+        }
+
+        final var categoriaOptional = categoriaRepository.findById(request.getCategoria().getId());
+
+        if (categoriaOptional.isEmpty()) {
+            throw new DadosInvalidosException("Lancamento.categoria",
+                String.valueOf(request.getCategoria().getId()), "Categoria não cadastrada");
+        }
+
+        final var pessoaOptional = pessoaRepository.findById(request.getPessoa().getId());
+
+        if (pessoaOptional.isEmpty()) {
+            throw new DadosInvalidosException("Lancamento.pesssoa",
+                String.valueOf(request.getPessoa().getId()), "Pessoa não cadastrada");
+        }
+
+        boolean pessoaAtiva = pessoaOptional.get().isAtivo();
+
+        if (Boolean.FALSE.equals(pessoaAtiva)) {
+            throw new DadosInvalidosException("Lancamento.pesssoa.isAtivo",
+                Boolean.toString(pessoaAtiva), "Pessoa não cadastrada");
+        }
+
+        final var lancamento = entidade(request, id);
+        return lancamentoRepository.save(lancamento);
+    }
 }

@@ -1,6 +1,7 @@
 package dev.bstk.wfinance.lancamento.api;
 
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
+import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
@@ -124,6 +125,15 @@ public class LancamentoResource {
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
             this, httpServletResponse, lancamentoSalvo.getId()));
 
+        return ResponseEntity.ok(lancamentoResponse);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
+    public ResponseEntity<LancamentoResponse> atualizarLancamento(@PathVariable("id") final Long id,
+                                                                  @RequestBody @Valid final AtualizarLancamentoRequest request) {
+        final var lancamentoSalvo = lancamentoService.atualizarLancamento(id, request);
+        final var lancamentoResponse = response(lancamentoSalvo);
         return ResponseEntity.ok(lancamentoResponse);
     }
 

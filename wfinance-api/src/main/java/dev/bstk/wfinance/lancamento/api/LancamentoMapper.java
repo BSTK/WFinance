@@ -1,6 +1,7 @@
 package dev.bstk.wfinance.lancamento.api;
 
 import dev.bstk.wfinance.core.Mapper;
+import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
@@ -19,6 +20,15 @@ public class LancamentoMapper extends Mapper {
     public static Lancamento entidade(final NovoLancamentoRequest request) {
         Objects.requireNonNull(request, "NovoLancamentoRequest não pode ser nulo");
         return map(request, Lancamento.class);
+    }
+
+    public static Lancamento entidade(final AtualizarLancamentoRequest request, final Long id) {
+        Objects.requireNonNull(id, "Id não pode ser nulo");
+        Objects.requireNonNull(request, "AtualizarLancamentoRequest não pode ser nulo");
+        final Lancamento lancamento = map(request, Lancamento.class);
+        lancamento.setId(id);
+
+        return lancamento;
     }
 
     public static Lancamento entidade(final LancamentoResponse response) {

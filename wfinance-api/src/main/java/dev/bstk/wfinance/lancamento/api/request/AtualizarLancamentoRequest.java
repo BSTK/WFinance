@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class NovoLancamentoRequest {
+public class AtualizarLancamentoRequest {
 
     @NotNull
     private String descricao;
@@ -35,9 +35,8 @@ public class NovoLancamentoRequest {
     private Tipo tipo;
 
     @NotNull
-    private LancamentoCategoriaRequest categoria;
-
-    @NotNull
     private LancamentoPessoaRequest pessoa;
 
+    @NotNull
+    private LancamentoCategoriaRequest categoria;
 }

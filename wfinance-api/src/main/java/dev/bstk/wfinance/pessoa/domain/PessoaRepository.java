@@ -20,5 +20,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
                                      @Param("numero") final String numero);
 
     @Query("SELECT p FROM Pessoa p WHERE UPPER(p.nome) LIKE UPPER(CONCAT(:nome, '%'))")
-    List<Pessoa> buscarPorNome(String nome);
+    List<Pessoa> buscarPorNome(final String nome);
 }

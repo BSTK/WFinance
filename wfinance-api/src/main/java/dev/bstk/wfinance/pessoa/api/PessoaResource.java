@@ -8,7 +8,6 @@ import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.PessoaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
