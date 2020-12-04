@@ -69,10 +69,7 @@ public class LancamentoResource {
             dados.add(response);
         }
 
-        final var pageImpl = new PageImpl<>(dados,
-            pageresumoLancamentos.getPageable(),
-            dados.size());
-
+        final var pageImpl = new PageImpl<>(dados, pageresumoLancamentos.getPageable(), dados.size());
         return ResponseEntity.ok(pageImpl);
     }
 
