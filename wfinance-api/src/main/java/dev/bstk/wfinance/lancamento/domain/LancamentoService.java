@@ -32,20 +32,21 @@ public class LancamentoService {
         final var pessoaOptional = pessoaRepository.findById(request.getPessoa().getId());
 
         if (pessoaOptional.isEmpty()) {
-            throw new DadosInvalidosException(
-                "Pessoa.Id", Long.toString(request.getPessoa().getId()), "Pessoa não cadastrada");
+            throw new DadosInvalidosException("Pessoa.Id", request.getPessoa().getId(), "Pessoa não cadastrada");
         }
 
         final var pessoa = pessoaOptional.get();
 
         if (!pessoa.isAtivo()) {
-            throw new DadosInvalidosException(
-                "Pessoa.Ativo", Boolean.toString(pessoa.isAtivo()), "Pessoa inativa no sistema");
+            throw new DadosInvalidosException("Pessoa.Ativo", pessoa.isAtivo(), "Pessoa inativa no sistema");
         }
 
-        if (!categoriaRepository.existeCategoriaCadastrada(request.getCategoria().getId())) {
+        final var categoriaId = request.getCategoria().getId();
+        final var existeCategoriaCadastrada = categoriaRepository.existeCategoriaCadastrada(categoriaId);
+
+        if (!existeCategoriaCadastrada) {
             throw new DadosInvalidosException(
-                "Categoria.Id", Long.toString(request.getCategoria().getId()), "Categoria não cadastrada");
+                "Categoria.Id", request.getCategoria().getId(), "Categoria não cadastrada");
         }
 
         final var lancamento = entidade(request);
@@ -56,29 +57,27 @@ public class LancamentoService {
         final var lancamentoOptional = lancamentoRepository.findById(id);
 
         if (lancamentoOptional.isEmpty()) {
-            throw new DadosInvalidosException("Lancamento.Id",
-                String.valueOf(id), "Lançamento não encontrado");
+            throw new DadosInvalidosException("Lancamento.Id", id, "Lançamento não encontrado");
         }
 
         final var categoriaOptional = categoriaRepository.findById(request.getCategoria().getId());
 
         if (categoriaOptional.isEmpty()) {
             throw new DadosInvalidosException("Lancamento.categoria",
-                String.valueOf(request.getCategoria().getId()), "Categoria não cadastrada");
+                request.getCategoria().getId(), "Categoria não cadastrada");
         }
 
         final var pessoaOptional = pessoaRepository.findById(request.getPessoa().getId());
 
         if (pessoaOptional.isEmpty()) {
             throw new DadosInvalidosException("Lancamento.pesssoa",
-                String.valueOf(request.getPessoa().getId()), "Pessoa não cadastrada");
+                request.getPessoa().getId(), "Pessoa não cadastrada");
         }
 
         boolean pessoaAtiva = pessoaOptional.get().isAtivo();
 
         if (Boolean.FALSE.equals(pessoaAtiva)) {
-            throw new DadosInvalidosException("Lancamento.pesssoa.isAtivo",
-                Boolean.toString(pessoaAtiva), "Pessoa não cadastrada");
+            throw new DadosInvalidosException("Lancamento.pesssoa.isAtivo", pessoaAtiva, "Pessoa não cadastrada");
         }
 
         final var lancamento = entidade(request, id);

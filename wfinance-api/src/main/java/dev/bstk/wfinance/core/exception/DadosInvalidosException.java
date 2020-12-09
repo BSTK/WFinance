@@ -10,11 +10,11 @@ public class DadosInvalidosException extends RuntimeException {
     private final String mensagem;
 
     public DadosInvalidosException(final String campo,
-                                   final String valor,
+                                   final Object valor,
                                    final String mensagem) {
         super("Dados inválidos");
         this.campo = campo;
-        this.valor = valor;
         this.mensagem = mensagem;
+        this.valor = String.valueOf(valor);
     }
 }
