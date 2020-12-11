@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Lancamento} from "../../pages/lancamentos/lancamento.model";
+import {Lancamento} from "../../lancamento.model";
 
 @Component({
   selector: 'wf-lancamentos-tabela-dados',
-  templateUrl: './lancamentos-tabela-dados.component.html'
+  templateUrl: './lancamentos-tabela-dados.component.html',
+  styleUrls: ['lancamentos-tabela-dados.component.scss']
 })
 export class LancamentosTabelaDadosComponent implements OnInit {
 

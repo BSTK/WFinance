@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Lancamento} from "./lancamento.model";
+import {Lancamento} from "../../lancamento.model";
 
 @Component({
   selector: 'app-lancamentos',
