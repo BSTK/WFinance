@@ -6,8 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CabecalhoPaginaComponent implements OnInit {
 
-  @Input() readonly titulo: string;
-  @Input() readonly subtitulo: string;
+  @Input() readonly titulo = '';
+  @Input() readonly subtitulo = '';
 
   constructor() { }
 

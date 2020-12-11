@@ -1,12 +1,17 @@
+import {APP_BASE_HREF} from "@angular/common";
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {APP_BASE_HREF} from "@angular/common";
 
 const ROUTES: Routes = [
   {
     path: 'lancamentos',
     loadChildren: () => import('./modules/lancamentos/lancamentos.module')
       .then(module => module.LancamentosModule)
+  },
+  {
+    path: 'pessoas',
+    loadChildren: () => import('./modules/pessoas/pessoas.module')
+      .then(module => module.PessoasModule)
   }
 ];
 
