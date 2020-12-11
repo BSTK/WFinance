@@ -1,6 +1,6 @@
 <div class="content-main">
   <wf-cabecalho-pagina titulo="Lançamentos" subtitulo="Veja todos os seus lançamentos cadastrados">
-    <a href="#" class="btn btn-success float-right">
+    <a routerLink="cadastro" class="btn btn-success float-right">
       <em class="fa fa-plus-circle"></em>
       Novo Lançamento
     </a>
@@ -9,10 +9,12 @@
   <div class="row">
     <div class="col-lg-12">
 
-      <form id="lancamentoForm">
+      <form id="form" #form="ngForm">
         <div class="card mb-4">
           <div class="card-body">
-            <wf-lancamentos-pesquisa [filtroDados]="filtroDados"></wf-lancamentos-pesquisa>
+            <wf-lancamentos-pesquisa (buscarLancamentos)="buscarLancamentos($event)">
+            </wf-lancamentos-pesquisa>
+
             <wf-lancamentos-tabela-dados [dataSource]="lancamentos"></wf-lancamentos-tabela-dados>
           </div>
         </div>

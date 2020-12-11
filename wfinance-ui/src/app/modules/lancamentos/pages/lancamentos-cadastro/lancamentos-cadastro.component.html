@@ -1,0 +1,79 @@
+<div class="content-main">
+  <wf-cabecalho-pagina titulo="Novo Lançamento"
+                       subtitulo="Cadastre seus lançamentos">
+  </wf-cabecalho-pagina>
+
+  <div class="row">
+    <div class="col-lg-12">
+
+      <form id="form" #form="ngForm">
+        <div class="card mb-4">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="dataVencimento" class="form-label">Vencimento</label>
+                <input id="dataVencimento" name="dataVencimento"
+                       type="text" class="form-control" placeholder="Ex: 01/01/2020">
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="dataRecebimento" class="form-label">Recebimento</label>
+                <input id="dataRecebimento" name="dataRecebimento"
+                       type="text" class="form-control" placeholder="Ex: 20/01/2020">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-9 mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input id="descricao" name="descricao"
+                       type="text" class="form-control" placeholder="Ex: Material escolar">
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="valor" class="form-label">R$ Valor</label>
+                <input id="valor" name="valor"
+                       type="text" class="form-control" placeholder="Ex: R$ 50,00">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <select id="categoria" name="categoria" class="form-control">
+                  <option value="">Selecionar Categoria</option>
+                  <option value="ITEM_1">Gasto com Carro</option>
+                  <option value="ITEM_2">Escola</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="pessoa" class="form-label">Categoria</label>
+                <select id="pessoa" name="pessoa" class="form-control">
+                  <option value="">Selecionar Pessoa</option>
+                  <option value="ITEM_1">Antonio Batata</option>
+                  <option value="ITEM_2">Supermercados Livre</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="observacao" class="form-label">Observação</label>
+                <textarea id="observacao" name="observacao" rows="3" class="form-control"></textarea>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-success float-right">
+              <em class="fa fa-save"></em>
+              Salvar
+            </button>
+
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

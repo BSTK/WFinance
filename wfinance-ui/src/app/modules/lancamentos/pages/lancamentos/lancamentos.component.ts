@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Lancamento} from "../../lancamento.model";
+import {LancamentosFiltro} from "../../componentes/lancamentos-pesquisa/lancamentos-filtro.model";
 
 @Component({
   selector: 'app-lancamentos',
@@ -7,13 +8,27 @@ import {Lancamento} from "../../lancamento.model";
 })
 export class LancamentosComponent implements OnInit {
 
-  filtroDados: any;
   lancamentos: Lancamento[] = [];
 
   constructor() { }
 
   ngOnInit() {
-    this.lancamentos = [
+    this.lancamentos = this.dadosServico();
+  }
+
+  buscarLancamentos(filtro: LancamentosFiltro) {
+    if (filtro) {
+      console.log('Buscando dados para filtro: ', filtro);
+      this.lancamentos = this.dadosServico().filter((lancamento: Lancamento) => {
+        return lancamento.descricao === filtro.descricao;
+      });
+
+      console.log('Filtrados: ', this.lancamentos);
+    }
+  }
+
+  private dadosServico(): Lancamento[] {
+    return [
       { tipo: 'DESPESA', descricao: 'Compra de pão', dataVencimento: '30/06/2017',
         dataPagamento: null, valor: 4.55, pessoa: 'Padaria do José' },
       { tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: '10/06/2017',

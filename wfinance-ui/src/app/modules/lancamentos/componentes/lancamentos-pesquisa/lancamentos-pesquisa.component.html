@@ -1,17 +1,26 @@
 <div class="row">
-  <div class="col-md-6 mb-3">
+  <div class="col-md-5 mb-3">
     <label for="descricao" class="form-label">Descrição</label>
-    <input id="descricao" type="text" class="form-control" placeholder="Ex: Material escolar">
+    <input id="descricao" name="descricao" [(ngModel)]="filtroDados.descricao"
+           type="text" class="form-control" placeholder="Ex: Material escolar">
   </div>
 
   <div class="col-md-3 mb-3">
-    <label for="vencimentoDe" class="form-label">Vencimento De</label>
-    <input id="vencimentoDe" type="text" class="form-control" placeholder="Ex: 20/01/2020">
+    <label for="dataVencimentoDe" class="form-label">Vencimento De</label>
+    <input id="dataVencimentoDe" name="dataVencimentoDe" [(ngModel)]="filtroDados.dataVencimentoDe"
+           type="text" class="form-control" placeholder="Ex: 20/01/2020">
   </div>
 
   <div class="col-md-3 mb-3">
-    <label for="vencimentoAte" class="form-label">Vencimento Até</label>
-    <input id="vencimentoAte" type="text" class="form-control" placeholder="Ex: 20/01/2020">
+    <label for="dataVencimentoAte" class="form-label">Vencimento Até</label>
+    <input id="dataVencimentoAte" name="dataVencimentoAte" [(ngModel)]="filtroDados.dataVencimentoAte"
+           type="text" class="form-control" placeholder="Ex: 20/01/2020">
+  </div>
+
+  <div class="form-group col-md-1 mb-3">
+    <button type="button" class="wf-botao-pesaquisar btn btn-success float-right"
+            (click)="buscarDados()">
+      Pesquisar
+    </button>
   </div>
 </div>
-

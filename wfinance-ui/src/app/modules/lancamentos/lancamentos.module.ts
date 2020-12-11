@@ -7,19 +7,23 @@ import {NgbPaginationModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap"
 import {SharedModule} from "../../shared/shared.module";
 import {LancamentosTabelaDadosComponent} from './componentes/lancamentos-tabela-dados/lancamentos-tabela-dados.component';
 import {LancamentosPesquisaComponent} from './componentes/lancamentos-pesquisa/lancamentos-pesquisa.component';
+import {FormsModule} from "@angular/forms";
+import { LancamentosCadastroComponent } from './pages/lancamentos-cadastro/lancamentos-cadastro.component';
 
 @NgModule({
   declarations: [
     LancamentosComponent,
     LancamentosTabelaDadosComponent,
-    LancamentosPesquisaComponent
+    LancamentosPesquisaComponent,
+    LancamentosCadastroComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(LANCAMENTOS_ROUTES),
     NgbPaginationModule,
     NgbTooltipModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class LancamentosModule { }
