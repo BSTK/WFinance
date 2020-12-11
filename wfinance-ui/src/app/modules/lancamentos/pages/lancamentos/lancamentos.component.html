@@ -12,65 +12,8 @@
       <form id="lancamentoForm">
         <div class="card mb-4">
           <div class="card-body">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <input id="descricao" type="text" class="form-control" placeholder="Ex: Material escolar">
-              </div>
-
-              <div class="col-md-3 mb-3">
-                <label for="vencimentoDe" class="form-label">Vencimento De</label>
-                <input id="vencimentoDe" type="text" class="form-control" placeholder="20/01/2020">
-              </div>
-
-              <div class="col-md-3 mb-3">
-                <label for="vencimentoAte" class="form-label">Vencimento Até</label>
-                <input id="vencimentoAte" type="text" class="form-control" placeholder="20/01/2020">
-              </div>
-
-            </div>
-
-            <div class="table-responsive mt-4">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th scope="col">Pessoa</th>
-                  <th scope="col">Descricao</th>
-                  <th scope="col">Data Vencimento</th>
-                  <th scope="col">Data Pagamento</th>
-                  <th scope="col">R$ Valor</th>
-                  <th scope="col">Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let lancamento of lancamentos">
-                  <td>{{ lancamento.pessoa }}</td>
-                  <td>{{ lancamento.descricao }}</td>
-                  <td>{{ lancamento.dataVencimento }}</td>
-                  <td>{{ lancamento.dataPagamento }}</td>
-                  <td [ngClass]="lancamento.tipo === 'RECEITA' ? 'receita' : 'despesa'">
-                    {{ lancamento.valor }}</td>
-                  <td>
-                    <span class="icon" placement="top" ngbTooltip="Editar">
-                      <em class="fas fa-edit"></em>
-                    </span>
-                    <span class="p-1"></span>
-                    <span class="icon" placement="top" ngbTooltip="Exluir">
-                      <em class="fas fa-trash-alt"></em>
-                    </span>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="d-flex float-right justify-content-between p-2">
-                <ngb-pagination class="pagination-sm"
-                                [(page)]="page"
-                                [pageSize]="pageSize"
-                                [collectionSize]="collectionSize"
-                                (pageChange)="pageChange()">
-                </ngb-pagination>
-              </div>
-            </div>
+            <wf-lancamentos-pesquisa [filtroDados]="filtroDados"></wf-lancamentos-pesquisa>
+            <wf-lancamentos-tabela-dados [dataSource]="lancamentos"></wf-lancamentos-tabela-dados>
           </div>
         </div>
       </form>
