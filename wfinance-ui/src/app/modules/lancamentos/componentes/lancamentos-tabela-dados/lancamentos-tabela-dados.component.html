@@ -2,6 +2,7 @@
   <table class="table table-striped">
     <thead>
     <tr>
+      <th scope="col">#</th>
       <th scope="col">Pessoa</th>
       <th scope="col">Descricao</th>
       <th scope="col">Data Vencimento</th>
@@ -12,12 +13,20 @@
     </thead>
     <tbody>
     <tr *ngFor="let lancamento of lancamentos">
+      <td>
+        <span class="icon">
+          <em class="fas " [ngClass]="lancamento.tipo === 'RECEITA'
+            ? 'fa-arrow-circle-up receita'
+            : 'fa-arrow-circle-down despesa'">
+          </em>
+        </span>
+      </td>
       <td>{{ lancamento.pessoa }}</td>
       <td>{{ lancamento.descricao }}</td>
       <td>{{ lancamento.dataVencimento }}</td>
       <td>{{ lancamento.dataPagamento }}</td>
       <td [ngClass]="lancamento.tipo === 'RECEITA' ? 'receita' : 'despesa'">
-        {{ lancamento.valor }}</td>
+        {{ lancamento.valor | currency:'BRL':'R$' }}</td>
       <td>
         <span class="icon" placement="top" ngbTooltip="Editar">
           <em class="fas fa-edit"></em>
