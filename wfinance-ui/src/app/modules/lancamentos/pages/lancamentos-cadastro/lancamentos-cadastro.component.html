@@ -155,7 +155,7 @@
               </div>
             </div>
 
-            <button type="button" class="btn btn-success float-right" (click)="salvar(form)">
+            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid" (click)="salvar(form)">
               <em class="fa fa-save"></em>
               Salvar
             </button>

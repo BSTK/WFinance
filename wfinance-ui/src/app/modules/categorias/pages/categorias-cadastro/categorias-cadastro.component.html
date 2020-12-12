@@ -14,11 +14,13 @@
               <div class="col-md-12 mb-3">
                 <label for="nome" class="form-label">Nome</label>
                 <input id="nome" name="nome"
-                       type="text" class="form-control" placeholder="Ex: CMU Cimentos">
+                       type="text" class="form-control" placeholder="Ex: CMU Cimentos"
+                       #nome="ngModel" ngModel wfInputValidation required
+                       minlength="5" maxlength="150">
               </div>
             </div>
 
-            <button type="button" class="btn btn-success float-right">
+            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid">
               <em class="fa fa-save"></em>
               Salvar
             </button>
