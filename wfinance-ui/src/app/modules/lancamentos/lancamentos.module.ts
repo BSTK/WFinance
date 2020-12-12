@@ -9,6 +9,7 @@ import {NgbButtonsModule, NgbDatepickerModule, NgbPaginationModule, NgbTooltipMo
 import {LancamentosCadastroComponent} from './pages/lancamentos-cadastro/lancamentos-cadastro.component';
 import {LancamentosPesquisaComponent} from './componentes/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import {LancamentosTabelaDadosComponent} from './componentes/lancamentos-tabela-dados/lancamentos-tabela-dados.component';
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {LancamentosTabelaDadosComponent} from './componentes/lancamentos-tabela-
     NgbDatepickerModule,
     NgbPaginationModule,
     RouterModule.forChild(LANCAMENTOS_ROUTES),
-    NgbButtonsModule
+    NgbButtonsModule,
+    CurrencyMaskModule
   ]
 })
 export class LancamentosModule { }

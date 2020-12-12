@@ -111,7 +111,11 @@
               <div class="col-md-3 mb-3">
                 <label for="valor" class="form-label">R$ Valor</label>
                 <input id="valor" name="valor"
-                       type="text" class="form-control" placeholder="Ex: R$ 50,00">
+                       currencyMask
+                       type="text"
+                       class="form-control"
+                       placeholder="Ex: R$ 50,00"
+                       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
               </div>
             </div>
 
