@@ -1,0 +1,32 @@
+<div class="content-main">
+  <wf-cabecalho-pagina titulo="Nova Categoria"
+                       subtitulo="Cadastre suas categorias">
+  </wf-cabecalho-pagina>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <form id="form" #form="ngForm">
+
+        <div class="card mb-4">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input id="nome" name="nome"
+                       type="text" class="form-control" placeholder="Ex: CMU Cimentos">
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-success float-right">
+              <em class="fa fa-save"></em>
+              Salvar
+            </button>
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

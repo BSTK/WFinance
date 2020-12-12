@@ -5,10 +5,12 @@ import {CATEGORIAS_ROUTES} from "./categorias.module.routes";
 import {CategoriasComponent} from './pages/categorias/categorias.component';
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../../shared/shared.module";
+import { CategoriasCadastroComponent } from './pages/categorias-cadastro/categorias-cadastro.component';
 
 @NgModule({
   declarations: [
-    CategoriasComponent
+    CategoriasComponent,
+    CategoriasCadastroComponent
   ],
   imports: [
     CommonModule,
