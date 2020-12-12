@@ -1,0 +1,36 @@
+<div class="table-responsive mt-4">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let categoria of categorias">
+      <td width="10px">
+        <em class="fas fa-boxes" [style]="{ color: categoria.cor }"></em>
+      </td>
+      <td>{{ categoria.nome }}</td>
+      <td width="100px">
+        <span class="icon" placement="top" ngbTooltip="Editar">
+          <em class="fas fa-edit"></em>
+        </span>
+        <span class="p-1"></span>
+        <span class="icon" placement="top" ngbTooltip="Exluir">
+          <em class="fas fa-trash-alt"></em>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex float-right justify-content-between p-2">
+    <ngb-pagination class="pagination-sm"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    [collectionSize]="collectionSize"
+                    (pageChange)="pageChange()">
+    </ngb-pagination>
+  </div>
+</div>

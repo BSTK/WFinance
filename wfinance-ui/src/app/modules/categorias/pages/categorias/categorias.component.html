@@ -12,7 +12,8 @@
       <form id="form" #form="ngForm">
         <div class="card mb-4">
           <div class="card-body">
-              MINGAS CATEGORIAS
+            <wf-categorias-pesquisa></wf-categorias-pesquisa>
+            <wf-categorias-tabela-dados [dataSource]="categorias"></wf-categorias-tabela-dados>
           </div>
         </div>
       </form>
