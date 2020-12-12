@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {FooterComponent} from './footer/footer.component';
 import {TopbarComponent} from './topbar/topbar.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {TopbarComponent} from './topbar/topbar.component';
     TopbarComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class CoreModule { }
