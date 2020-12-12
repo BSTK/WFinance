@@ -1,0 +1,12 @@
+<hr class="sidebar-divider">
+
+<div class="sidebar-heading wf-menu">
+  {{ menu.titulo }}
+</div>
+
+<li class="nav-item" *ngFor="let itemMenu of menu.itens">
+  <a class="nav-link wf-menu-item" [routerLink]="itemMenu.rota">
+    <i class="fas fa-fw" [ngClass]="itemMenu.icone"></i>
+    <span>{{ itemMenu.titulo }}</span>
+  </a>
+</li>

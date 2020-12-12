@@ -7,67 +7,11 @@
     <div class="sidebar-brand-text mx-3"><strong>WF</strong>inance</div>
   </a>
 
-  <hr class="sidebar-divider my-0">
+  <wf-menu [menu]="menuPrincipal"></wf-menu>
 
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="lancamentos">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-  </li>
-
-  <hr class="sidebar-divider">
-
-  <div class="sidebar-heading wf-menu">
-    Lançamentos
+  <div *ngFor="let menu of menus">
+    <wf-menu [menu]="menu"></wf-menu>
   </div>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="lancamentos">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Meus Lançamentos</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="lancamentos/cadastro">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Novo Lançamento</span></a>
-  </li>
-
-  <hr class="sidebar-divider">
-
-  <div class="sidebar-heading wf-menu">
-    Pessoas
-  </div>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="pessoas">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Meus Fornecedores</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="pessoas/cadastro">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Novo Fornecedor</span></a>
-  </li>
-
-  <hr class="sidebar-divider">
-
-  <div class="sidebar-heading wf-menu">
-    Categorias
-  </div>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="categorias">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Minhas Categorias</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link wf-menu-item" routerLink="categorias">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Nova Categoria</span></a>
-  </li>
 
   <div class="text-center d-none d-md-inline m-5">
     <button class="rounded-circle border-0" id="sidebarToggle"></button>
