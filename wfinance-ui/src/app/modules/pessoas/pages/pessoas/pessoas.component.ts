@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'wf-pessoas',
-  templateUrl: './pessoas.component.html',
-  styleUrls: ['./pessoas.component.scss']
+  templateUrl: './pessoas.component.html'
 })
 export class PessoasComponent implements OnInit {
 

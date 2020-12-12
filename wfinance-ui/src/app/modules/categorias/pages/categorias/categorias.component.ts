@@ -3,8 +3,7 @@ import {Categoria} from "../../categoria.model";
 
 @Component({
   selector: 'wf-categorias',
-  templateUrl: './categorias.component.html',
-  styleUrls: ['./categorias.component.scss']
+  templateUrl: './categorias.component.html'
 })
 export class CategoriasComponent implements OnInit {
 

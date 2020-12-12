@@ -41,9 +41,9 @@
                          name="dataVencimento"
                          class="form-control"
                          placeholder="Ex: 01/02/2020"
-                         ngbDatepicker readonly
+                         ngbDatepicker readonly wfInputValidation
                          [navigation]="'none'"
-                         #dataVencimento="ngbDatepicker"
+                         #dataVencimento="ngbDatepicker" ngModel
                          (dateSelect)="dataVencimento.toggle()"
                          (focus)="dataVencimento.toggle()">
                   <div class="input-group-append">
@@ -63,9 +63,9 @@
                          name="dataRecebimento"
                          class="form-control"
                          placeholder="Ex: 01/02/2020"
-                         ngbDatepicker readonly
+                         ngbDatepicker readonly wfInputValidation
                          [navigation]="'none'"
-                         #dataRecebimento="ngbDatepicker"
+                         #dataRecebimento="ngbDatepicker" ngModel
                          (dateSelect)="dataRecebimento.toggle()"
                          (focus)="dataRecebimento.toggle()">
                   <div class="input-group-append">
@@ -85,9 +85,9 @@
                          name="dataPagamento"
                          class="form-control"
                          placeholder="Ex: 01/02/2020"
-                         ngbDatepicker readonly
+                         ngbDatepicker readonly wfInputValidation
                          [navigation]="'none'"
-                         #dataPagamento="ngbDatepicker"
+                         #dataPagamento="ngbDatepicker" ngModel
                          (dateSelect)="dataPagamento.toggle()"
                          (focus)="dataPagamento.toggle()">
                   <div class="input-group-append">
@@ -105,7 +105,11 @@
               <div class="col-md-9 mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
                 <input id="descricao" name="descricao"
+                       #descricao="ngModel" ngModel
+                       minlength="5" required wfInputValidation
                        type="text" class="form-control" placeholder="Ex: Material escolar">
+                <wf-input-validation-message [campo]="descricao" erro="required" mensagem="Informar campo"></wf-input-validation-message>
+                <wf-input-validation-message [campo]="descricao" erro="minlength" mensagem="Informar ao menos 5 letras"></wf-input-validation-message>
               </div>
 
               <div class="col-md-3 mb-3">
@@ -115,6 +119,7 @@
                        type="text"
                        class="form-control"
                        placeholder="Ex: R$ 50,00"
+                       #valor="ngModel" ngModel wfInputValidation
                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
               </div>
             </div>
@@ -122,7 +127,9 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
-                <select id="categoria" name="categoria" class="form-control">
+                <select id="categoria" name="categoria" class="form-control"
+                        #categoria="ngModel" ngModel wfInputValidation
+                        required minlength="1">
                   <option value="">Selecionar Categoria</option>
                   <option value="ITEM_1">Gasto com Carro</option>
                   <option value="ITEM_2">Escola</option>
@@ -130,8 +137,10 @@
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="pessoa" class="form-label">Categoria</label>
-                <select id="pessoa" name="pessoa" class="form-control">
+                <label for="pessoa" class="form-label">Pessoa</label>
+                <select id="pessoa" name="pessoa" class="form-control"
+                        #pessoa="ngModel" ngModel wfInputValidation
+                        required minlength="1">
                   <option value="">Selecionar Pessoa</option>
                   <option value="ITEM_1">Antonio Batata</option>
                   <option value="ITEM_2">Supermercados Livre</option>
@@ -146,7 +155,7 @@
               </div>
             </div>
 
-            <button type="button" class="btn btn-success float-right">
+            <button type="button" class="btn btn-success float-right" (click)="salvar(form)">
               <em class="fa fa-save"></em>
               Salvar
             </button>

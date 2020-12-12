@@ -3,8 +3,7 @@ import {Categoria} from "../../categoria.model";
 
 @Component({
   selector: 'wf-categorias-tabela-dados',
-  templateUrl: './categorias-tabela-dados.component.html',
-  styleUrls: ['./categorias-tabela-dados.component.scss']
+  templateUrl: './categorias-tabela-dados.component.html'
 })
 export class CategoriasTabelaDadosComponent implements OnInit {
 

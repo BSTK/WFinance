@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbCalendar, NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
 import {TipoLancamento} from "../../tipo-lancamento";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'wf-lancamentos-cadastro',
@@ -20,4 +21,7 @@ export class LancamentosCadastroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  salvar(ngForm: NgForm) {
+    console.log('Formulario valido: ', ngForm.valid);
+  }
 }
