@@ -12,15 +12,92 @@
 
             <div class="row">
               <div class="col-md-3 mb-3">
+                <h3 [ngClass]="tipoLancamentoSelecionado.classCss">
+                  Nova {{ tipoLancamentoSelecionado.label }}
+                </h3>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="btn-group btn-group-toggle"
+                     ngbRadioGroup
+                     [(ngModel)]="tipoLancamentoSelecionado"
+                     name="tipoLancamento">
+                <label class="btn-outline-success" ngbButtonLabel>
+                    <input type="radio" ngbButton [value]="tipoLancamentoReceita">
+                    {{ tipoLancamentoReceita.label }}
+                  </label>
+                  <label class="btn-outline-danger" ngbButtonLabel>
+                    <input type="radio" ngbButton [value]="tipoLancamentoDespesa">
+                    {{ tipoLancamentoDespesa.label }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 mb-3">
                 <label for="dataVencimento" class="form-label">Vencimento</label>
-                <input id="dataVencimento" name="dataVencimento"
-                       type="text" class="form-control" placeholder="Ex: 01/01/2020">
+                <div class="input-group">
+                  <input id="dataVencimento"
+                         name="dataVencimento"
+                         class="form-control"
+                         placeholder="Ex: 01/02/2020"
+                         ngbDatepicker readonly
+                         [navigation]="'none'"
+                         #dataVencimento="ngbDatepicker"
+                         (dateSelect)="dataVencimento.toggle()"
+                         (focus)="dataVencimento.toggle()">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary"
+                            (click)="dataVencimento.toggle()"
+                            type="button">
+                      <em class="fas fa-calendar-alt"></em>
+                    </button>
+                </div>
+                </div>
               </div>
 
-              <div class="col-md-3 mb-3">
+              <div class="col-md-3 mb-3" *ngIf="tipoLancamentoSelecionado === tipoLancamentoReceita">
                 <label for="dataRecebimento" class="form-label">Recebimento</label>
-                <input id="dataRecebimento" name="dataRecebimento"
-                       type="text" class="form-control" placeholder="Ex: 20/01/2020">
+                <div class="input-group">
+                  <input id="dataRecebimento"
+                         name="dataRecebimento"
+                         class="form-control"
+                         placeholder="Ex: 01/02/2020"
+                         ngbDatepicker readonly
+                         [navigation]="'none'"
+                         #dataRecebimento="ngbDatepicker"
+                         (dateSelect)="dataRecebimento.toggle()"
+                         (focus)="dataRecebimento.toggle()">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary"
+                            (click)="dataRecebimento.toggle()"
+                            type="button">
+                      <em class="fas fa-calendar-alt"></em>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-3" *ngIf="tipoLancamentoSelecionado === tipoLancamentoDespesa">
+                <label for="dataRecebimento" class="form-label">Pagamento</label>
+                <div class="input-group">
+                  <input id="dataPagamento"
+                         name="dataPagamento"
+                         class="form-control"
+                         placeholder="Ex: 01/02/2020"
+                         ngbDatepicker readonly
+                         [navigation]="'none'"
+                         #dataPagamento="ngbDatepicker"
+                         (dateSelect)="dataPagamento.toggle()"
+                         (focus)="dataPagamento.toggle()">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary"
+                            (click)="dataPagamento.toggle()"
+                            type="button">
+                      <em class="fas fa-calendar-alt"></em>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 

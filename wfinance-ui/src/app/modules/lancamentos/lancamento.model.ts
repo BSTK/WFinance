@@ -6,4 +6,3 @@ export interface Lancamento {
   dataVencimento: string;
   dataPagamento: string;
 }
-

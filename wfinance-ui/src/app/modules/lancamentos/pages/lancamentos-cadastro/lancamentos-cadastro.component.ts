@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NgbCalendar, NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
+import {TipoLancamento} from "../../tipo-lancamento";
 
 @Component({
   selector: 'wf-lancamentos-cadastro',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LancamentosCadastroComponent implements OnInit {
 
-  constructor() { }
+  tipoLancamentoReceita = TipoLancamento.RECEITA;
+  tipoLancamentoDespesa = TipoLancamento.DESPESA;
+
+  tipoLancamentoSelecionado = TipoLancamento.RECEITA;
+
+  constructor(private ngbCalendar: NgbCalendar,
+              private dateAdapter: NgbDateAdapter<string>) { }
 
   ngOnInit(): void {
   }

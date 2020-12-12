@@ -1,0 +1,8 @@
+:host {
+
+  .form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+  }
+
+}
