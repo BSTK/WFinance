@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {AppApi, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../app.api";
+import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../api";
 import {LancamentosFiltro} from "./componentes/lancamentos-pesquisa/lancamentos-filtro.model";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class LancamentosService {
     const headers = new HttpHeaders()
       .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
 
-    return this.httpClient.get<any[]>(AppApi.API.lancamentos.lancamentos, { headers });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { headers });
   }
 
   resumo(lancamentoFiltro: LancamentosFiltro): Observable<any[]> {
@@ -25,7 +25,7 @@ export class LancamentosService {
     const params = new HttpParams()
       .append('descricao', lancamentoFiltro.descricao);
 
-    return this.httpClient.get<any[]>(AppApi.API.lancamentos.resumo, { headers, params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.resumo, { headers, params });
   }
 
 }
