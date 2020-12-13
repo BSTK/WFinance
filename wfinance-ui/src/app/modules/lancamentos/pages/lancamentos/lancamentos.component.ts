@@ -24,8 +24,6 @@ export class LancamentosComponent implements OnInit {
   }
 
   buscarLancamentos(filtro: LancamentosFiltro) {
-    console.log('Filtro = ', filtro);
-
     const observable = this.filtroValido(filtro)
       ? this.lancamentosService.resumo(filtro)
       : this.lancamentosService.lancamentos();
