@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {NgbCalendar, NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
-import {TipoLancamento} from "../../tipo-lancamento";
 import {NgForm} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {TipoLancamento} from "../../tipo-lancamento";
+import {NgbCalendar, NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'wf-lancamentos-cadastro',

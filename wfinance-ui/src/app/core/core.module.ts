@@ -1,26 +1,28 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SidebarComponent} from './sidebar/sidebar.component';
+import {RouterModule} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 import {FooterComponent} from './footer/footer.component';
 import {TopbarComponent} from './topbar/topbar.component';
-import {RouterModule} from "@angular/router";
-import { MenuComponent } from './sidebar/componentes/menu/menu.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {MenuComponent} from './sidebar/componentes/menu/menu.component';
 
 @NgModule({
   declarations: [
-    SidebarComponent,
+    MenuComponent,
     FooterComponent,
     TopbarComponent,
-    MenuComponent,
+    SidebarComponent
   ],
   exports: [
-    SidebarComponent,
     FooterComponent,
     TopbarComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ]
 })
 export class CoreModule { }

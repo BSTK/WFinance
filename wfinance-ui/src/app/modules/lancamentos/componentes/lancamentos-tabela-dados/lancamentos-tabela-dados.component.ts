@@ -1,40 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
 import {Lancamento} from "../../lancamento.model";
+import {AfterContentChecked, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'wf-lancamentos-tabela-dados',
   templateUrl: './lancamentos-tabela-dados.component.html',
   styleUrls: ['lancamentos-tabela-dados.component.scss']
 })
-export class LancamentosTabelaDadosComponent implements OnInit {
+export class LancamentosTabelaDadosComponent implements AfterContentChecked {
 
   @Input()
   readonly dataSource: Lancamento[] = [];
 
   page = 1;
   pageSize = 5;
-  collectionSize = 5;
   lancamentos: Lancamento[] = [];
+  collectionSize = this.dataSource.length;
 
-  constructor() {
+  constructor() { }
+
+  ngAfterContentChecked(): void {
     this.pageChange();
   }
 
-  ngOnInit(): void {
-    this.configuracoes();
-  }
-
   pageChange() {
+    this.collectionSize = this.dataSource.length;
     this.lancamentos = this.dataSource
       .map((lancamento, i) => ({id: i + 1, ...lancamento}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
-
-  private configuracoes() {
-    this.page = 1;
-    this.pageSize = 5;
-    this.lancamentos = this.dataSource;
-    this.collectionSize = this.dataSource.length;
   }
 
 }

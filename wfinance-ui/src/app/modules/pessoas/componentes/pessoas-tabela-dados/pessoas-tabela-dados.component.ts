@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
 import {Pessoa} from "../../pessoa.model";
 
 @Component({
@@ -6,7 +6,7 @@ import {Pessoa} from "../../pessoa.model";
   templateUrl: './pessoas-tabela-dados.component.html',
   styleUrls: ['./pessoas-tabela-dados.component.scss']
 })
-export class PessoasTabelaDadosComponent implements OnInit {
+export class PessoasTabelaDadosComponent implements AfterContentChecked {
 
   @Input()
   readonly dataSource: Pessoa[] = [];
@@ -16,25 +16,17 @@ export class PessoasTabelaDadosComponent implements OnInit {
   collectionSize = 5;
   pessoas: Pessoa[] = [];
 
-  constructor() {
+  constructor() { }
+
+  ngAfterContentChecked(): void {
     this.pageChange();
   }
 
-  ngOnInit(): void {
-    this.configuracoes();
-  }
-
   pageChange() {
+    this.collectionSize = this.dataSource.length;
     this.pessoas = this.dataSource
       .map((pessoa, i) => ({id: i + 1, ...pessoa}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
-
-  private configuracoes() {
-    this.page = 1;
-    this.pageSize = 5;
-    this.pessoas = this.dataSource;
-    this.collectionSize = this.dataSource.length;
   }
 
 }

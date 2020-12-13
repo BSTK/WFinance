@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Lancamento} from "../../lancamento.model";
+import {LancamentosService} from "../../lancamentos.service";
 import {LancamentosFiltro} from "../../componentes/lancamentos-pesquisa/lancamentos-filtro.model";
 
 @Component({
@@ -10,52 +11,38 @@ export class LancamentosComponent implements OnInit {
 
   lancamentos: Lancamento[] = [];
 
-  constructor() { }
+  constructor(private lancamentosService: LancamentosService) { }
 
   ngOnInit() {
-    this.lancamentos = this.dadosServico();
+    this.lancamentosService
+        .lancamentos()
+        .subscribe((response: any) => {
+          if (response && response.content) {
+            this.lancamentos = response.content;
+          }
+        });
   }
 
   buscarLancamentos(filtro: LancamentosFiltro) {
-    if (filtro) {
-      console.log('Buscando dados para filtro: ', filtro);
-      this.lancamentos = this.dadosServico().filter((lancamento: Lancamento) => {
-        return lancamento.descricao === filtro.descricao;
-      });
+    console.log('Filtro = ', filtro);
 
-      console.log('Filtrados: ', this.lancamentos);
+    const observable = this.filtroValido(filtro)
+      ? this.lancamentosService.resumo(filtro)
+      : this.lancamentosService.lancamentos();
+
+    if (observable) {
+      observable.subscribe((response: any) => {
+        if (response && response.content) {
+          this.lancamentos = response.content;
+        }
+      });
     }
   }
 
-  private dadosServico(): Lancamento[] {
-    return [
-      { tipo: 'DESPESA', descricao: 'Compra de pão', dataVencimento: '30/06/2017',
-        dataPagamento: null, valor: 4.55, pessoa: 'Padaria do José' },
-      { tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: '10/06/2017',
-        dataPagamento: '09/06/2017', valor: 80000, pessoa: 'Atacado Brasil' },
-      { tipo: 'DESPESA', descricao: 'Impostos', dataVencimento: '20/07/2017',
-        dataPagamento: null, valor: 14312, pessoa: 'Ministério da Fazenda' },
-      { tipo: 'DESPESA', descricao: 'Mensalidade de escola', dataVencimento: '05/06/2017',
-        dataPagamento: '30/05/2017', valor: 800, pessoa: 'Escola Abelha Rainha' },
-      { tipo: 'RECEITA', descricao: 'Venda de carro', dataVencimento: '18/08/2017',
-        dataPagamento: null, valor: 55000, pessoa: 'Sebastião Souza' },
-      { tipo: 'DESPESA', descricao: 'Aluguel', dataVencimento: '10/07/2017',
-        dataPagamento: '09/07/2017', valor: 1750, pessoa: 'Casa Nova Imóveis' },
-      { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'RECEITA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'RECEITA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' },
-      { tipo: 'RECEITA', descricao: 'Mensalidade musculação', dataVencimento: '13/07/2017',
-        dataPagamento: null, valor: 180, pessoa: 'Academia Top' }
-    ];
+  private filtroValido(filtro: LancamentosFiltro) {
+    return filtro
+      && filtro.descricao
+      && filtro.descricao !== '';
   }
 
 }
