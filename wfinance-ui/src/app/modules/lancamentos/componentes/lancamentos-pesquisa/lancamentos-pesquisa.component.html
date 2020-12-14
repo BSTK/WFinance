@@ -7,14 +7,48 @@
 
   <div class="col-md-3 mb-3">
     <label for="dataVencimentoDe" class="form-label">Vencimento De</label>
-    <input id="dataVencimentoDe" name="dataVencimentoDe" [(ngModel)]="filtro.dataVencimentoDe"
-           type="text" class="form-control" placeholder="Ex: 20/01/2020">
+    <div class="input-group">
+      <input id="dataVencimentoDe"
+             name="dataVencimentoDe"
+             class="form-control"
+             placeholder="Ex: 01/02/2020"
+             ngbDatepicker readonly wfInputValidation
+             navigation="arrows"
+             [(ngModel)]="filtro.dataVencimentoDe"
+             #dataVencimentoDe="ngbDatepicker" ngModel
+             (dateSelect)="dataVencimentoDe.toggle()"
+             (focus)="dataVencimentoDe.toggle()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary"
+                (click)="dataVencimentoDe.toggle()"
+                type="button">
+          <em class="fas fa-calendar-alt"></em>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="col-md-3 mb-3">
     <label for="dataVencimentoAte" class="form-label">Vencimento Até</label>
-    <input id="dataVencimentoAte" name="dataVencimentoAte" [(ngModel)]="filtro.dataVencimentoAte"
-           type="text" class="form-control" placeholder="Ex: 20/01/2020">
+    <div class="input-group">
+      <input id="dataVencimentoAte"
+             name="dataVencimentoAte"
+             class="form-control"
+             placeholder="Ex: 01/02/2020"
+             ngbDatepicker readonly wfInputValidation
+             navigation="arrows"
+             [(ngModel)]="filtro.dataVencimentoAte"
+             #dataVencimentoAte="ngbDatepicker" ngModel
+             (dateSelect)="dataVencimentoAte.toggle()"
+             (focus)="dataVencimentoAte.toggle()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary"
+                (click)="dataVencimentoAte.toggle()"
+                type="button">
+          <em class="fas fa-calendar-alt"></em>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="form-group col-md-1 mb-3">

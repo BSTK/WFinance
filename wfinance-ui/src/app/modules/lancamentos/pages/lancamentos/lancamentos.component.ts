@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Lancamento} from "../../lancamento.model";
 import {LancamentosService} from "../../lancamentos.service";
 import {LancamentosFiltro} from "../../componentes/lancamentos-pesquisa/lancamentos-filtro.model";
+import {notUndefined} from "../../../../shared/utils/object-validate";
 
 @Component({
   selector: 'app-lancamentos',
@@ -38,9 +39,9 @@ export class LancamentosComponent implements OnInit {
   }
 
   private filtroValido(filtro: LancamentosFiltro) {
-    return filtro
-      && filtro.descricao
-      && filtro.descricao !== '';
+    return filtro && notUndefined(filtro.descricao)
+      || notUndefined(filtro.dataVencimentoDe)
+      || notUndefined(filtro.dataVencimentoAte);
   }
 
 }
