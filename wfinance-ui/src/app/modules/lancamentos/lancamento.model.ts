@@ -1,7 +1,7 @@
 import {Pessoa} from "../pessoas/pessoa.model";
 import {Categoria} from "../categorias/categoria.model";
 
-export interface Lancamento {
+export type Lancamento = {
   id: number;
   tipo: string;
   valor: number;
@@ -12,3 +12,12 @@ export interface Lancamento {
   pessoa: Pessoa;
   categoria: Categoria
 }
+
+export type TipoLancamento = {
+  valor: string;
+  label: string;
+  classCss: string;
+}
+
+export const DESPESA: TipoLancamento = { valor: 'DESPESA', label: 'Despesa', classCss: 'text-danger'};
+export const RECEITA: TipoLancamento = { valor: 'RECEITA', label: 'Receita', classCss: 'text-success' };
