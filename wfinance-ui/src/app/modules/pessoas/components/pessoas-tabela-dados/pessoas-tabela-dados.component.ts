@@ -1,5 +1,6 @@
 import {Pessoa} from "../../domain/pessoa.model";
 import {AfterContentChecked, Component, Input} from '@angular/core';
+import {DataSourceTable} from "../../../../shared/utils/tables/data-source-table.model";
 
 @Component({
   selector: 'wf-pessoas-tabela-dados',
@@ -10,7 +11,7 @@ export class PessoasTabelaDadosComponent implements AfterContentChecked {
 
   /// TODO: USAR DataSourceTable
   @Input()
-  readonly dataSource: Pessoa[] = [];
+  dataSource: DataSourceTable<Pessoa> = new DataSourceTable<Pessoa>();
 
   page = 1;
   pageSize = 5;
@@ -25,10 +26,10 @@ export class PessoasTabelaDadosComponent implements AfterContentChecked {
 
   /// TODO: CORRIGIR PAGINAÇÃO LAZY
   pageChange() {
-    this.collectionSize = this.dataSource.length;
-    this.pessoas = this.dataSource
-      .map((pessoa, i) => ({id: i + 1, ...pessoa}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    if (this.dataSource && this.dataSource.conteudo) {
+      this.collectionSize = this.dataSource.conteudo.length;
+      this.pessoas = this.dataSource.conteudo;
+    }
   }
 
 }
