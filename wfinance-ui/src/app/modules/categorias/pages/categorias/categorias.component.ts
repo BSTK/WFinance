@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Categoria} from "../../categoria.model";
+import {Categoria} from "../../domain/categoria.model";
 
 @Component({
   selector: 'wf-categorias',

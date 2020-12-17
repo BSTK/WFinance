@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Menu} from "./componentes/menu/menu.model";
-import {MenuItem} from "./componentes/menu/menu-item.model";
+import {Menu} from "./components/menu/menu.model";
+import {MenuItem} from "./components/menu/menu-item.model";
 
 @Component({
   selector: 'wf-sidebar',

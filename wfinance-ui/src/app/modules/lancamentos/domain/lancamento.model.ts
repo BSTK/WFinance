@@ -1,5 +1,5 @@
-import {Pessoa} from "../pessoas/pessoa.model";
-import {Categoria} from "../categorias/categoria.model";
+import {Pessoa} from "../../pessoas/domain/pessoa.model";
+import {Categoria} from "../../categorias/domain/categoria.model";
 
 export type Lancamento = {
   id: number;

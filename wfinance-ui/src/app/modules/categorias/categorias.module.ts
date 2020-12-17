@@ -7,8 +7,8 @@ import {CATEGORIAS_ROUTES} from "./categorias.module.routes";
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {CategoriasComponent} from './pages/categorias/categorias.component';
 import {CategoriasCadastroComponent} from './pages/categorias-cadastro/categorias-cadastro.component';
-import {CategoriasPesquisaComponent} from './componentes/categorias-pesquisa/categorias-pesquisa.component';
-import {CategoriasTabelaDadosComponent} from './componentes/categorias-tabela-dados/categorias-tabela-dados.component';
+import {CategoriasPesquisaComponent} from './components/categorias-pesquisa/categorias-pesquisa.component';
+import {CategoriasTabelaDadosComponent} from './components/categorias-tabela-dados/categorias-tabela-dados.component';
 
 @NgModule({
   declarations: [

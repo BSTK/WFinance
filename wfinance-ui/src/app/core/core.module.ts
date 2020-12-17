@@ -5,7 +5,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FooterComponent} from './footer/footer.component';
 import {TopbarComponent} from './topbar/topbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
-import {MenuComponent} from './sidebar/componentes/menu/menu.component';
+import {MenuComponent} from './sidebar/components/menu/menu.component';
 
 @NgModule({
   declarations: [

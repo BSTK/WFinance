@@ -7,9 +7,9 @@ import {SharedModule} from "../../shared/shared.module";
 import {LANCAMENTOS_ROUTES} from "./lancamentos.module.routes";
 import {LancamentosComponent} from './pages/lancamentos/lancamentos.component';
 import {LancamentosCadastroComponent} from './pages/lancamentos-cadastro/lancamentos-cadastro.component';
-import {LancamentosPesquisaComponent} from './componentes/lancamentos-pesquisa/lancamentos-pesquisa.component';
+import {LancamentosPesquisaComponent} from './components/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import {NgbButtonsModule, NgbDatepickerModule, NgbPaginationModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
-import {LancamentosTabelaDadosComponent} from './componentes/lancamentos-tabela-dados/lancamentos-tabela-dados.component';
+import {LancamentosTabelaDadosComponent} from './components/lancamentos-tabela-dados/lancamentos-tabela-dados.component';
 
 @NgModule({
   declarations: [

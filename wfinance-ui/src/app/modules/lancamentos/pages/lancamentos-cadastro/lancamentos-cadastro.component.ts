@@ -1,6 +1,6 @@
 import {NgForm} from "@angular/forms";
 import {Component, OnInit} from '@angular/core';
-import {DESPESA, RECEITA, TipoLancamento} from "../../lancamento.model";
+import {DESPESA, RECEITA, TipoLancamento} from "../../domain/lancamento.model";
 
 @Component({
   selector: 'wf-lancamentos-cadastro',

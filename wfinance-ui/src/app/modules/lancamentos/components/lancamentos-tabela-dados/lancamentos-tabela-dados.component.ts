@@ -1,4 +1,4 @@
-import {Lancamento} from "../../lancamento.model";
+import {Lancamento} from "../../domain/lancamento.model";
 import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
 import {DataSourceTable} from "../../../../shared/utils/tables/data-source-table.model";
 import {notEmpty} from "../../../../shared/utils/arrays-utils";

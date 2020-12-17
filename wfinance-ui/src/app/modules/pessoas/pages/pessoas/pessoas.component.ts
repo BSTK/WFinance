@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PessoasService} from "../../domain/pessoas.service";
+import {Pessoa, PessoasFiltro} from "../../domain/pessoa.model";
+import {notUndefined} from "../../../../shared/utils/object-utils";
 
 @Component({
   selector: 'wf-pessoas',
@@ -18,9 +21,29 @@ export class PessoasComponent implements OnInit {
     { nome: 'Paula Maria', cidade: 'Uberlândia', estado: 'MG', ativo: true }
   ];
 
-  constructor() { }
+  constructor(private readonly pessoasService: PessoasService) { }
 
   ngOnInit(): void {
+    this.pessoasService
+      .pessoas()
+      .subscribe((response: Pessoa[]) => {
+        if (response) {
+          console.log('ngOnInit => Pessoas cadastradas: ', response);
+        }
+      });
+  }
+
+  buscarPessoas(filtro: PessoasFiltro) {
+    if (notUndefined(filtro)) {
+      this.pessoasService
+        .pessoasPorNome(filtro)
+        .subscribe((response: Pessoa[]) => {
+          if (response) {
+            console.log('buscarPessoas => filtro: ', filtro);
+            console.log('buscarPessoas => Pessoas cadastradas: ', response);
+          }
+        });
+    }
   }
 
 }

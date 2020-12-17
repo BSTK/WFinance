@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Lancamento} from "../../lancamento.model";
-import {LancamentosService} from "../../lancamentos.service";
+import {Lancamento} from "../../domain/lancamento.model";
+import {LancamentosService} from "../../domain/lancamentos.service";
 import {notEmpty} from "../../../../shared/utils/object-utils";
-import {LancamentosFiltro} from "../../componentes/lancamentos-pesquisa/lancamentos-filtro.model";
+import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
 import {DataSourceTable, ResponseToDataSource} from "../../../../shared/utils/tables/data-source-table.model";
 
 @Component({

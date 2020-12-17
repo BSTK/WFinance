@@ -1,4 +1,4 @@
-import {Pessoa} from "../../pessoa.model";
+import {Pessoa} from "../../domain/pessoa.model";
 import {AfterContentChecked, Component, Input} from '@angular/core';
 
 @Component({

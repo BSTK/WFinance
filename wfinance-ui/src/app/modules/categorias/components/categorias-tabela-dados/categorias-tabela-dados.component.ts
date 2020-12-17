@@ -1,4 +1,4 @@
-import {Categoria} from "../../categoria.model";
+import {Categoria} from "../../domain/categoria.model";
 import {AfterContentChecked, Component, Input} from '@angular/core';
 
 @Component({

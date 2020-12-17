@@ -14,3 +14,13 @@ export type Endereco = {
   bairro: string;
   complemento: string;
 }
+
+export class PessoasFiltro {
+  nome: string;
+
+  /// TODO: IMPLEMENTAR PAGINAÇÃO PARA PESQUISA DE PESSOAS
+  /***
+   * pagina: string;
+   * itensPorPagina: string;
+   */
+}

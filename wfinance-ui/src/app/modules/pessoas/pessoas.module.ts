@@ -7,8 +7,8 @@ import {SharedModule} from "../../shared/shared.module";
 import {PessoasComponent} from './pages/pessoas/pessoas.component';
 import {NgbPaginationModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {PessoasCadastroComponent} from './pages/pessoas-cadastro/pessoas-cadastro.component';
-import {PessoasPesquisaComponent} from './componentes/pessoas-pesquisa/pessoas-pesquisa.component';
-import {PessoasTabelaDadosComponent} from './componentes/pessoas-tabela-dados/pessoas-tabela-dados.component';
+import {PessoasPesquisaComponent} from './components/pessoas-pesquisa/pessoas-pesquisa.component';
+import {PessoasTabelaDadosComponent} from './components/pessoas-tabela-dados/pessoas-tabela-dados.component';
 
 @NgModule({
   declarations: [
