@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Lancamento} from "../../lancamento.model";
 import {LancamentosService} from "../../lancamentos.service";
+import {notEmpty} from "../../../../shared/utils/object-utils";
 import {LancamentosFiltro} from "../../componentes/lancamentos-pesquisa/lancamentos-filtro.model";
-import {notUndefined} from "../../../../shared/utils/object-validate";
+import {DataSourceTable, ResponseToDataSource} from "../../../../shared/utils/tables/data-source-table.model";
 
 @Component({
   selector: 'app-lancamentos',
@@ -10,7 +11,7 @@ import {notUndefined} from "../../../../shared/utils/object-validate";
 })
 export class LancamentosComponent implements OnInit {
 
-  lancamentos: Lancamento[] = [];
+  dataSource: DataSourceTable<Lancamento> = new DataSourceTable<Lancamento>();
 
   constructor(private lancamentosService: LancamentosService) { }
 
@@ -19,7 +20,7 @@ export class LancamentosComponent implements OnInit {
         .lancamentos()
         .subscribe((response: any) => {
           if (response && response.content) {
-            this.lancamentos = response.content;
+            this.dataSource = ResponseToDataSource<Lancamento>(response);
           }
         });
   }
@@ -32,16 +33,16 @@ export class LancamentosComponent implements OnInit {
     if (observable) {
       observable.subscribe((response: any) => {
         if (response && response.content) {
-          this.lancamentos = response.content;
+          this.dataSource = ResponseToDataSource<Lancamento>(response);
         }
       });
     }
   }
 
   private filtroValido(filtro: LancamentosFiltro) {
-    return filtro && notUndefined(filtro.descricao)
-      || notUndefined(filtro.dataVencimentoDe)
-      || notUndefined(filtro.dataVencimentoAte);
+    return filtro && notEmpty(filtro.descricao)
+      || notEmpty(filtro.dataVencimentoDe)
+      || notEmpty(filtro.dataVencimentoAte);
   }
 
 }

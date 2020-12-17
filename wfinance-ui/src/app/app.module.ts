@@ -5,9 +5,9 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {registerLocaleData} from "@angular/common";
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_ROUTING_PROVIDER, ROUTING} from './app.routing';
-import {DatePickerCustomAdapter} from "./shared/utils/date-picker-custom-adapter";
+import {DatePickerCustomAdapter} from "./shared/utils/datepicker/date-picker-custom-adapter";
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {DatePickerCustomDateParserFormatter} from "./shared/utils/date-picker-custom-date-parser-formatter";
+import {DatePickerCustomDateParserFormatter} from "./shared/utils/datepicker/date-picker-custom-date-parser-formatter";
 
 registerLocaleData(ptBr);
 

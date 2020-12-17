@@ -1,5 +1,5 @@
-import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
 import {Categoria} from "../../categoria.model";
+import {AfterContentChecked, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'wf-categorias-tabela-dados',
@@ -7,6 +7,7 @@ import {Categoria} from "../../categoria.model";
 })
 export class CategoriasTabelaDadosComponent implements AfterContentChecked {
 
+  /// TODO: USAR DataSourceTable
   @Input()
   readonly dataSource: Categoria[] = [];
 
@@ -21,6 +22,7 @@ export class CategoriasTabelaDadosComponent implements AfterContentChecked {
     this.pageChange();
   }
 
+  /// TODO: CORRIGIR PAGINAÇÃO LAZY
   pageChange() {
     this.collectionSize = this.dataSource.length;
     this.categorias = this.dataSource

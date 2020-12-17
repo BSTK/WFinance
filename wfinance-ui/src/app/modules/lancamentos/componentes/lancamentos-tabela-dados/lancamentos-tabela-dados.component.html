@@ -1,5 +1,8 @@
 <div class="table-responsive mt-4">
   <table class="table table-striped">
+    <caption *ngIf="lancamentos.length === 0">
+      Não há lançamentos cadastrados.
+    </caption>
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -44,7 +47,7 @@
                     [(page)]="page"
                     [pageSize]="pageSize"
                     [collectionSize]="collectionSize"
-                    (pageChange)="pageChange()">
+                    (pageChange)="pageChange($event)">
     </ngb-pagination>
   </div>
 </div>

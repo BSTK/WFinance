@@ -1,5 +1,5 @@
-import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
 import {Pessoa} from "../../pessoa.model";
+import {AfterContentChecked, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'wf-pessoas-tabela-dados',
@@ -8,6 +8,7 @@ import {Pessoa} from "../../pessoa.model";
 })
 export class PessoasTabelaDadosComponent implements AfterContentChecked {
 
+  /// TODO: USAR DataSourceTable
   @Input()
   readonly dataSource: Pessoa[] = [];
 
@@ -22,6 +23,7 @@ export class PessoasTabelaDadosComponent implements AfterContentChecked {
     this.pageChange();
   }
 
+  /// TODO: CORRIGIR PAGINAÇÃO LAZY
   pageChange() {
     this.collectionSize = this.dataSource.length;
     this.pessoas = this.dataSource
