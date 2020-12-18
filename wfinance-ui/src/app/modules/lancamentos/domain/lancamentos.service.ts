@@ -1,5 +1,6 @@
 import {Observable} from "rxjs";
 import {Injectable} from '@angular/core';
+import {Lancamento} from "./lancamento.model";
 import {notEmpty} from "../../../shared/utils/object-utils";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../../api";
@@ -46,6 +47,13 @@ export class LancamentosService {
     }
 
     return this.httpClient.get<any[]>(Api.URLS.lancamentos.resumo, { headers, params });
+  }
+
+  excluir(lancamento: Lancamento): Observable<void> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.delete<void>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, { headers });
   }
 
 }

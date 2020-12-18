@@ -39,6 +39,22 @@ export class LancamentosComponent implements OnInit {
     }
   }
 
+  excluir(lancamento: Lancamento) {
+    if (lancamento) {
+      this.lancamentosService.excluir(lancamento).subscribe(_ => {
+        /// TODO: IMPLEMENTAR TOAST
+        console.log('Lançamento excluido com sucesso!!');
+      });
+    }
+  }
+
+  /// TODO: IMPLEMENTAR MÉTODO DE ATUALIZAR
+  editar(lancamento: Lancamento) {
+    if (lancamento) {
+      console.log('Editando lancamento : ', lancamento);
+    }
+  }
+
   private filtroValido(filtro: LancamentosFiltro) {
     return filtro && notEmpty(filtro.descricao)
       || notEmpty(filtro.dataVencimentoDe)

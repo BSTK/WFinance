@@ -1,5 +1,5 @@
 import {Lancamento} from "../../domain/lancamento.model";
-import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, EventEmitter, Input, Output} from '@angular/core';
 import {DataSourceTable} from "../../../../shared/utils/tables/data-source-table.model";
 import {notEmpty} from "../../../../shared/utils/arrays-utils";
 
@@ -12,6 +12,12 @@ export class LancamentosTabelaDadosComponent implements AfterContentChecked {
 
   @Input()
   readonly dataSource: DataSourceTable<Lancamento> = new DataSourceTable<Lancamento>();
+
+  @Output()
+  readonly editarLancamento: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  readonly excluirLancamento: EventEmitter<any> = new EventEmitter<any>();
 
   page = 1;
   pageSize = 5;
@@ -31,6 +37,18 @@ export class LancamentosTabelaDadosComponent implements AfterContentChecked {
       this.pageSize = this.dataSource.totalItensPagina;
       this.collectionSize = this.dataSource.totalRegistros;
       this.lancamentos = this.dataSource.conteudo.slice($event + this.page, this.pageSize);
+    }
+  }
+
+  excluir(lancamento: Lancamento) {
+    if (lancamento) {
+      this.excluirLancamento.emit(lancamento);
+    }
+  }
+
+  editar(lancamento: Lancamento) {
+    if (lancamento) {
+      this.editarLancamento.emit(lancamento);
     }
   }
 
