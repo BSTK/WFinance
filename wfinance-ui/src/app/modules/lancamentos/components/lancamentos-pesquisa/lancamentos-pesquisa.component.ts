@@ -1,5 +1,7 @@
+import {Router} from "@angular/router";
 import {LancamentosFiltro} from "./lancamentos-filtro.model";
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {navigationExtras} from "../../../../shared/router/router-navigation";
 
 @Component({
   selector: 'wf-lancamentos-pesquisa',
@@ -11,14 +13,15 @@ export class LancamentosPesquisaComponent implements OnInit {
   readonly filtro: LancamentosFiltro = new LancamentosFiltro();
 
   @Output()
-  readonly buscarLancamentos: EventEmitter<any> = new EventEmitter<any>();
+  readonly eventPesquisar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
-  buscarDados() {
-    this.buscarLancamentos.emit(this.filtro);
+  pesquisar() {
+    this.router.navigate([], navigationExtras(this.filtro));
+    this.eventPesquisar.emit(this.filtro);
   }
 
 }
