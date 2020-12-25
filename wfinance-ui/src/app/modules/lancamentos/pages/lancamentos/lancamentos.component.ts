@@ -4,6 +4,7 @@ import {notEmpty} from "../../../../shared/utils/object-utils";
 import {LancamentosService} from "../../domain/lancamentos.service";
 import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
 import {DataSourceTable, ResponseToDataSource} from "../../../../shared/utils/tables/data-source-table.model";
+import {DataTablePaginacaoDefault} from "../../../../shared/components/data-table/data-table-paginacao-default.model";
 
 @Component({
   selector: 'app-lancamentos',
@@ -17,22 +18,18 @@ export class LancamentosComponent implements OnInit {
 
   ngOnInit() {
     this.lancamentosService
-        .paginacao(1)
+        .lancamentos(DataTablePaginacaoDefault.paginacao(0))
         .subscribe((response: any) => {
-          const responseOK = {
-            number: 1,
-            totalElements: 50,
-            content: response
-          };
-
-          this.dataSource = ResponseToDataSource<Lancamento>(responseOK);
+          if (response && response.content) {
+            this.dataSource = ResponseToDataSource<Lancamento>(response);
+          }
         });
   }
 
   buscarLancamentos(filtro: LancamentosFiltro) {
     const observable = this.filtroValido(filtro)
-      ? this.lancamentosService.resumo(filtro)
-      : this.lancamentosService.paginacao(1);
+      ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.paginacao(0))
+      : this.lancamentosService.lancamentos(DataTablePaginacaoDefault.paginacao(0));
 
     if (observable) {
       observable.subscribe((response: any) => {
@@ -45,15 +42,11 @@ export class LancamentosComponent implements OnInit {
 
   paginacao(pagina: number) {
     this.lancamentosService
-      .paginacao(pagina)
+      .lancamentos(DataTablePaginacaoDefault.paginacao(pagina))
       .subscribe((response: any) => {
-        const responseOK = {
-          number: 1,
-          totalElements: 50,
-          content: response
-        };
-
-        this.dataSource = ResponseToDataSource<Lancamento>(responseOK);
+        if (response && response.content) {
+          this.dataSource = ResponseToDataSource<Lancamento>(response);
+        }
       });
   }
 
