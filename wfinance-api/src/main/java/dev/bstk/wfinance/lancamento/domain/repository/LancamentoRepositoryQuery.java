@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface LancamentoRepositoryQuery {
 
+    String QUERY_COUNT = "SELECT count(*) FROM Lancamento l ";
+
     String QUERY_FILTRO = "SELECT l FROM Lancamento l JOIN FETCH l.pessoa JOIN FETCH l.categoria";
 
     String QUERY_RESUMO = "SELECT NEW dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento("

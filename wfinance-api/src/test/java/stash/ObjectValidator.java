@@ -6,11 +6,47 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class ObjectValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjectValidator.class);
+
+    public static class MazeLocation {
+        public int column;
+        public int row;
+    }
+
+    public static class Goal {
+        public int column;
+        public int row;
+    }
+
+    public double euclideanDistance(final MazeLocation localizacao, final Goal goal) {
+        int distanciaY = Math.abs(localizacao.row - goal.row);
+        int distanciaX = Math.abs(localizacao.column - goal.column);
+        return (distanciaX + distanciaY);
+    }
+
+    public static <T extends Comparable<T>> boolean contains(final List<T> lista, final T chave) {
+        int low = 0;
+        int high = lista.size() - 1;
+
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            int comparison = lista.get(middle).compareTo(chave);
+            if (comparison < 0) {
+                low = middle + 1;
+            } else if (comparison > 0) {
+                high = middle - 1;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public static void execute(final Object objeto) {
         try {

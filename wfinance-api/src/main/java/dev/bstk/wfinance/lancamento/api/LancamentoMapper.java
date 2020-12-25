@@ -4,10 +4,13 @@ import dev.bstk.wfinance.core.Mapper;
 import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
+import dev.bstk.wfinance.lancamento.api.response.ResumoLancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
+import dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -63,6 +66,23 @@ public class LancamentoMapper extends Mapper {
         final var lancamentosResponse = response(lancamentos.getContent());
         return new PageImpl<>(lancamentosResponse,
                               lancamentos.getPageable(),
-                              lancamentosResponse.size());
+                              lancamentos.getTotalElements());
+    }
+
+    public static Page<ResumoLancamentoResponse> responseResumo(final Page<ResumoLancamento> lancamentos) {
+        final var resumoLancamentos = lancamentos.getContent();
+
+        List<ResumoLancamentoResponse> resumoLancamentosResponse = new ArrayList<>();
+
+        for (ResumoLancamento resumoLancamento : resumoLancamentos) {
+            ResumoLancamentoResponse response = map(resumoLancamento, ResumoLancamentoResponse.class);
+            response.setCategoria(resumoLancamento.getCategoria());
+            response.setPessoa(resumoLancamento.getPessoa());
+            resumoLancamentosResponse.add(response);
+        }
+
+        return new PageImpl<>(resumoLancamentosResponse,
+                              lancamentos.getPageable(),
+                              resumoLancamentosResponse.size());
     }
 }
