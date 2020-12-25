@@ -17,18 +17,22 @@ export class LancamentosComponent implements OnInit {
 
   ngOnInit() {
     this.lancamentosService
-        .lancamentos()
+        .paginacao(1)
         .subscribe((response: any) => {
-          if (response && response.content) {
-            this.dataSource = ResponseToDataSource<Lancamento>(response);
-          }
+          const responseOK = {
+            number: 1,
+            totalElements: 50,
+            content: response
+          };
+
+          this.dataSource = ResponseToDataSource<Lancamento>(responseOK);
         });
   }
 
   buscarLancamentos(filtro: LancamentosFiltro) {
     const observable = this.filtroValido(filtro)
       ? this.lancamentosService.resumo(filtro)
-      : this.lancamentosService.lancamentos();
+      : this.lancamentosService.paginacao(1);
 
     if (observable) {
       observable.subscribe((response: any) => {
@@ -37,6 +41,20 @@ export class LancamentosComponent implements OnInit {
         }
       });
     }
+  }
+
+  paginacao(pagina: number) {
+    this.lancamentosService
+      .paginacao(pagina)
+      .subscribe((response: any) => {
+        const responseOK = {
+          number: 1,
+          totalElements: 50,
+          content: response
+        };
+
+        this.dataSource = ResponseToDataSource<Lancamento>(responseOK);
+      });
   }
 
   excluir(lancamento: Lancamento) {

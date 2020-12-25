@@ -16,8 +16,9 @@
             </wf-lancamentos-pesquisa>
 
             <wf-lancamentos-tabela-dados [dataSource]="dataSource"
-                                         (editarLancamento)="editar($event)"
-                                         (excluirLancamento)="excluir($event)">
+                                         (eventEditar)="editar($event)"
+                                         (eventExcluir)="excluir($event)"
+                                         (eventPaginacao)="paginacao($event)">
             </wf-lancamentos-tabela-dados>
           </div>
         </div>

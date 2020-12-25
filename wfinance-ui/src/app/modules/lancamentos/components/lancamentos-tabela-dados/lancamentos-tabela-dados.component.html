@@ -1,6 +1,6 @@
 <div class="table-responsive mt-4">
   <table class="table table-striped">
-    <caption *ngIf="lancamentos.length === 0">
+    <caption *ngIf="dados.length === 0">
       Não há lançamentos cadastrados.
     </caption>
     <thead>
@@ -15,7 +15,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let lancamento of lancamentos">
+    <tr *ngFor="let lancamento of dados">
       <td>
         <span class="icon">
           <em class="fas " [ngClass]="lancamento.tipo === 'RECEITA'
@@ -47,7 +47,7 @@
                     [(page)]="page"
                     [pageSize]="pageSize"
                     [collectionSize]="collectionSize"
-                    (pageChange)="pageChange($event)">
+                    (pageChange)="paginacao($event)">
     </ngb-pagination>
   </div>
 </div>

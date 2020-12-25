@@ -4,7 +4,6 @@ export const ResponseToDataSource = <T>(response: any): DataSourceTable<T>  => {
   dataSource.pagina = response.number | 0;
   dataSource.conteudo = response.content  || [];
   dataSource.totalRegistros = response.totalElements | 0;
-
   return dataSource;
 };
 
