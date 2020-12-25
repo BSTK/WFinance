@@ -31,15 +31,15 @@ export class LancamentosComponent implements OnInit {
   }
 
   pesquisar(filtro: LancamentosFiltro) {
-    if (this.filtroValido(filtro)) {
-      this.lancamentosService
-        .resumo(filtro, DataTablePaginacaoDefault.pagina())
-        .subscribe((response: any) => {
-          if (response && response.content) {
-            this.dataSource = ResponseToDataSource<Lancamento>(response);
-          }
-        });
-    }
+    const observable = this.filtroValido(filtro)
+      ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.pagina())
+      : this.lancamentosService.lancamentos(DataTablePaginacaoDefault.pagina());
+
+    observable.subscribe((response: any) => {
+      if (response && response.content) {
+        this.dataSource = ResponseToDataSource<Lancamento>(response);
+      }
+    });
   }
 
   paginacao(pagina: number) {
