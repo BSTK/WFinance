@@ -1,9 +1,9 @@
 export const ResponseToDataSource = <T>(response: any): DataSourceTable<T>  => {
   const dataSource = new DataSourceTable<T>();
-  dataSource.pagina = response.number | 0;
+  dataSource.pagina = response.number;
   dataSource.totalItensPagina = response.size;
-  dataSource.conteudo = response.content  || [];
-  dataSource.totalRegistros = response.totalElements | 0;
+  dataSource.conteudo = response.content;
+  dataSource.totalRegistros = response.totalElements - 2;
   return dataSource;
 };
 

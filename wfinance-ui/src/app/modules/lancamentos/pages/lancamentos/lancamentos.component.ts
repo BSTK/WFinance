@@ -18,7 +18,7 @@ export class LancamentosComponent implements OnInit {
 
   ngOnInit() {
     this.lancamentosService
-        .lancamentos(DataTablePaginacaoDefault.paginacao(0))
+        .lancamentos(DataTablePaginacaoDefault.pagina())
         .subscribe((response: any) => {
           if (response && response.content) {
             this.dataSource = ResponseToDataSource<Lancamento>(response);
@@ -28,8 +28,8 @@ export class LancamentosComponent implements OnInit {
 
   buscarLancamentos(filtro: LancamentosFiltro) {
     const observable = this.filtroValido(filtro)
-      ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.paginacao(0))
-      : this.lancamentosService.lancamentos(DataTablePaginacaoDefault.paginacao(0));
+      ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.pagina())
+      : this.lancamentosService.lancamentos(DataTablePaginacaoDefault.pagina());
 
     if (observable) {
       observable.subscribe((response: any) => {
@@ -42,7 +42,7 @@ export class LancamentosComponent implements OnInit {
 
   paginacao(pagina: number) {
     this.lancamentosService
-      .lancamentos(DataTablePaginacaoDefault.paginacao(pagina))
+      .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
       .subscribe((response: any) => {
         if (response && response.content) {
           this.dataSource = ResponseToDataSource<Lancamento>(response);

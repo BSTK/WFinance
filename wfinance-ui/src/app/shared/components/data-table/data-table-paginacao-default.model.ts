@@ -2,7 +2,7 @@ import {Paginacao} from "../../utils/paginacao";
 
 export class DataTablePaginacaoDefault {
 
-  static paginacao(pagina: number): Paginacao {
+  static pagina(pagina: number = 1): Paginacao {
     return {
       pagina: pagina,
       itensPorPagina: 5
