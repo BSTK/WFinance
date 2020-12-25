@@ -1,6 +1,6 @@
 import {notEmpty} from "../../utils/arrays-utils";
 import {EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {DataSourceTable} from "../../utils/tables/data-source-table.model";
+import {DataSourceTable} from "./data-source.model";
 
 export abstract class DataTableComponent<T = any> implements OnChanges {
 

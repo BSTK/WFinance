@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PessoasService} from "../../domain/pessoas.service";
 import {Pessoa, PessoasFiltro} from "../../domain/pessoa.model";
 import {notUndefined} from "../../../../shared/utils/object-utils";
-import {DataSourceTable, ResponseToDataSource} from "../../../../shared/utils/tables/data-source-table.model";
+import {DataSourceTable, ResponseToDataSource} from "../../../../shared/components/data-table/data-source.model";
 
 @Component({
   selector: 'wf-pessoas',

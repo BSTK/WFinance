@@ -1,6 +1,6 @@
 import {Pessoa} from "../../domain/pessoa.model";
 import {AfterContentChecked, Component, Input} from '@angular/core';
-import {DataSourceTable} from "../../../../shared/utils/tables/data-source-table.model";
+import {DataSourceTable} from "../../../../shared/components/data-table/data-source.model";
 
 @Component({
   selector: 'wf-pessoas-tabela-dados',

@@ -3,7 +3,7 @@ import {Lancamento} from "../../domain/lancamento.model";
 import {notEmpty} from "../../../../shared/utils/object-utils";
 import {LancamentosService} from "../../domain/lancamentos.service";
 import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
-import {DataSourceTable, ResponseToDataSource} from "../../../../shared/utils/tables/data-source-table.model";
+import {DataSourceTable, ResponseToDataSource} from "../../../../shared/components/data-table/data-source.model";
 import {DataTablePaginacaoDefault} from "../../../../shared/components/data-table/data-table-paginacao-default.model";
 
 @Component({
