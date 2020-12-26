@@ -1,3 +1,4 @@
+import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Lancamento} from "../../domain/lancamento.model";
@@ -17,6 +18,7 @@ export class LancamentosComponent implements OnInit {
   dataSource: DataSourceTable<Lancamento> = new DataSourceTable<Lancamento>();
 
   constructor(private router: Router,
+              private toast: ToastrService,
               private activatedRoute: ActivatedRoute,
               private lancamentosService: LancamentosService) { }
 
@@ -72,11 +74,19 @@ export class LancamentosComponent implements OnInit {
     }
   }
 
+  /// TODO: ADICIONAR CONFIRM DIALOG
+  /// TODO: CORRIGIR CARREGAMENTO DE PAGINAÇÃO
   excluir(lancamento: Lancamento) {
     if (lancamento) {
       this.lancamentosService.excluir(lancamento).subscribe(_ => {
-        /// TODO: IMPLEMENTAR TOAST
-        console.log('Lançamento excluido com sucesso!!');
+        const index = this.dataSource.conteudo.indexOf(lancamento, 1);
+        if (index >= 0) {
+          this.dataSource.conteudo.splice(index, 1);
+          this.toast.success(
+            'Lançamento excluído com sucesso!',
+            'Exclusão de lançamento'
+          );
+        }
       });
     }
   }

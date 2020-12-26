@@ -29,6 +29,7 @@
               "src/assets/img"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "src/assets/vendor/fontawesome-free/css/all.min.css",
               "src/styles.scss"
             ],

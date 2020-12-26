@@ -1,3 +1,4 @@
+import {ToastrModule} from 'ngx-toastr';
 import {AppComponent} from './app.component';
 import {CoreModule} from "./core/core.module";
 import ptBr from '@angular/common/locales/pt';
@@ -5,6 +6,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {registerLocaleData} from "@angular/common";
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_ROUTING_PROVIDER, ROUTING} from './app.routing';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DatePickerCustomAdapter} from "./shared/utils/datepicker/date-picker-custom-adapter";
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePickerCustomDateParserFormatter} from "./shared/utils/datepicker/date-picker-custom-date-parser-formatter";
@@ -19,7 +21,9 @@ registerLocaleData(ptBr);
     ROUTING,
     NgbModule,
     CoreModule,
-    BrowserModule
+    BrowserModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     APP_ROUTING_PROVIDER,
