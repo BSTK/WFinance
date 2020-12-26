@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {Injectable} from '@angular/core';
+import {Paginacao} from "../../../shared";
 import {Lancamento} from "./lancamento.model";
-import {Paginacao} from "../../../shared/utils/paginacao";
 import {notEmpty} from "../../../shared/utils/object-utils";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../../api";
@@ -28,7 +28,7 @@ export class LancamentosService {
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
 
-    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { headers, params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos.concat('/djjd'), { headers, params });
   }
 
   resumo(filtro: LancamentosFiltro, paginacao: Paginacao): Observable<any[]> {
