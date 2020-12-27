@@ -1,5 +1,5 @@
 import {NavigationExtras} from "@angular/router";
-import {isUndefined} from "../utils/object-utils";
+import {isNull} from "../utils/object-utils";
 import {LancamentosFiltro} from "../../modules/lancamentos/components/lancamentos-pesquisa/lancamentos-filtro.model";
 
 export enum NavigateQuery {
@@ -29,7 +29,7 @@ const navigationExtrasPesquisa = (filtro: LancamentosFiltro): NavigationExtras =
 };
 
 export const navigationExtras = (filtro: LancamentosFiltro = undefined): NavigationExtras => {
-  return isUndefined(filtro)
+  return isNull(filtro)
     ? navigationExtrasTodos()
     : navigationExtrasPesquisa(filtro);
 };

@@ -21,6 +21,7 @@ export class LancamentosService {
   constructor(private httpClient: HttpClient) { }
 
   lancamentos(paginacao: Paginacao): Observable<any[]> {
+    console.log('lancamentos() => paginacao: ', paginacao);
     const headers = new HttpHeaders()
       .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
 
@@ -28,7 +29,7 @@ export class LancamentosService {
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
 
-    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos.concat('/djjd'), { headers, params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { headers, params });
   }
 
   resumo(filtro: LancamentosFiltro, paginacao: Paginacao): Observable<any[]> {

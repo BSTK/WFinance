@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {NgbDateAdapter, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {formataComZero} from "./date-picker-utils";
+import {NgbDateAdapter, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable()
 export class DatePickerCustomAdapter extends NgbDateAdapter<string> {

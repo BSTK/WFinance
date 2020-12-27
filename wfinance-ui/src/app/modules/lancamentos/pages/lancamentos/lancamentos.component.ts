@@ -1,6 +1,12 @@
 import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
-import {DataSourceTable, DataTablePaginacaoDefault, NavigateQuery, ResponseToDataSource} from '../../../../shared';
+import {
+  DataSourceTable,
+  DataTablePaginacaoDefault,
+  NavigateQuery,
+  navigationExtras,
+  ResponseToDataSource
+} from '../../../../shared';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Lancamento} from "../../domain/lancamento.model";
 import {notEmpty} from "../../../../shared/utils/object-utils";
@@ -21,6 +27,7 @@ export class LancamentosComponent implements OnInit {
               private lancamentosService: LancamentosService) { }
 
   ngOnInit() {
+    this.router.navigate([], navigationExtras());
     this.lancamentosService
         .lancamentos(DataTablePaginacaoDefault.pagina())
         .subscribe((response: any) => {
@@ -46,6 +53,7 @@ export class LancamentosComponent implements OnInit {
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query');
 
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam) {
+      console.log('Paginação TODOS => Pagina: ', pagina);
       this.lancamentosService
         .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
         .subscribe((response: any) => {
@@ -56,6 +64,7 @@ export class LancamentosComponent implements OnInit {
     }
 
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
+      console.log('Paginação PESQUISA => Pagina: ', pagina);
       const filtro: LancamentosFiltro = {
         descricao: this.activatedRoute.snapshot.queryParamMap.get('descricao'),
         dataVencimentoDe: this.activatedRoute.snapshot.queryParamMap.get('dataVencimentoDe'),

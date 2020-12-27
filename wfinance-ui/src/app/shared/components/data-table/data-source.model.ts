@@ -3,7 +3,7 @@ export const ResponseToDataSource = <T>(response: any): DataSourceTable<T>  => {
   dataSource.pagina = response.number;
   dataSource.totalItensPagina = response.size;
   dataSource.conteudo = response.content;
-  dataSource.totalRegistros = (response.totalElements - 2);
+  dataSource.totalRegistros = response.totalElements;
   return dataSource;
 };
 

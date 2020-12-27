@@ -1,4 +1,4 @@
-import {Paginacao} from "../../utils/paginacao";
+import {Paginacao} from "../..";
 
 export class DataTablePaginacaoDefault {
 

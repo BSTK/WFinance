@@ -17,6 +17,7 @@ export class PessoasPesquisaComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /// TODO: IMPLEMENTAR PESQUISA DE FORNECEDORES
   buscarDados() {
     this.buscarPessoas.emit(this.filtro);
   }

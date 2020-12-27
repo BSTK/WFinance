@@ -22,6 +22,9 @@ export class CategoriasTabelaDadosComponent implements AfterContentChecked {
     this.pageChange();
   }
 
+  /// TODO: IMPLEMENTAR EDIÇÃO DA CATEGORIAS
+  /// TODO: IMPLEMENTAR EXCLUSÃO DA CATEGORIAS
+  /// TODO: IMPLEMENTAR PAGINAÇÃO DE CATEGORIAS
   /// TODO: CORRIGIR PAGINAÇÃO LAZY
   pageChange() {
     this.collectionSize = this.dataSource.length;

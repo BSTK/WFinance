@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PessoasService} from "../../domain/pessoas.service";
 import {Pessoa, PessoasFiltro} from "../../domain/pessoa.model";
-import {notUndefined} from "../../../../shared/utils/object-utils";
+import {notNull} from "../../../../shared/utils/object-utils";
 import {DataSourceTable, ResponseToDataSource} from "../../../../shared/components/data-table/data-source.model";
 
 @Component({
@@ -32,7 +32,7 @@ export class PessoasComponent implements OnInit {
 
   /// TODO: IMPLEMENTAR PAGINAÇÃO PARA PESQUISA DE PESSOAS
   buscarPessoas(filtro: PessoasFiltro) {
-    if (notUndefined(filtro)) {
+    if (notNull(filtro)) {
       this.pessoasService
         .pessoasPorNome(filtro)
         .subscribe((response: Pessoa[]) => {

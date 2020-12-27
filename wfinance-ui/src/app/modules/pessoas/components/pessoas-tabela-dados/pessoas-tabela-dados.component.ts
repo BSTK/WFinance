@@ -24,6 +24,9 @@ export class PessoasTabelaDadosComponent implements AfterContentChecked {
     this.pageChange();
   }
 
+  /// TODO: IMPLEMENTAR EDIÇÃO DA FORNECEDORES
+  /// TODO: IMPLEMENTAR EXCLUSÃO DA FORNECEDORES
+  /// TODO: IMPLEMENTAR PAGINAÇÃO DE FORNECEDORES
   /// TODO: CORRIGIR PAGINAÇÃO LAZY
   pageChange() {
     if (this.dataSource && this.dataSource.conteudo) {
