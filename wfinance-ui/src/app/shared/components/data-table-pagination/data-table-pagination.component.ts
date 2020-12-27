@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {isEmpty} from "../../utils/object-utils";
 
 @Component({
   selector: 'wf-data-table-pagination',
@@ -16,7 +18,7 @@ export class DataTablePaginationComponent implements OnChanges {
   paginaFinal: number = 1;
   totalPaginas: number[] = [];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnChanges(): void {
     const moduloTotalPaginas = (this.totalRegistros % this.itensPorPagina);
@@ -31,6 +33,9 @@ export class DataTablePaginationComponent implements OnChanges {
       : 0;
 
     this.totalPaginas = [...Array(rangeTotalPaginas).keys()];
+
+    const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
+    this.paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
   }
 
   onPageChange(pagina: number) {

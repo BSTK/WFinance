@@ -1,19 +1,19 @@
 import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {Lancamento} from "../../domain/lancamento.model";
+import {isEmpty} from "../../../../shared/utils/object-utils";
+import {LancamentosService} from "../../domain/lancamentos.service";
+import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
 import {
   DataSourceTable,
   DataTablePaginacaoDefault,
   NavigateQuery,
-  navigationExtras,
+  navigationExtrasPagina,
   ResponseToDataSource
 } from '../../../../shared';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Lancamento} from "../../domain/lancamento.model";
-import {notEmpty} from "../../../../shared/utils/object-utils";
-import {LancamentosService} from "../../domain/lancamentos.service";
-import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
-import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from "../../../../shared/components/dialog/confirm-dialog-config";
+import {confirmDialogConfigExclusao, filtroValido, lancamentoFiltroQueryParam} from "../../domain/lancamento.helper";
 
 @Component({
   selector: 'app-lancamentos',
@@ -30,18 +30,13 @@ export class LancamentosComponent implements OnInit {
               private lancamentosService: LancamentosService) { }
 
   ngOnInit() {
-    this.router.navigate([], navigationExtras());
-    this.lancamentosService
-        .lancamentos(DataTablePaginacaoDefault.pagina())
-        .subscribe((response: any) => {
-          if (response && response.content) {
-            this.dataSource = ResponseToDataSource<Lancamento>(response);
-          }
-        });
+    const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
+    const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
+    this.paginacao(paginaAtual);
   }
 
   pesquisar(filtro: LancamentosFiltro) {
-    const observable = this.filtroValido(filtro)
+    const observable = filtroValido(filtro)
       ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.pagina())
       : this.lancamentosService.lancamentos(DataTablePaginacaoDefault.pagina());
 
@@ -53,61 +48,34 @@ export class LancamentosComponent implements OnInit {
   }
 
   paginacao(pagina: number) {
-    const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query');
+    this.router.navigate([], navigationExtrasPagina(pagina));
+    const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
 
-    if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam) {
-      this.lancamentosService
-        .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
-        .subscribe((response: any) => {
-          if (response && response.content) {
-            this.dataSource = ResponseToDataSource<Lancamento>(response);
-          }
-        });
+    if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
+      this.carregarTodosLancamentos(pagina);
     }
 
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
-      const filtro: LancamentosFiltro = {
-        descricao: this.activatedRoute.snapshot.queryParamMap.get('descricao'),
-        dataVencimentoDe: this.activatedRoute.snapshot.queryParamMap.get('dataVencimentoDe'),
-        dataVencimentoAte: this.activatedRoute.snapshot.queryParamMap.get('dataVencimentoAte')
-      };
-
-      this.lancamentosService
-        .resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
-        .subscribe((response: any) => {
-          if (response && response.content) {
-            this.dataSource = ResponseToDataSource<Lancamento>(response);
-          }
-        });
+      this.carregarPesquisaLancamentos(pagina);
     }
   }
 
-  /// TODO: ADICIONAR CONFIRM DIALOG
-  /// TODO: CORRIGIR CARREGAMENTO DE PAGINAÇÃO
   excluir(lancamento: Lancamento) {
     if (lancamento) {
-      const confirmDialoConfig: ConfirmDialogConfig = {
-        titulo: 'Deseja excluir lancamento?',
-        texto: `Excluindo lançamento de "${ lancamento.pessoa.nome }" no valor de "R$ ${ lancamento.valor }"`,
-        tipo: ConfirmDialogConfigTipo.EXCLUSAO
-      };
-
-      this.dialogService.confirm(confirmDialoConfig).subscribe(resultado => {
-        console.log('Deseja excluir lancamento ? ', resultado);
-
-      /*
-      this.lancamentosService.excluir(lancamento).subscribe(_ => {
-          const index = this.dataSource.conteudo.indexOf(lancamento, 1);
-          if (index >= 0) {
-            this.dataSource.conteudo.splice(index, 1);
-            this.toast.success(
-              'Lançamento excluído com sucesso!',
-              'Exclusão de lançamento'
-            );
-          }
-        });
-       */
-
+      const dialogConfig = confirmDialogConfigExclusao(lancamento);
+      this.dialogService.confirm(dialogConfig).subscribe(resultado => {
+        if (resultado) {
+          this.lancamentosService.excluir(lancamento).subscribe(_ => {
+            const index = this.dataSource.conteudo.indexOf(lancamento, 1);
+            if (index >= 0) {
+              this.dataSource.conteudo.splice(index, 1);
+              this.toast.success(
+                'Lançamento excluído com sucesso!',
+                'Exclusão de lançamento'
+              );
+            }
+          });
+        }
       });
     }
   }
@@ -119,10 +87,25 @@ export class LancamentosComponent implements OnInit {
     }
   }
 
-  private filtroValido(filtro: LancamentosFiltro) {
-    return filtro && notEmpty(filtro.descricao)
-      || notEmpty(filtro.dataVencimentoDe)
-      || notEmpty(filtro.dataVencimentoAte);
+  private carregarTodosLancamentos(pagina: number) {
+    this.lancamentosService
+      .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
+      .subscribe((response: any) => {
+        if (response && response.content) {
+          this.dataSource = ResponseToDataSource<Lancamento>(response);
+        }
+      });
+  }
+
+  private carregarPesquisaLancamentos(pagina: number) {
+    const filtro: LancamentosFiltro = lancamentoFiltroQueryParam(this.activatedRoute.snapshot.queryParamMap);
+    this.lancamentosService
+      .resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
+      .subscribe((response: any) => {
+        if (response && response.content) {
+          this.dataSource = ResponseToDataSource<Lancamento>(response);
+        }
+      });
   }
 
 }

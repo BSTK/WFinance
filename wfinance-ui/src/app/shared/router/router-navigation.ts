@@ -28,6 +28,14 @@ const navigationExtrasPesquisa = (filtro: LancamentosFiltro): NavigationExtras =
   };
 };
 
+export const navigationExtrasPagina = (pagina: number): NavigationExtras => {
+  return {
+    queryParams: { pagina: pagina },
+    queryParamsHandling: 'merge',
+    replaceUrl: true
+  };
+};
+
 export const navigationExtras = (filtro: LancamentosFiltro = undefined): NavigationExtras => {
   return isNull(filtro)
     ? navigationExtrasTodos()
