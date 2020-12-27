@@ -1,10 +1,20 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{ titulo }}</h4>
-</div>
-<div class="modal-body">
-  {{ mensagem }}
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-light" (click)="activeModal.close('Close click')">Cancelar</button>
-  <button type="button" class="btn btn-outline-danger" (click)="activeModal.close('Close click')">Excluir</button>
+<div class="modal-confirm">
+  <div class="modal-header flex-column">
+    <div class="icon-box" [ngClass]="tipo === inclusao ? 'icon-box-ok' : 'icon-box-nok'">
+      <i class="material-icons" *ngIf="tipo === inclusao">&#xE876;</i>
+      <i class="material-icons" *ngIf="tipo === exclusao">&#xE5CD;</i>
+    </div>
+    <h4 class="modal-title w-100">{{ titulo }}</h4>
+  </div>
+
+  <div class="modal-body">
+    <p>{{ texto }}</p>
+  </div>
+
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
+    <button type="button" class="btn"
+            [ngClass]="tipo === inclusao ? 'btn-success' : 'btn-danger'"
+            data-dismiss="modal" (click)="sim()">Sim</button>
+  </div>
 </div>

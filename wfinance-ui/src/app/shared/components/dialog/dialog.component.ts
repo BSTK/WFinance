@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {ConfirmDialogConfigTipo} from "./confirm-dialog-config";
 
 @Component({
   selector: 'wf-dialog',
@@ -8,24 +9,23 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class DialogComponent implements OnInit {
 
+  readonly inclusao: ConfirmDialogConfigTipo = ConfirmDialogConfigTipo.INLUSAO;
+  readonly exclusao: ConfirmDialogConfigTipo = ConfirmDialogConfigTipo.EXCLUSAO;
+
+  @Input() readonly texto: string = '';
   @Input() readonly titulo: string = '';
-  @Input() readonly mensagem: string = '';
+  @Input() readonly tipo: ConfirmDialogConfigTipo = ConfirmDialogConfigTipo.INLUSAO;
 
-  @Output() readonly eventDialog: EventEmitter<any> = new EventEmitter<any>();
-  @Output() readonly eventDialogOK: EventEmitter<any> = new EventEmitter<any>();
-  @Output() readonly eventDialogNOK: EventEmitter<any> = new EventEmitter<any>();
-  @Output() readonly eventDialogCancelar: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit(): void { }
 
-  dialog() {
-    this.eventDialog.emit();
+  sim() {
+    this.activeModal.close(true);
   }
 
-  ok() {
-    this.eventDialogOK.emit(true);
+  cancelar() {
+    this.activeModal.close(false);
   }
 
 }

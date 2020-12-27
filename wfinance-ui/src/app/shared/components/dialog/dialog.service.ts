@@ -1,31 +1,29 @@
-import {Subject} from "rxjs";
+import {from, Observable} from "rxjs";
 import {Injectable} from '@angular/core';
-import {DialogConfig} from "./dialog-config";
+import {DialogComponent} from "./dialog.component";
+import {ConfirmDialogConfig} from "./confirm-dialog-config";
+import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
 
-  private subject = new Subject<any>();
+  constructor(private modalService: NgbModal) { }
 
-  constructor() { }
+  public confirm(config: ConfirmDialogConfig): Observable<boolean> {
+    const options: NgbModalOptions = {
+      size: 'md',
+      centered: true,
+      backdrop: 'static'
+    };
 
-  dialog(config: DialogConfig): any {
-    const dialog = this;
-    this.subject.next({
-      tipo: 'confirm',
-      titulo: config.titulo,
-      mensagem: config.mensagem,
-      sim(): any {
-        dialog.subject.next(true);
-      },
-      nao(): any {
-        dialog.subject.next(false);
-      },
-      cancelar(): any {
-        dialog.subject.next(false);
-      },
-    });
+    const dialogComponentRef = this.modalService.open(DialogComponent, options);
+    dialogComponentRef.componentInstance.tipo = config.tipo;
+    dialogComponentRef.componentInstance.texto = config.texto;
+    dialogComponentRef.componentInstance.titulo = config.titulo;
+
+    return from(dialogComponentRef.result);
   }
+
 }

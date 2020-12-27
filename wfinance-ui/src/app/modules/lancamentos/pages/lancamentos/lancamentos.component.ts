@@ -12,6 +12,8 @@ import {Lancamento} from "../../domain/lancamento.model";
 import {notEmpty} from "../../../../shared/utils/object-utils";
 import {LancamentosService} from "../../domain/lancamentos.service";
 import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
+import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from "../../../../shared/components/dialog/confirm-dialog-config";
 
 @Component({
   selector: 'app-lancamentos',
@@ -23,6 +25,7 @@ export class LancamentosComponent implements OnInit {
 
   constructor(private router: Router,
               private toast: ToastrService,
+              private dialogService: DialogService,
               private activatedRoute: ActivatedRoute,
               private lancamentosService: LancamentosService) { }
 
@@ -83,15 +86,28 @@ export class LancamentosComponent implements OnInit {
   /// TODO: CORRIGIR CARREGAMENTO DE PAGINAÇÃO
   excluir(lancamento: Lancamento) {
     if (lancamento) {
+      const confirmDialoConfig: ConfirmDialogConfig = {
+        titulo: 'Deseja excluir lancamento?',
+        texto: `Excluindo lançamento de "${ lancamento.pessoa.nome }" no valor de "R$ ${ lancamento.valor }"`,
+        tipo: ConfirmDialogConfigTipo.EXCLUSAO
+      };
+
+      this.dialogService.confirm(confirmDialoConfig).subscribe(resultado => {
+        console.log('Deseja excluir lancamento ? ', resultado);
+
+      /*
       this.lancamentosService.excluir(lancamento).subscribe(_ => {
-        const index = this.dataSource.conteudo.indexOf(lancamento, 1);
-        if (index >= 0) {
-          this.dataSource.conteudo.splice(index, 1);
-          this.toast.success(
-            'Lançamento excluído com sucesso!',
-            'Exclusão de lançamento'
-          );
-        }
+          const index = this.dataSource.conteudo.indexOf(lancamento, 1);
+          if (index >= 0) {
+            this.dataSource.conteudo.splice(index, 1);
+            this.toast.success(
+              'Lançamento excluído com sucesso!',
+              'Exclusão de lançamento'
+            );
+          }
+        });
+       */
+
       });
     }
   }
