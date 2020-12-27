@@ -53,7 +53,6 @@ export class LancamentosComponent implements OnInit {
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query');
 
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam) {
-      console.log('Paginação TODOS => Pagina: ', pagina);
       this.lancamentosService
         .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
         .subscribe((response: any) => {
@@ -64,7 +63,6 @@ export class LancamentosComponent implements OnInit {
     }
 
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
-      console.log('Paginação PESQUISA => Pagina: ', pagina);
       const filtro: LancamentosFiltro = {
         descricao: this.activatedRoute.snapshot.queryParamMap.get('descricao'),
         dataVencimentoDe: this.activatedRoute.snapshot.queryParamMap.get('dataVencimentoDe'),

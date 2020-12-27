@@ -1,6 +1,6 @@
 import {notEmpty} from "../../utils/arrays-utils";
-import {EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {DataSourceTable} from "./data-source.model";
+import {EventEmitter, Input, OnChanges, Output} from '@angular/core';
 
 export abstract class DataTableComponent<T = any> implements OnChanges {
 
@@ -11,7 +11,7 @@ export abstract class DataTableComponent<T = any> implements OnChanges {
 
   @Output() readonly eventEditar: EventEmitter<any> = new EventEmitter<any>();
   @Output() readonly eventExcluir: EventEmitter<any> = new EventEmitter<any>();
-  @Output() readonly eventPaginacao: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly eventPaginacao: EventEmitter<number> = new EventEmitter<number>();
 
   public dados: T[] = [];
 

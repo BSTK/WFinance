@@ -21,7 +21,6 @@ export class LancamentosService {
   constructor(private httpClient: HttpClient) { }
 
   lancamentos(paginacao: Paginacao): Observable<any[]> {
-    console.log('lancamentos() => paginacao: ', paginacao);
     const headers = new HttpHeaders()
       .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
 

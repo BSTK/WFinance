@@ -1,0 +1,16 @@
+<nav aria-label="Paginação">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="paginaAtual === 1 ? 'disabled' : ''">
+      <a class="page-link" (click)="anterior()">&laquo;</a>
+    </li>
+
+    <li class="page-item" [ngClass]="paginaAtual === (pagina + 1) ? 'active' : ''"
+        *ngFor="let pagina of totalPaginas">
+      <a class="page-link" (click)="onPageChange(pagina + 1)">{{ pagina + 1 }}</a>
+    </li>
+
+    <li class="page-item" [ngClass]="paginaAtual === paginaFinal ? 'disabled' : ''">
+      <a class="page-link" (click)="proximo()">&raquo;</a>
+    </li>
+  </ul>
+</nav>

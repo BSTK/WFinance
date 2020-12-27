@@ -1,0 +1,9 @@
+:host {
+  .disabled:hover {
+    cursor: not-allowed;
+  }
+
+  .page-link:hover {
+    cursor: pointer;
+  }
+}
