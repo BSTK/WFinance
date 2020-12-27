@@ -26,7 +26,11 @@ export class DataTablePaginationComponent implements OnChanges {
       ? Math.floor(divisaoTotalPaginas + 1)
       : Math.floor(divisaoTotalPaginas);
 
-    this.totalPaginas = [...Array(this.paginaFinal).keys()];
+    const rangeTotalPaginas = !isNaN(this.paginaFinal)
+      ? this.paginaFinal
+      : 0;
+
+    this.totalPaginas = [...Array(rangeTotalPaginas).keys()];
   }
 
   onPageChange(pagina: number) {

@@ -5,8 +5,8 @@ import {EventEmitter, Input, OnChanges, Output} from '@angular/core';
 export abstract class DataTableComponent<T = any> implements OnChanges {
 
   @Input() public page = 0;
-  @Input() public pageSize = 0;
-  @Input() public collectionSize = 0;
+  @Input() public itensPorPagina = 0;
+  @Input() public totalRegistros = 0;
   @Input() public dataSource: DataSourceTable<T> = new DataSourceTable<T>();
 
   @Output() readonly eventEditar: EventEmitter<any> = new EventEmitter<any>();
@@ -20,8 +20,8 @@ export abstract class DataTableComponent<T = any> implements OnChanges {
   ngOnChanges() {
     if (notEmpty(this.dataSource.conteudo)) {
       this.page = this.dataSource.pagina;
-      this.pageSize = this.dataSource.totalItensPagina;
-      this.collectionSize = this.dataSource.totalRegistros;
+      this.itensPorPagina = this.dataSource.totalItensPagina;
+      this.totalRegistros = this.dataSource.totalRegistros;
       this.dados = this.dataSource.conteudo;
     }
   }

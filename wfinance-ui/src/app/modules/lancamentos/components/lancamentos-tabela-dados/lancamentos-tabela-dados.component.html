@@ -44,8 +44,8 @@
   </table>
   <div class="d-flex float-right justify-content-between p-2">
     <wf-data-table-pagination class="pagination-sm"
-                              [itensPorPagina]="5"
-                              [totalRegistros]="10"
+                              [itensPorPagina]="itensPorPagina"
+                              [totalRegistros]="totalRegistros"
                               (pageChange)="paginacao($event)">
     </wf-data-table-pagination>
   </div>
