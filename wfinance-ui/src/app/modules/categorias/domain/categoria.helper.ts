@@ -1,4 +1,7 @@
+import {ParamMap} from "@angular/router";
 import {Categoria} from "./categoria.model";
+import {notEmpty} from "../../../shared/utils/object-utils";
+import {CategoriasFiltro} from "../components/categorias-pesquisa/categorias-filtro.model";
 import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from "../../../shared/components/dialog/confirm-dialog-config";
 
 export const confirmDialogConfigExclusao = (categoria: Categoria): ConfirmDialogConfig => {
@@ -9,13 +12,13 @@ export const confirmDialogConfigExclusao = (categoria: Categoria): ConfirmDialog
   };
 };
 
-/***
- * /// TODO: IMPLEMENTAR FILTRO DE CATEGORIA
-export const lancamentoFiltroQueryParam = (queryParamMap: ParamMap): LancamentosFiltro => {
+export const filtroValido = (filtro: CategoriasFiltro): boolean => {
+  return filtro && notEmpty(filtro.nome);
+};
+
+export const categoriaFiltroQueryParam = (queryParamMap: ParamMap): CategoriasFiltro => {
   return {
-    descricao: queryParamMap.get('descricao'),
-    dataVencimentoDe: queryParamMap.get('dataVencimentoDe'),
-    dataVencimentoAte: queryParamMap.get('dataVencimentoAte')
+    nome: queryParamMap.get('nome')
   };
 };
-***/
+

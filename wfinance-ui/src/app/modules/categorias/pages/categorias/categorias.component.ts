@@ -4,10 +4,11 @@ import {Categoria} from "../../domain/categoria.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {isEmpty} from "../../../../shared/utils/object-utils";
 import {CategoriasService} from "../../domain/categorias.service";
-import {confirmDialogConfigExclusao} from "../../domain/categoria.helper";
 import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {CategoriasFiltro} from "../../components/categorias-pesquisa/categorias-filtro.model";
 import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
+import {categoriaFiltroQueryParam, confirmDialogConfigExclusao, filtroValido} from "../../domain/categoria.helper";
 
 @Component({
   selector: 'wf-categorias',
@@ -27,6 +28,18 @@ export class CategoriasComponent implements OnInit {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
     const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
     this.paginacao(paginaAtual);
+  }
+
+  pesquisar(filtro: CategoriasFiltro) {
+    const observable = filtroValido(filtro)
+      ? this.categoriasService.resumo(filtro, DataTablePaginacaoDefault.pagina())
+      : this.categoriasService.categorias(DataTablePaginacaoDefault.pagina());
+
+    observable.subscribe((response: any) => {
+      if (response && response.content) {
+        this.dataSource = ResponseToDataSource<Categoria>(response);
+      }
+    });
   }
 
   paginacao(pagina: number) {
@@ -65,7 +78,7 @@ export class CategoriasComponent implements OnInit {
   /// TODO: IMPLEMENTAR MÉTODO DE ATUALIZAR
   editar(categoria: Categoria) {
     if (categoria) {
-      this.router.navigate(['/categorias/cadastro/' + categoria.id]);
+      this.router.navigate(['categorias/cadastro/' + categoria.id]);
     }
   }
 
@@ -79,10 +92,9 @@ export class CategoriasComponent implements OnInit {
       });
   }
 
-  /// TODO: IMPLEMENTAR PESQUISA DE CATEGORIAS
   private carregarPesquisaCategorias(pagina: number) {
-    this.categoriasService
-      .categorias(DataTablePaginacaoDefault.pagina(pagina))
+    const filtro: CategoriasFiltro = categoriaFiltroQueryParam(this.activatedRoute.snapshot.queryParamMap);
+    this.categoriasService.resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
       .subscribe((response: any) => {
         if (response && response.content) {
           this.dataSource = ResponseToDataSource<Categoria>(response);

@@ -27,3 +27,4 @@ export const lancamentoFiltroQueryParam = (queryParamMap: ParamMap): Lancamentos
     dataVencimentoAte: queryParamMap.get('dataVencimentoAte')
   };
 };
+

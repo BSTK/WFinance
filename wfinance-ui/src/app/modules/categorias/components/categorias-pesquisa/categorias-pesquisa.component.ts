@@ -1,15 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {navigationExtras} from "../../../../shared/router";
+import {CategoriasFiltro} from "./categorias-filtro.model";
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'wf-categorias-pesquisa',
   templateUrl: './categorias-pesquisa.component.html'
 })
-export class CategoriasPesquisaComponent implements OnInit {
+export class CategoriasPesquisaComponent {
 
-  constructor() { }
+  readonly filtro: CategoriasFiltro = new CategoriasFiltro();
 
-  /// TODO: IMPLEMENTAR PESQUISA DA CATEGORIAS
-  ngOnInit(): void {
+  @Output()
+  readonly eventPesquisar: EventEmitter<CategoriasFiltro> = new EventEmitter<CategoriasFiltro>();
+
+  constructor(private router: Router) { }
+
+  pesquisar() {
+    this.router.navigate([], navigationExtras(this.filtro));
+    this.eventPesquisar.emit(this.filtro);
   }
 
 }
