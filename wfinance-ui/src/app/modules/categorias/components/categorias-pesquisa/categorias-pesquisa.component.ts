@@ -14,7 +14,7 @@ export class CategoriasPesquisaComponent {
   @Output()
   readonly eventPesquisar: EventEmitter<CategoriasFiltro> = new EventEmitter<CategoriasFiltro>();
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   pesquisar() {
     this.router.navigate([], navigationExtras(this.filtro));

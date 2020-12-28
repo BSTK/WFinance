@@ -2,17 +2,17 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Nome</th>
+      <th scope="col">Cor</th>
       <th scope="col">Ações</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let categoria of dados">
-      <td width="10px">
-        <em class="fas fa-boxes" [style]="{ color: categoria.cor }"></em>
-      </td>
       <td>{{ categoria.nome }}</td>
+      <td width="150px">
+        <em class="fas fa-circle" [style]="{ color: categoria.cor }"></em>
+      </td>
       <td width="100px">
         <span class="icon" placement="top" ngbTooltip="Editar" (click)="editar(categoria)">
           <em class="fas fa-edit"></em>

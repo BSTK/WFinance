@@ -57,4 +57,11 @@ export class CategoriasService {
 
     return this.httpClient.delete<void>(`${Api.URLS.categorias.categorias}/${categoria.id}`, { headers });
   }
+
+  salvar(categoria: Categoria): Observable<Categoria> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.post<Categoria>(Api.URLS.categorias.categorias, categoria, { headers });
+  }
 }

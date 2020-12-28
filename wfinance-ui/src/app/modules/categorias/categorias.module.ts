@@ -9,6 +9,7 @@ import {CategoriasComponent} from './pages/categorias/categorias.component';
 import {CategoriasCadastroComponent} from './pages/categorias-cadastro/categorias-cadastro.component';
 import {CategoriasPesquisaComponent} from './components/categorias-pesquisa/categorias-pesquisa.component';
 import {CategoriasTabelaDadosComponent} from './components/categorias-tabela-dados/categorias-tabela-dados.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {CategoriasTabelaDadosComponent} from './components/categorias-tabela-dad
     NgbPaginationModule,
     RouterModule.forChild(CATEGORIAS_ROUTES),
     NgbTooltipModule,
+    ColorPickerModule,
   ]
 })
 export class CategoriasModule { }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Categoria} from "../../domain/categoria.model";
+import {CategoriasService} from "../../domain/categorias.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'wf-categorias-cadastro',
@@ -6,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasCadastroComponent implements OnInit {
 
-  constructor() { }
+  categoria: Categoria = new Categoria();
 
-  ngOnInit(): void {
+  constructor(private readonly toastrService: ToastrService,
+              private readonly categoriaService: CategoriasService) { }
+
+  /// TODO: IMPLEMENTAR A EDIÇÃO
+  ngOnInit(): void { }
+
+  salvar() {
+    this.categoriaService.salvar(this.categoria)
+      .subscribe((categoria: Categoria) => {
+        if (categoria) {
+          this.toastrService.success(`Categoria: ${this.categoria.nome} cadastrada com sucesso!`);
+          this.categoria = new Categoria();
+        }
+      });
   }
 
 }
