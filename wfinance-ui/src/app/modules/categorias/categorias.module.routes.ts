@@ -5,4 +5,5 @@ import {CategoriasCadastroComponent} from "./pages/categorias-cadastro/categoria
 export const CATEGORIAS_ROUTES: Routes = [
   { path: '', component: CategoriasComponent },
   { path: 'cadastro', component: CategoriasCadastroComponent },
+  { path: 'cadastro:categoriaId', component: CategoriasCadastroComponent },
 ];

@@ -4,7 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import {CATEGORIAS_ROUTES} from "./categorias.module.routes";
-import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbPaginationModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {CategoriasComponent} from './pages/categorias/categorias.component';
 import {CategoriasCadastroComponent} from './pages/categorias-cadastro/categorias-cadastro.component';
 import {CategoriasPesquisaComponent} from './components/categorias-pesquisa/categorias-pesquisa.component';
@@ -23,6 +23,7 @@ import {CategoriasTabelaDadosComponent} from './components/categorias-tabela-dad
     SharedModule,
     NgbPaginationModule,
     RouterModule.forChild(CATEGORIAS_ROUTES),
+    NgbTooltipModule,
   ]
 })
 export class CategoriasModule { }

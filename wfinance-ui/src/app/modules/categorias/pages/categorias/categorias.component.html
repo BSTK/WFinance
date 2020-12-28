@@ -13,7 +13,11 @@
         <div class="card mb-4">
           <div class="card-body">
             <wf-categorias-pesquisa></wf-categorias-pesquisa>
-            <wf-categorias-tabela-dados [dataSource]="dataSource">
+
+            <wf-categorias-tabela-dados [dataSource]="dataSource"
+                                         (eventEditar)="editar($event)"
+                                         (eventExcluir)="excluir($event)"
+                                         (eventPaginacao)="paginacao($event)">
             </wf-categorias-tabela-dados>
           </div>
         </div>

@@ -32,4 +32,11 @@ export class CategoriasService {
 
     return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, { headers, params });
   }
+
+  excluir(categoria: Categoria): Observable<void> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.delete<void>(`${Api.URLS.categorias.categorias}/${categoria.id}`, { headers });
+  }
 }
