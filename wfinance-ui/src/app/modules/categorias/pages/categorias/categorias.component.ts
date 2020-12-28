@@ -1,4 +1,3 @@
-import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
 import {Categoria} from "../../domain/categoria.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -24,7 +23,6 @@ export class CategoriasComponent implements OnInit {
   dataSource: DataSourceTable<Categoria> = new DataSourceTable<Categoria>();
 
   constructor(private readonly router: Router,
-              private readonly toast: ToastrService,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly categoriasService: CategoriasService) { }
@@ -69,9 +67,9 @@ export class CategoriasComponent implements OnInit {
             const index = this.dataSource.conteudo.indexOf(categoria, 1);
             if (index >= 0) {
               this.dataSource.conteudo.splice(index, 1);
-              this.toast.success(
-                'Categoria excluída com sucesso!',
-                'Exclusão de cateoria'
+              this.dialogService.sucesso(
+                'Exclusão de categoria',
+                'Categoria excluída com sucesso!'
               );
             }
           });
