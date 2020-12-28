@@ -2,8 +2,10 @@ package dev.bstk.wfinance.categoria.api;
 
 import dev.bstk.wfinance.categoria.domain.Categoria;
 import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
+import dev.bstk.wfinance.categoria.domain.service.CategoriaService;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,30 +24,25 @@ import static dev.bstk.wfinance.categoria.api.CategoriaMapper.response;
 @RequestMapping("/api/v1/categorias")
 public class CategoriaResource {
 
+    private final CategoriaService categoriaService;
     private final CategoriaRepository categoriaRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public CategoriaResource(final CategoriaRepository categoriaRepository,
+    public CategoriaResource(final CategoriaService categoriaService,
+                             final CategoriaRepository categoriaRepository,
                              final ApplicationEventPublisher applicationEventPublisher) {
+        this.categoriaService = categoriaService;
         this.categoriaRepository = categoriaRepository;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<CategoriaResponse>> categorias(final Pageable pageable) {
-        final var categorias = categoriaRepository.findAll(pageable);
-        final var categoriasResponse = response(categorias);
-
-        return ResponseEntity.ok(categoriasResponse);
-    }
-
-    @GetMapping(value = "/resumo")
-    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam("nome") final String nome,
+    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam(value = "nome", required = false)
+                                                              @DefaultValue("") final String nome,
                                                               final Pageable pageable) {
-        final var categorias = categoriaRepository.filtar(pageable, nome);
+        final var categorias = categoriaService.categorias(nome, pageable);
         final var categoriasResponse = response(categorias);
 
         return ResponseEntity.ok(categoriasResponse);
