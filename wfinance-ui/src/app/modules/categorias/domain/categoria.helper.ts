@@ -4,6 +4,8 @@ import {notEmpty} from "../../../shared/utils/object-utils";
 import {CategoriasFiltro} from "../components/categorias-pesquisa/categorias-filtro.model";
 import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from "../../../shared/components/dialog/confirm-dialog-config";
 
+export const ROTA_CATEGORIA_CADASTRO = 'categorias/cadastro/';
+
 export const confirmDialogConfigExclusao = (categoria: Categoria): ConfirmDialogConfig => {
   return {
     titulo: 'Deseja excluir categoria?',

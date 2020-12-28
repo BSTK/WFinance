@@ -4,12 +4,16 @@ import {Categoria} from "../../domain/categoria.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {isEmpty} from "../../../../shared/utils/object-utils";
 import {CategoriasService} from "../../domain/categorias.service";
-import {ROTA_CATEGORIA_CADASTRO} from "../../categorias.module.routes";
 import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
 import {CategoriasFiltro} from "../../components/categorias-pesquisa/categorias-filtro.model";
 import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
-import {categoriaFiltroQueryParam, confirmDialogConfigExclusao, filtroValido} from "../../domain/categoria.helper";
+import {
+  categoriaFiltroQueryParam,
+  confirmDialogConfigExclusao,
+  filtroValido,
+  ROTA_CATEGORIA_CADASTRO
+} from "../../domain/categoria.helper";
 
 @Component({
   selector: 'wf-categorias',
