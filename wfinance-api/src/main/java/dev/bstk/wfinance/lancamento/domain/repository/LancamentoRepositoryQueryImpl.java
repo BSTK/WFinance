@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_COUNT;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryFiltro;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryResumo;
 
@@ -24,6 +25,8 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
 
     @PersistenceContext
     private EntityManager manager;
+
+    private final String QUERY_CLAUSURA_WHERE = "WHERE";
 
     @Override
     public Page<Lancamento> filtar(final Pageable pageable,
@@ -52,7 +55,7 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
         });
 
         final var totalRegistrosPorPagina = pageable.getPageSize();
-        final var totalRegistros = calcularToralRegistros(qlString, request);
+        final var totalRegistros = calcularTotalRegistros(qlString, request);
         final var primeiraPgaina = pageable.getPageNumber() * pageable.getPageSize();
 
         query.setFirstResult(primeiraPgaina);
@@ -63,14 +66,14 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
         return new PageImpl<>(resultado, pageable, totalRegistros);
     }
 
-    private Long calcularToralRegistros(final String qlString,
+    private Long calcularTotalRegistros(final String qlString,
                                         final LancamentoFiltroRequest request) {
-        final var where = Arrays.asList(qlString.split("WHERE"));
+        final var where = Arrays.asList(qlString.split(QUERY_CLAUSURA_WHERE));
 
         if (CollectionUtils.isNotEmpty(where)) {
             final Query queryCount = where.size() == 1
                 ? manager.createQuery(QUERY_COUNT, Long.class)
-                : manager.createQuery(QUERY_COUNT.concat("WHERE") + where.get(1), Long.class);
+                : manager.createQuery(QUERY_COUNT.concat(QUERY_CLAUSURA_WHERE) + where.get(1), Long.class);
 
             filtroMap(request).forEach((k, v) -> {
                 if (StringUtils.isNotEmpty(v.toString())) {

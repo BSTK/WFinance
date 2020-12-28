@@ -1,7 +1,7 @@
 package dev.bstk.wfinance.categoria.api;
 
 import dev.bstk.wfinance.categoria.domain.Categoria;
-import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
+import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -41,6 +41,16 @@ public class CategoriaResource {
         return ResponseEntity.ok(categoriasResponse);
     }
 
+    @GetMapping(value = "/resumo")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
+    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam("nome") final String nome,
+                                                              final Pageable pageable) {
+        final var categorias = categoriaRepository.filtar(pageable, nome);
+        final var categoriasResponse = response(categorias);
+
+        return ResponseEntity.ok(categoriasResponse);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
     public ResponseEntity<CategoriaResponse> categoriaPorId(@PathVariable("id") final Long id) {
@@ -68,5 +78,12 @@ public class CategoriaResource {
         ));
 
         return ResponseEntity.ok(categoriaResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_REMOVER_CATEGORIA') and #oauth2.hasScope('write')")
+    public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
+        categoriaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,6 +1,6 @@
 package dev.bstk.wfinance.lancamento.domain;
 
-import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
+import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;

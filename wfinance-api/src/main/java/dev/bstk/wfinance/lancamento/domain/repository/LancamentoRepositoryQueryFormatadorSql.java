@@ -3,14 +3,14 @@ package dev.bstk.wfinance.lancamento.domain.repository;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import org.apache.commons.lang3.StringUtils;
 
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQuery.QUERY_FILTRO;
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQuery.QUERY_RESUMO;
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_FILTRO;
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_RESUMO;
 import static java.util.Objects.nonNull;
 
 class LancamentoRepositoryQueryFormatadorSql {
 
     private LancamentoRepositoryQueryFormatadorSql() {
-        throw new UnsupportedOperationException("Não instanciar LancamentoRepositoryQueryFormatadorSQL");
+        throw new AssertionError("Não instanciar LancamentoRepositoryQueryFormatadorSQL");
     }
 
     static String queryFiltro(final LancamentoFiltroRequest request) {
