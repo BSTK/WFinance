@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
 
+import static dev.bstk.wfinance.categoria.api.CategoriaMapper.entidade;
 import static dev.bstk.wfinance.categoria.api.CategoriaMapper.response;
 
 @RestController
@@ -67,7 +68,8 @@ public class CategoriaResource {
     @PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
     public ResponseEntity<CategoriaResponse> novaCategoria(@RequestBody @Valid final NovaCategoriaRequest request,
                                                            final HttpServletResponse httpServletResponse) {
-        final var categoriaSalva = categoriaRepository.save(new Categoria(request.getNome()));
+        final var categoriaNova = entidade(request);
+        final var categoriaSalva = categoriaRepository.save(categoriaNova);
         final var categoriaResponse = response(categoriaSalva);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(

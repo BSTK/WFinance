@@ -19,4 +19,9 @@ public class NovaCategoriaRequest {
     @NotEmpty
     @Size(min = 5, max = 100)
     private String nome;
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 7, max = 7)
+    private String cor;
 }
