@@ -14,4 +14,5 @@ public class CategoriaResponse implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
     private String nome;
+    private String cor;
 }
