@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class NovaCategoriaRequest {
 
+    private Long id;
+
     @NotNull
     @NotEmpty
     @Size(min = 5, max = 100)
