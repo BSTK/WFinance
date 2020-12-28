@@ -5,6 +5,8 @@ import dev.bstk.wfinance.categoria.domain.CategoriaRepository;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 import static dev.bstk.wfinance.categoria.api.CategoriaMapper.response;
@@ -33,8 +34,8 @@ public class CategoriaResource {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-    public ResponseEntity<List<CategoriaResponse>> categorias() {
-        final var categorias = categoriaRepository.findAll();
+    public ResponseEntity<Page<CategoriaResponse>> categorias(final Pageable pageable) {
+        final var categorias = categoriaRepository.findAll(pageable);
         final var categoriasResponse = response(categorias);
 
         return ResponseEntity.ok(categoriasResponse);
