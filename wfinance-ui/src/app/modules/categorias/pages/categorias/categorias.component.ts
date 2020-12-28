@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Categoria} from "../../domain/categoria.model";
+import {CategoriasService} from "../../domain/categorias.service";
+import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
 
 @Component({
   selector: 'wf-categorias',
@@ -7,16 +9,17 @@ import {Categoria} from "../../domain/categoria.model";
 })
 export class CategoriasComponent implements OnInit {
 
-  readonly categorias: Categoria[] = [
-    { id: 1, nome: 'Cimento e Concreto', cor: '#027FFD'},
-    { id: 1, nome: 'Madeira', cor: '#FFC000'},
-    { id: 1, nome: 'Pedra e Areia', cor: '#FEFE00'},
-    { id: 1, nome: 'Agrotóxicos', cor: '#7D00FE'}
-  ];
+  dataSource: DataSourceTable<Categoria> = new DataSourceTable<Categoria>();
 
-  constructor() { }
+  constructor(private readonly categoriasService: CategoriasService) { }
 
   ngOnInit(): void {
+    this.categoriasService.categorias(DataTablePaginacaoDefault.pagina())
+      .subscribe((response: any) => {
+        if (response && response.content) {
+          this.dataSource = ResponseToDataSource<Categoria>(response);
+        }
+      });
   }
 
 }

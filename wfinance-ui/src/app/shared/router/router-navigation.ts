@@ -4,7 +4,8 @@ import {LancamentosFiltro} from "../../modules/lancamentos/components/lancamento
 
 export enum NavigateQuery {
   NAVIGATE_QUERY_TODOS = 'todos',
-  NAVIGATE_QUERY_PESQUISA = 'pesquisa'
+  NAVIGATE_QUERY_EDICAO = 'edicao',
+  NAVIGATE_QUERY_PESQUISA = 'pesquisa',
 }
 
 const navigationExtrasTodos = (): NavigationExtras => {

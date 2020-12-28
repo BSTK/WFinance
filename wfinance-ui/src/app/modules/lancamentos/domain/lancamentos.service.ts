@@ -20,6 +20,13 @@ export class LancamentosService {
 
   constructor(private httpClient: HttpClient) { }
 
+  lancamento(lancamentoId: number): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.get<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamentoId}`, { headers });
+  }
+
   lancamentos(paginacao: Paginacao): Observable<any[]> {
     const headers = new HttpHeaders()
       .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);

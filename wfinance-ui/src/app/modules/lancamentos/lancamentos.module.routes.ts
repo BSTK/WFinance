@@ -5,4 +5,5 @@ import {LancamentosCadastroComponent} from "./pages/lancamentos-cadastro/lancame
 export const LANCAMENTOS_ROUTES: Routes = [
   { path: '', component: LancamentosComponent },
   { path: 'cadastro', component: LancamentosCadastroComponent },
+  { path: 'cadastro/:lacamentoId', component: LancamentosCadastroComponent },
 ];

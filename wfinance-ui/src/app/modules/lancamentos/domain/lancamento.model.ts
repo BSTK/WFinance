@@ -1,7 +1,7 @@
 import {Pessoa} from "../../pessoas/domain/pessoa.model";
 import {Categoria} from "../../categorias/domain/categoria.model";
 
-export type Lancamento = {
+export class Lancamento {
   id: number;
   tipo: string;
   valor: number;
@@ -9,8 +9,8 @@ export type Lancamento = {
   observacao: string;
   dataPagamento: string;
   dataVencimento: string;
-  pessoa: Pessoa;
-  categoria: Categoria
+  pessoa: Pessoa = new Pessoa();
+  categoria: Categoria = new Categoria()
 }
 
 export type TipoLancamento = {

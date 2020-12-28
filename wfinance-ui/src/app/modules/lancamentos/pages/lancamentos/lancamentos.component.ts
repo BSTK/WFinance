@@ -2,7 +2,7 @@ import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Lancamento} from "../../domain/lancamento.model";
-import {isEmpty} from "../../../../shared/utils/object-utils";
+import {isEmpty} from '../../../../shared/utils/object-utils';
 import {LancamentosService} from "../../domain/lancamentos.service";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
 import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
@@ -23,11 +23,11 @@ export class LancamentosComponent implements OnInit {
 
   dataSource: DataSourceTable<Lancamento> = new DataSourceTable<Lancamento>();
 
-  constructor(private router: Router,
-              private toast: ToastrService,
-              private dialogService: DialogService,
-              private activatedRoute: ActivatedRoute,
-              private lancamentosService: LancamentosService) { }
+  constructor(private readonly router: Router,
+              private readonly toast: ToastrService,
+              private readonly dialogService: DialogService,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly lancamentosService: LancamentosService) { }
 
   ngOnInit() {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
@@ -83,7 +83,7 @@ export class LancamentosComponent implements OnInit {
   /// TODO: IMPLEMENTAR MÉTODO DE ATUALIZAR
   editar(lancamento: Lancamento) {
     if (lancamento) {
-      console.log('Editando lancamento : ', lancamento);
+      this.router.navigate(['lancamentos/cadastro/' + lancamento.id]);
     }
   }
 

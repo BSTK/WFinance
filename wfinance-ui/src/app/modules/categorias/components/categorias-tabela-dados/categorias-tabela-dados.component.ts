@@ -1,35 +1,14 @@
+import {Component} from '@angular/core';
 import {Categoria} from "../../domain/categoria.model";
-import {AfterContentChecked, Component, Input} from '@angular/core';
+import {DataTableComponent} from "../../../../shared/components";
 
 @Component({
   selector: 'wf-categorias-tabela-dados',
   templateUrl: './categorias-tabela-dados.component.html'
 })
-export class CategoriasTabelaDadosComponent implements AfterContentChecked {
+export class CategoriasTabelaDadosComponent extends DataTableComponent<Categoria> {
 
-  /// TODO: USAR DataSourceTable
-  @Input()
-  readonly dataSource: Categoria[] = [];
-
-  page = 1;
-  pageSize = 5;
-  collectionSize = 5;
-  categorias: Categoria[] = [];
-
-  constructor() { }
-
-  ngAfterContentChecked(): void {
-    this.pageChange();
-  }
-
-  /// TODO: IMPLEMENTAR EDIÇÃO DA CATEGORIAS
-  /// TODO: IMPLEMENTAR EXCLUSÃO DA CATEGORIAS
-  /// TODO: IMPLEMENTAR PAGINAÇÃO DE CATEGORIAS
-  /// TODO: CORRIGIR PAGINAÇÃO LAZY
-  pageChange() {
-    this.collectionSize = this.dataSource.length;
-    this.categorias = this.dataSource
-      .map((categoria, i) => ({id: i + 1, ...categoria}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  constructor() {
+    super();
   }
 }

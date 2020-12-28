@@ -105,7 +105,7 @@
               <div class="col-md-9 mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
                 <input id="descricao" name="descricao"
-                       #descricao="ngModel" ngModel
+                       #descricao="ngModel" [(ngModel)]="lancamento.descricao"
                        minlength="5" required wfInputValidation
                        type="text" class="form-control" placeholder="Ex: Material escolar">
                 <wf-input-validation-message [campo]="descricao" erro="required" mensagem="Informar campo"></wf-input-validation-message>
@@ -119,7 +119,7 @@
                        type="text"
                        class="form-control"
                        placeholder="Ex: R$ 50,00"
-                       #valor="ngModel" ngModel wfInputValidation
+                       #valor="ngModel" [(ngModel)]="lancamento.valor" wfInputValidation
                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
               </div>
             </div>
@@ -128,7 +128,7 @@
               <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
                 <select id="categoria" name="categoria" class="form-control"
-                        #categoria="ngModel" ngModel wfInputValidation
+                        #categoria="ngModel" [(ngModel)]="lancamento.categoria.id" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Categoria</option>
                   <option value="ITEM_1">Gasto com Carro</option>
@@ -139,7 +139,7 @@
               <div class="col-md-6 mb-3">
                 <label for="pessoa" class="form-label">Pessoa</label>
                 <select id="pessoa" name="pessoa" class="form-control"
-                        #pessoa="ngModel" ngModel wfInputValidation
+                        #pessoa="ngModel" [(ngModel)]="lancamento.pessoa.id" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Pessoa</option>
                   <option value="ITEM_1">Antonio Batata</option>
@@ -151,7 +151,8 @@
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="observacao" class="form-label">Observação</label>
-                <textarea id="observacao" name="observacao" rows="3" class="form-control"></textarea>
+                <textarea id="observacao" name="observacao" [(ngModel)]="lancamento.observacao"
+                          rows="3" class="form-control"></textarea>
               </div>
             </div>
 

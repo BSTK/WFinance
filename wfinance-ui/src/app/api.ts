@@ -25,8 +25,8 @@ export class Api {
     },
 
     categorias: {
-      categorias: Api.url('categorias'),
-      novaCategoria: Api.url('categorias'),
+      categorias: Api.url('/categorias'),
+      novaCategoria: Api.url('/categorias'),
     },
   });
 

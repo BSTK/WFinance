@@ -1,11 +1,11 @@
-export type Pessoa = {
+export class Pessoa {
   id: number;
   nome: string;
   ativo: boolean;
-  endereco: Endereco
+  endereco: Endereco = new Endereco();
 }
 
-export type Endereco = {
+export class Endereco {
   cep: string;
   logradouro: string;
   numero: string;
