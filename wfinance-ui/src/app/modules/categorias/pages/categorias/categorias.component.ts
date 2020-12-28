@@ -4,6 +4,7 @@ import {Categoria} from "../../domain/categoria.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {isEmpty} from "../../../../shared/utils/object-utils";
 import {CategoriasService} from "../../domain/categorias.service";
+import {ROTA_CATEGORIA_CADASTRO} from "../../categorias.module.routes";
 import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
 import {CategoriasFiltro} from "../../components/categorias-pesquisa/categorias-filtro.model";
@@ -75,10 +76,11 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
-  /// TODO: IMPLEMENTAR MÉTODO DE ATUALIZAR
   editar(categoria: Categoria) {
     if (categoria) {
-      this.router.navigate(['categorias/cadastro/' + categoria.id]);
+      this.router.navigate([
+        ROTA_CATEGORIA_CADASTRO.concat(categoria.id.toString())
+      ]);
     }
   }
 
