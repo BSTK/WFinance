@@ -65,10 +65,12 @@
               <div class="col-md-6 mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select id="estado" name="estado" class="form-control"
-                        [(ngModel)]="pessoa.endereco.estado" wfInputValidation required>
+                        [(ngModel)]="pessoa.endereco.estado" wfInputValidation required
+                        (ngModelChange)="carregarCidades(pessoa.endereco.estado)">
                   <option value="">Selecionar Estado</option>
-                  <option value="SP">São Paulo - SP</option>
-                  <option value="TO">Tocantins - TO</option>
+                  <option [value]="estado.sigla" *ngFor="let estado of estados" >
+                    {{ estado.sigla + ' - ' + estado.nome }}
+                  </option>
                 </select>
               </div>
 
@@ -77,8 +79,9 @@
                 <select id="cidade" name="cidade" class="form-control"
                         [(ngModel)]="pessoa.endereco.cidade" wfInputValidation required>
                   <option value="">Selecionar Cidade</option>
-                  <option value="João Pessoa">João Pessoa</option>
-                  <option value="Salvador">Salvador</option>
+                  <option [value]="cidade.sigla" *ngFor="let cidade of cidades" >
+                    {{ cidade.nome }}
+                  </option>
                 </select>
               </div>
             </div>
