@@ -1,7 +1,6 @@
 export * from './router/router-navigation'
 export * from './diretivas/input-validation.directive'
 
-export * from './utils/paginacao'
 export * from './utils/arrays-utils'
 export * from './utils/datepicker/date-picker-utils'
 export * from './utils/datepicker/date-picker-custom-adapter'

@@ -17,6 +17,10 @@ export class DialogService {
     this.toast.success(texto, titulo);
   }
 
+  public aviso(titulo: string, texto: string) {
+    this.toast.warning(texto, titulo);
+  }
+
   public confirm(config: ConfirmDialogConfig): Observable<boolean> {
     const options: NgbModalOptions = {
       size: 'md',

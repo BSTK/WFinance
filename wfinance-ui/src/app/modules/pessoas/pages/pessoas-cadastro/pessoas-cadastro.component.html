@@ -15,7 +15,7 @@
                 <label for="nome" class="form-label">Nome</label>
                 <input id="nome" name="nome"
                        type="text" class="form-control" placeholder="Ex: CMU Cimentos"
-                       #nome="ngModel" ngModel wfInputValidation required
+                       [(ngModel)]="pessoa.nome" wfInputValidation required
                        minlength="5" maxlength="150">
               </div>
             </div>
@@ -25,7 +25,7 @@
                 <label for="logradouro" class="form-label">Logradouro</label>
                 <input id="logradouro" name="logradouro"
                        type="text" class="form-control" placeholder="Ex: Av. Nações Unidas"
-                       #logradouro="ngModel" ngModel wfInputValidation required
+                       [(ngModel)]="pessoa.endereco.logradouro" wfInputValidation required
                        minlength="5" maxlength="150">
               </div>
 
@@ -33,14 +33,14 @@
                 <label for="numero" class="form-label">Número</label>
                 <input id="numero" name="numero"
                        type="text" class="form-control" placeholder="Ex: 1900"
-                       #numero="ngModel" ngModel wfInputValidation required>
+                       [(ngModel)]="pessoa.endereco.numero" wfInputValidation required>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label for="complemento" class="form-label">Complemento</label>
-                <input id="complemento" name="complemento"
+                <input id="complemento" name="complemento" [(ngModel)]="pessoa.endereco.complemento"
                        type="text" class="form-control" placeholder="Ex: Subsolo 1">
               </div>
 
@@ -48,7 +48,7 @@
                 <label for="bairro" class="form-label">Bairro</label>
                 <input id="bairro" name="bairro"
                        type="text" class="form-control" placeholder="Ex: Jardim Teresinha"
-                       #bairro="ngModel" ngModel wfInputValidation required
+                       [(ngModel)]="pessoa.endereco.bairro" wfInputValidation required
                        minlength="5" maxlength="150">
               </div>
 
@@ -56,7 +56,7 @@
                 <label for="cep" class="form-label">CEP</label>
                 <input id="cep" name="cep"
                        type="text" class="form-control" placeholder="Ex: 00011-999"
-                       #cep="ngModel" ngModel wfInputValidation required
+                       [(ngModel)]="pessoa.endereco.cep" wfInputValidation required
                        minlength="8" maxlength="9">
               </div>
             </div>
@@ -65,25 +65,25 @@
               <div class="col-md-6 mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select id="estado" name="estado" class="form-control"
-                        #estado="ngModel" ngModel wfInputValidation required>
-                  <option value="">Selecionar Categoria</option>
-                  <option value="ITEM_1">São Paulo - SP</option>
-                  <option value="ITEM_2">Tocantisn - TO</option>
+                        [(ngModel)]="pessoa.endereco.estado" wfInputValidation required>
+                  <option value="">Selecionar Estado</option>
+                  <option value="SP">São Paulo - SP</option>
+                  <option value="TO">Tocantins - TO</option>
                 </select>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label for="cidade" class="form-label">Cidade</label>
                 <select id="cidade" name="cidade" class="form-control"
-                        #cidade="ngModel" ngModel wfInputValidation required>
+                        [(ngModel)]="pessoa.endereco.cidade" wfInputValidation required>
                   <option value="">Selecionar Cidade</option>
-                  <option value="ITEM_1">João Pessoa</option>
-                  <option value="ITEM_2">Salvador</option>
+                  <option value="João Pessoa">João Pessoa</option>
+                  <option value="Salvador">Salvador</option>
                 </select>
               </div>
             </div>
 
-            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid">
+            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid" (click)="salvar()">
               <em class="fa fa-save"></em>
               Salvar
             </button>

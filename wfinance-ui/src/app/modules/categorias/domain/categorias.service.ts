@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {Injectable} from '@angular/core';
 import {Categoria} from "./categoria.model";
-import {Paginacao} from "../../../shared/utils";
+import {Paginacao} from "../../../shared/components";
 import {notEmpty} from "../../../shared/utils/object-utils";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../../api";

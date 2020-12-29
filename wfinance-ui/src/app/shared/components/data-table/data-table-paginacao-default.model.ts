@@ -1,4 +1,7 @@
-import {Paginacao} from "../..";
+export type Paginacao = {
+  pagina: number,
+  itensPorPagina: number
+}
 
 export class DataTablePaginacaoDefault {
 

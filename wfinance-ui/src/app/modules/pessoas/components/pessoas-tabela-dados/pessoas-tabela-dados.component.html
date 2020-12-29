@@ -14,8 +14,10 @@
       <td>{{ pessoa.nome }}</td>
       <td>{{ pessoa?.endereco?.cidade }}</td>
       <td>{{ pessoa?.endereco?.estado }}</td>
-      <td>{{ pessoa.ativo ? 'Ativo' : 'Inativo' }}</td>
-      <td>
+      <td [ngClass]="pessoa.ativo ? 'ativo' : 'inativo'">
+        {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
+      </td>
+      <td width="100px">
         <span class="icon" placement="top" ngbTooltip="Editar" (click)="editar(pessoa)">
           <em class="fas fa-edit"></em>
         </span>
@@ -24,9 +26,13 @@
           <em class="fas fa-trash-alt"></em>
         </span>
         <span class="p-1"></span>
-        <span class="icon" placement="top" [ngbTooltip]="pessoa.ativo ? 'Inativar' : 'Ativar'">
-          <em class="fas fa-thumbs-up" *ngIf="pessoa.ativo"></em>
-          <em class="fas fa-thumbs-down" *ngIf="!pessoa.ativo"></em>
+        <span class="icon" placement="top" (click)="ativar(pessoa)"
+                           [ngbTooltip]="pessoa.ativo ? 'Inativar' : 'Ativar'">
+
+          <em class="fas " [ngClass]="pessoa.ativo
+                           ? 'fa-thumbs-up ativo'
+                           : 'fa-thumbs-down inativo'">
+          </em>
         </span>
       </td>
     </tr>

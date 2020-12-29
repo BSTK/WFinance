@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PessoasService} from "../../domain/pessoas.service";
 import {isEmpty} from "../../../../shared/utils/object-utils";
 import {Pessoa, PessoasFiltro} from "../../domain/pessoa.model";
-import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
 import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
+import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
 import {
   confirmDialogConfigExclusao,
   filtroValido,
@@ -83,6 +83,20 @@ export class PessoasComponent implements OnInit {
       this.router.navigate([
         ROTA_PESSOA_CADASTRO.concat(pessoa.id.toString())
       ]);
+    }
+  }
+
+  ativar(pessoa: Pessoa) {
+    if (pessoa) {
+      this.pessoasService.ativar(pessoa)
+        .subscribe((pessoa: Pessoa) => {
+          const index = this.dataSource.conteudo.findIndex(item => item.id === pessoa.id);
+          if (index >= 0) {
+            this.dataSource.conteudo[index] = pessoa;
+            const mensagem = (pessoa.ativo) ? 'Ativada' : 'Desativada';
+            this.dialogService.sucesso('Ativar/Desativar', `Pessoa ${mensagem}`);
+          }
+      });
     }
   }
 

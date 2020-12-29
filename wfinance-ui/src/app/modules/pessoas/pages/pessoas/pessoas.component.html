@@ -16,6 +16,7 @@
 
             <wf-pessoas-tabela-dados [dataSource]="dataSource"
                                      (eventEditar)="editar($event)"
+                                     (eventAtivar)="ativar($event)"
                                      (eventExcluir)="excluir($event)"
                                      (eventPaginacao)="paginacao($event)">
             </wf-pessoas-tabela-dados>

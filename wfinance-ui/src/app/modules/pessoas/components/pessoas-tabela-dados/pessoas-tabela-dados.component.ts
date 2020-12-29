@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Pessoa} from "../../domain/pessoa.model";
 import {DataTableComponent} from "../../../../shared/components";
 
@@ -9,7 +9,15 @@ import {DataTableComponent} from "../../../../shared/components";
 })
 export class PessoasTabelaDadosComponent extends DataTableComponent<Pessoa> {
 
+  @Output() readonly eventAtivar: EventEmitter<Pessoa> = new EventEmitter<Pessoa>();
+
   constructor() {
     super();
+  }
+
+  ativar(pessoa: Pessoa) {
+    if (pessoa) {
+      this.eventAtivar.emit(pessoa);
+    }
   }
 }

@@ -9,8 +9,8 @@ export abstract class DataTableComponent<T = any> implements OnChanges {
   @Input() public totalRegistros = 0;
   @Input() public dataSource: DataSourceTable<T> = new DataSourceTable<T>();
 
-  @Output() readonly eventEditar: EventEmitter<any> = new EventEmitter<any>();
-  @Output() readonly eventExcluir: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly eventEditar: EventEmitter<T> = new EventEmitter<T>();
+  @Output() readonly eventExcluir: EventEmitter<T> = new EventEmitter<T>();
   @Output() readonly eventPaginacao: EventEmitter<number> = new EventEmitter<number>();
 
   public dados: T[] = [];
