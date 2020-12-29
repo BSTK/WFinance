@@ -5,7 +5,6 @@ import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.categoria.domain.service.CategoriaService;
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,8 +38,8 @@ public class CategoriaResource {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam(value = "nome", required = false)
-                                                              @DefaultValue("") final String nome,
+    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam(value = "nome", defaultValue = "", required = false)
+                                                              final String nome,
                                                               final Pageable pageable) {
         final var categorias = categoriaService.categorias(nome, pageable);
         final var categoriasResponse = response(categorias);

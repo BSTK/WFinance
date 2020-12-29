@@ -6,7 +6,7 @@ import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
-import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
+import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,13 @@
 package dev.bstk.wfinance.pessoa;
 
+import dev.bstk.wfinance.categoria.api.CategoriaResponse;
+import dev.bstk.wfinance.categoria.domain.Categoria;
 import dev.bstk.wfinance.core.Mapper;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +40,13 @@ public class PessoaMapper extends Mapper {
             .stream()
             .map(pessoa -> map(pessoa, PessoaResponse.class))
             .collect(Collectors.toList());
+    }
+
+    public static Page<PessoaResponse> response(final Page<Pessoa> pessoas) {
+        final var pessoasResponse = response(pessoas.getContent());
+        return new PageImpl<>(pessoasResponse,
+            pessoas.getPageable(),
+            pessoas.getTotalElements());
     }
 
 }

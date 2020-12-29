@@ -4,11 +4,14 @@ import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.domain.entidade.Endereco;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
+import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.validacao.ValidarCadastroDeEndereco;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 import static dev.bstk.wfinance.core.Mapper.map;
@@ -27,17 +30,15 @@ public class PessoaService {
         this.validarCadastroDeEndereco = validarCadastroDeEndereco;
     }
 
-    public List<Pessoa> pessoas(final String nome) {
-        return nome.isEmpty()
-            ? pessoaRepository.findAll()
-            : pessoaRepository.buscarPorNome(nome);
+    public Page<Pessoa> pessoas(final String nome, final Pageable pageable) {
+        return StringUtils.isEmpty(nome)
+            ? pessoaRepository.findAll(pageable)
+            : pessoaRepository.filtar(pageable, nome);
     }
 
     public Pessoa novaPessoa(final NovaPessoaRequest request) {
         validarCadastroDeEndereco.executar(request);
-
         final var novaPessoa = entidade(request);
-
         return pessoaRepository.save(novaPessoa);
     }
 

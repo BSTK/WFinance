@@ -15,8 +15,8 @@ import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
+import static dev.bstk.wfinance.core.helper.StringHelper.orEmpty;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_COUNT;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryFiltro;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryResumo;
@@ -89,15 +89,11 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
 
     private Map<String, Object> filtroMap(final LancamentoFiltroRequest request) {
         final var parametos = new HashMap<String, Object>();
-        parametos.put("descricao", parametro(request.getDescricao()));
-        parametos.put("dataVencimentoDe", parametro(request.getDataVencimentoDe()));
-        parametos.put("dataVencimentoAte", parametro(request.getDataVencimentoAte()));
+        parametos.put("descricao", orEmpty(request.getDescricao()));
+        parametos.put("dataVencimentoDe", orEmpty(request.getDataVencimentoDe()));
+        parametos.put("dataVencimentoAte", orEmpty(request.getDataVencimentoAte()));
 
         return parametos;
-    }
-
-    private Object parametro(final Object o) {
-        return Objects.nonNull(o) ? o : "";
     }
 
 }

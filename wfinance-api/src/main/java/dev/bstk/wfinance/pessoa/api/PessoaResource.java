@@ -4,11 +4,13 @@ import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
-import dev.bstk.wfinance.pessoa.domain.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.PessoaService;
+import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 import static dev.bstk.wfinance.pessoa.PessoaMapper.response;
 
@@ -40,9 +41,10 @@ public class PessoaResource {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
-    public ResponseEntity<List<PessoaResponse>> pessoas(@RequestParam(value = "nome", defaultValue = "", required = false)
-                                                        final String nome) {
-        final var pessoas = pessoaService.pessoas(nome);
+    public ResponseEntity<Page<PessoaResponse>> pessoas(@RequestParam(value = "nome", defaultValue = "", required = false)
+                                                        final String nome,
+                                                        final Pageable pageable) {
+        final var pessoas = pessoaService.pessoas(nome, pageable);
         final var pessoasResponse = response(pessoas);
         return ResponseEntity.ok(pessoasResponse);
     }

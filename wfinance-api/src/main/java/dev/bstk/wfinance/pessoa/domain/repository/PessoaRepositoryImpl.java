@@ -1,7 +1,6 @@
-package dev.bstk.wfinance.categoria.domain.repository;
+package dev.bstk.wfinance.pessoa.domain.repository;
 
-import dev.bstk.wfinance.categoria.domain.Categoria;
-import dev.bstk.wfinance.core.helper.StringHelper;
+import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,23 +10,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static dev.bstk.wfinance.core.helper.StringHelper.orEmpty;
 
-public class CategoriaRepositoryImpl implements CategoriaRepositoryQuery {
+public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 
     private final String QUERY_PARAM_NOME = "nome";
     private final String QUERY_CLAUSURA_WHERE = "WHERE";
-    private final String QUERY_COUNT = "SELECT count(*) FROM Categoria c ";
-    private final String QUERY_FILTRO = "SELECT c FROM Categoria c WHERE UPPER(c.nome) LIKE CONCAT(UPPER(:nome), '%') ";
+    private final String QUERY_COUNT = "SELECT count(*) FROM Pessoa p ";
+    private final String QUERY_FILTRO = "SELECT p FROM Pessoa p WHERE UPPER(p.nome) LIKE UPPER(CONCAT(:nome, '%')) ";
 
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public Page<Categoria> filtar(final Pageable pageable, final String nome) {
-        final var query = manager.createQuery(QUERY_FILTRO, Categoria.class);
+    public Page<Pessoa> filtar(final Pageable pageable, final String nome) {
+        final var query = manager.createQuery(QUERY_FILTRO, Pessoa.class);
         return executar(query, pageable, nome);
     }
 
