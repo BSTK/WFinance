@@ -1,23 +1,22 @@
 package dev.bstk.wfinance.core.configuracao;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 @Configuration
 public class Beans {
 
     @Bean
     public RestTemplate template() {
-        return new RestTemplate(getClientHttpRequestFactory());
-    }
-
-    private HttpComponentsClientHttpRequestFactory getClientHttpRequestFactory() {
-        final var clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-        clientHttpRequestFactory.setReadTimeout(5_000);
-        clientHttpRequestFactory.setConnectTimeout(5_000);
-        return clientHttpRequestFactory;
+        return new RestTemplateBuilder()
+            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .setReadTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .build();
     }
 
 }

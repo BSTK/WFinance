@@ -15,6 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/integracao/ibge")
 public class DadosIbgeResource {
 
+    // /wfinance/api/v1/integracao/ibge/estados
+
     private final DadosIbgeService dadosIbgeService;
 
     @Autowired

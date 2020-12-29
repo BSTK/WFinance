@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.integracao.core.exception;
+package dev.bstk.wfinance.core.exception;
 
 import lombok.Getter;
 

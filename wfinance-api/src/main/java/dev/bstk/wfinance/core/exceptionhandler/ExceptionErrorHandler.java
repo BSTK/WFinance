@@ -1,6 +1,7 @@
 package dev.bstk.wfinance.core.exceptionhandler;
 
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
+import dev.bstk.wfinance.core.exception.IntegracaoException;
 import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -60,5 +61,13 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
 
         final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(ex, request);
         return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = { IntegracaoException.class })
+    public ResponseEntity<Object> handlerException(IntegracaoException ex,
+                                                   WebRequest request) {
+
+        final var errosOcorridosNaRequest = criaListaDeErrosOcorridos(ex, request);
+        return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }

@@ -1,7 +1,7 @@
 package dev.bstk.wfinance.integracao.ibge;
 
+import dev.bstk.wfinance.core.exception.IntegracaoException;
 import dev.bstk.wfinance.core.helper.CollectionHelper;
-import dev.bstk.wfinance.integracao.core.exception.IntegracaoException;
 import dev.bstk.wfinance.integracao.ibge.response.CidadeResponse;
 import dev.bstk.wfinance.integracao.ibge.response.EstadoResponse;
 import lombok.extern.slf4j.Slf4j;
