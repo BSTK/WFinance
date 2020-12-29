@@ -1,4 +1,4 @@
-import {notEmpty} from "../../utils/arrays-utils";
+import {notNull} from "../../utils/object-utils";
 import {DataSourceTable} from "./data-source.model";
 import {EventEmitter, Input, OnChanges, Output} from '@angular/core';
 
@@ -18,7 +18,7 @@ export abstract class DataTableComponent<T = any> implements OnChanges {
   protected constructor() { }
 
   ngOnChanges() {
-    if (notEmpty(this.dataSource.conteudo)) {
+    if (notNull(this.dataSource.conteudo)) {
       this.page = this.dataSource.pagina;
       this.itensPorPagina = this.dataSource.totalItensPagina;
       this.totalRegistros = this.dataSource.totalRegistros;

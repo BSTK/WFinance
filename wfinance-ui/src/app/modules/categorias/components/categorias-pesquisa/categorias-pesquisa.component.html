@@ -2,7 +2,8 @@
   <div class="col-md-11 mb-3">
     <label for="nome" class="form-label">Nome</label>
     <input id="nome" name="nome" [(ngModel)]="filtro.nome" type="text"
-           class="form-control" placeholder="Ex: Gasolina">
+           class="form-control" placeholder="Ex: Gasolina"
+           (keyup.enter)="pesquisar()">
   </div>
 
   <div class="form-group col-md-1 mb-3">

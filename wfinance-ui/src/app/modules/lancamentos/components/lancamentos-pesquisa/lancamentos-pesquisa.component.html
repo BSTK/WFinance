@@ -2,7 +2,8 @@
   <div class="col-md-5 mb-3">
     <label for="descricao" class="form-label">Descrição</label>
     <input id="descricao" name="descricao" [(ngModel)]="filtro.descricao"
-           type="text" class="form-control" placeholder="Ex: Material escolar">
+           type="text" class="form-control" placeholder="Ex: Material escolar"
+           (keyup.enter)="pesquisar()">
   </div>
 
   <div class="col-md-3 mb-3">
