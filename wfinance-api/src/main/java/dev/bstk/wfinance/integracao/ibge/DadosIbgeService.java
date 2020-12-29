@@ -25,6 +25,7 @@ public class DadosIbgeService {
         this.template = template;
     }
 
+    /// TODO: REFATORAR PARA URL EM ARQUIVO PROPERTIES
     public List<EstadoResponse> estados() throws IntegracaoException {
         String estadosUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
         try {
@@ -39,6 +40,7 @@ public class DadosIbgeService {
         }
     }
 
+    /// TODO: REFATORAR PARA URL EM ARQUIVO PROPERTIES
     public List<CidadeResponse> cidades(final String uf) throws IntegracaoException {
         String cidadesUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/distritos";
         try {
@@ -52,6 +54,5 @@ public class DadosIbgeService {
             throw new IntegracaoException(cidadesUrl, ex.getMessage());
         }
     }
-
 
 }

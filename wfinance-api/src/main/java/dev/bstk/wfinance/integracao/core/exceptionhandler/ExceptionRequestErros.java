@@ -1,6 +1,5 @@
 package dev.bstk.wfinance.integracao.core.exceptionhandler;
 
-import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.core.exceptionhandler.ExceptionError;
 import dev.bstk.wfinance.core.exceptionhandler.ExceptionErrorItem;
 import dev.bstk.wfinance.integracao.core.exception.IntegracaoException;
