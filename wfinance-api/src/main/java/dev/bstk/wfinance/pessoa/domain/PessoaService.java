@@ -43,6 +43,14 @@ public class PessoaService {
 
     public Pessoa novaPessoa(final NovaPessoaRequest request) {
         validarCadastroDeEndereco.executar(request);
+
+        boolean existePessoaCadastradaComNome = pessoaRepository.existePessoaCadastradaComNome(request.getNome());
+
+        if (existePessoaCadastradaComNome) {
+            throw new DadosInvalidosException("Pessoa.nome", request.getNome(),
+                "Já existe um fornecedor com este nome!");
+        }
+
         final var novaPessoa = entidade(request);
         return pessoaRepository.save(novaPessoa);
     }
@@ -76,8 +84,15 @@ public class PessoaService {
         return Optional.empty();
     }
 
-    public Optional<Pessoa> atualizarAtivo(final Long id, final Boolean ativo) {
-        final var pessoaOptional = pessoaRepository.findById(id);
+    public Optional<Pessoa> atualizarAtivo(final Long pesssoaId, final Boolean ativo) {
+        final var existeLancamentoCadastrado = lancamentoRepository.existeLancamentoParaPessoa(pesssoaId);
+
+        if (existeLancamentoCadastrado && Boolean.FALSE.equals(ativo)) {
+            throw new DadosInvalidosException("Pessoa.Id", pesssoaId,
+                "Pessoa não pode ser desativada, pois há um lancamento atrelado!");
+        }
+
+        final var pessoaOptional = pessoaRepository.findById(pesssoaId);
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();

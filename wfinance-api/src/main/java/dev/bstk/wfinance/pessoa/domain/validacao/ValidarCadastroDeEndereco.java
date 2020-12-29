@@ -2,8 +2,8 @@ package dev.bstk.wfinance.pessoa.domain.validacao;
 
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
-import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import dev.bstk.wfinance.pessoa.domain.exception.EnderecoJaCadastradoException;
+import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
