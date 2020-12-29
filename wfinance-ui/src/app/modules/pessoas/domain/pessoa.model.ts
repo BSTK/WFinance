@@ -17,10 +17,4 @@ export class Endereco {
 
 export class PessoasFiltro {
   nome: string;
-
-  /// TODO: IMPLEMENTAR PAGINAÇÃO PARA PESQUISA DE PESSOAS
-  /***
-   * pagina: string;
-   * itensPorPagina: string;
-   */
 }

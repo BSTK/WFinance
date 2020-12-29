@@ -12,8 +12,13 @@
       <form id="pessoasForm">
         <div class="card mb-4">
           <div class="card-body">
-            <wf-pessoas-pesquisa (buscarPessoas)="buscarPessoas($event)"></wf-pessoas-pesquisa>
-            <wf-pessoas-tabela-dados [dataSource]="dataSource"></wf-pessoas-tabela-dados>
+            <wf-pessoas-pesquisa (eventPesquisar)="pesquisar($event)"></wf-pessoas-pesquisa>
+
+            <wf-pessoas-tabela-dados [dataSource]="dataSource"
+                                     (eventEditar)="editar($event)"
+                                     (eventExcluir)="excluir($event)"
+                                     (eventPaginacao)="paginacao($event)">
+            </wf-pessoas-tabela-dados>
           </div>
         </div>
       </form>
