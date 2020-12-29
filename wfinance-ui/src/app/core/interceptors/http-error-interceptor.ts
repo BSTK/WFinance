@@ -10,6 +10,12 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
 
+  private readonly LABEL_ERRO = 'Erro';
+  private readonly LABEL_AVISO = 'Aviso';
+  private readonly ERRO_DE_SISTEMA = 'Erro de sistema';
+  private readonly OPERACAO_NAO_PERMITIDA = 'Operadoção não permitida!';
+  private readonly USUARIO_NAO_TEM_PERMISSAO = 'Usuário tem permissão para está operação!';
+
   constructor(private toast: ToastrService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,20 +24,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         retry(1),
         catchError((error: HttpErrorResponse) => {
           if (error && error.status === StatusCodes.FORBIDDEN) {
-            this.toast.warning('Usuário tem permissão para está operação!','Aviso');
-            return throwError('Operadoção não permitida!');
+            this.toast.warning(this.USUARIO_NAO_TEM_PERMISSAO,this.LABEL_AVISO);
+            return throwError(this.OPERACAO_NAO_PERMITIDA);
           }
-          else {
-            let errorMessage = '';
-            if (error.error instanceof ErrorEvent) {
-              errorMessage = `Error: ${error.error.message}`;
-            } else {
-              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-            }
 
-            this.toast.error(errorMessage, 'Erro de sistema');
-            return throwError(errorMessage);
+          if (error && error.status === StatusCodes.BAD_REQUEST && error.error.mensagem) {
+            this.toast.warning(error.error.mensagem,this.LABEL_AVISO);
+            return throwError(this.OPERACAO_NAO_PERMITIDA);
           }
+
+          this.toast.error(this.ERRO_DE_SISTEMA, this.LABEL_ERRO);
+          return throwError(this.ERRO_DE_SISTEMA);
         })
       );
   }
