@@ -64,7 +64,7 @@ export class CategoriasComponent implements OnInit {
       this.dialogService.confirm(dialogConfig).subscribe(resultado => {
         if (resultado) {
           this.categoriasService.excluir(categoria).subscribe(_ => {
-            const index = this.dataSource.conteudo.indexOf(categoria, 1);
+            const index = this.dataSource.conteudo.indexOf(categoria);
             if (index >= 0) {
               this.dataSource.conteudo.splice(index, 1);
               this.dialogService.sucesso(

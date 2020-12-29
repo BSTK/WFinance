@@ -64,7 +64,7 @@ export class PessoasComponent implements OnInit {
       this.dialogService.confirm(dialogConfig).subscribe(resultado => {
         if (resultado) {
           this.pessoasService.excluir(pessoa).subscribe(_ => {
-            const index = this.dataSource.conteudo.indexOf(pessoa, 1);
+            const index = this.dataSource.conteudo.indexOf(pessoa);
             if (index >= 0) {
               this.dataSource.conteudo.splice(index, 1);
               this.dialogService.sucesso(

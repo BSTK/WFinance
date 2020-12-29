@@ -43,11 +43,11 @@ export class PessoasService {
     return this.httpClient.get<any[]>(Api.URLS.fornecedores.fornecedores, { headers, params });
   }
 
-  excluir(categoria: Pessoa): Observable<void> {
+  excluir(pessoa: Pessoa): Observable<void> {
     const headers = new HttpHeaders()
       .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
 
-    return this.httpClient.delete<void>(`${Api.URLS.fornecedores.fornecedores}/${categoria.id}`, { headers });
+    return this.httpClient.delete<void>(`${Api.URLS.fornecedores.fornecedores}/${pessoa.id}`, { headers });
   }
 
   salvar(pessoa: Pessoa): Observable<Pessoa> {

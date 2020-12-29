@@ -21,7 +21,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
-        retry(1),
         catchError((error: HttpErrorResponse) => {
           if (error && error.status === StatusCodes.FORBIDDEN) {
             this.toast.warning(this.USUARIO_NAO_TEM_PERMISSAO,this.LABEL_AVISO);

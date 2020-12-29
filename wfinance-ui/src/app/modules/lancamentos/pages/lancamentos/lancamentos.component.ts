@@ -66,7 +66,7 @@ export class LancamentosComponent implements OnInit {
       this.dialogService.confirm(dialogConfig).subscribe(resultado => {
         if (resultado) {
           this.lancamentosService.excluir(lancamento).subscribe(_ => {
-            const index = this.dataSource.conteudo.indexOf(lancamento, 1);
+            const index = this.dataSource.conteudo.indexOf(lancamento);
             if (index >= 0) {
               this.dataSource.conteudo.splice(index, 1);
               this.toast.success(
