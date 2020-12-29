@@ -79,7 +79,7 @@
                 <select id="cidade" name="cidade" class="form-control"
                         [(ngModel)]="pessoa.endereco.cidade" wfInputValidation required>
                   <option value="">Selecionar Cidade</option>
-                  <option [value]="cidade.sigla" *ngFor="let cidade of cidades" >
+                  <option [value]="cidade.nome" *ngFor="let cidade of cidades" >
                     {{ cidade.nome }}
                   </option>
                 </select>
