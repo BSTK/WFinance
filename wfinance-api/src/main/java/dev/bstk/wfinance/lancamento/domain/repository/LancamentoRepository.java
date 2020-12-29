@@ -16,4 +16,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, L
 
     @Query("SELECT l FROM Lancamento l WHERE l.categoria.id = :id")
     List<Lancamento> lancamentosPorCategoria(@Param("id") final Long id);
+
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Lancamento l WHERE l.categoria.id = :id")
+    boolean existeLancamentoParaCategoria(@Param("id") final Long id);
 }

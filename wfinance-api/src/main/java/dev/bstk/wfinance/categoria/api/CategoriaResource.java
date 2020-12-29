@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static dev.bstk.wfinance.categoria.api.CategoriaMapper.entidade;
 import static dev.bstk.wfinance.categoria.api.CategoriaMapper.response;
 
 @RestController
@@ -68,8 +67,7 @@ public class CategoriaResource {
     @PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
     public ResponseEntity<CategoriaResponse> novaCategoria(@RequestBody @Valid final NovaCategoriaRequest request,
                                                            final HttpServletResponse httpServletResponse) {
-        final var categoriaNova = entidade(request);
-        final var categoriaSalva = categoriaRepository.save(categoriaNova);
+        final var categoriaSalva = categoriaService.novaCategoria(request);
         final var categoriaResponse = response(categoriaSalva);
 
         applicationEventPublisher.publishEvent(new NovoRecursoCriadoEvento(
@@ -81,8 +79,8 @@ public class CategoriaResource {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_REMOVER_CATEGORIA') and #oauth2.hasScope('write')")
-    public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
-        categoriaRepository.deleteById(id);
+    public ResponseEntity<Void> excluir(@PathVariable("id") final Long categoriaId) {
+        categoriaService.excluir(categoriaId);
         return ResponseEntity.noContent().build();
     }
 }
