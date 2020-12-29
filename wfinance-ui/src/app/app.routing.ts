@@ -3,6 +3,10 @@ import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 const ROUTES: Routes = [
+  /// TODO: REFARORAR PARA REDIRECIONAR PARA O DASHBOARD ASSIM QUE IMPLEMENTADO
+  {
+    path: '', redirectTo: 'lancamentos', pathMatch: 'full'
+  },
   {
     path: 'categorias',
     loadChildren: () => import('./modules/categorias/categorias.module')
