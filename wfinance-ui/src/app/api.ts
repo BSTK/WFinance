@@ -31,6 +31,13 @@ export class Api {
       categorias: Api.url('/categorias'),
       novaCategoria: Api.url('/categorias'),
     },
+
+    integracao: {
+      ibge: {
+        estados: Api.url('/integracao/ibge/estados'),
+        cidades: Api.url('/integracao/ibge/cidades'),
+      }
+    }
   });
 
 }

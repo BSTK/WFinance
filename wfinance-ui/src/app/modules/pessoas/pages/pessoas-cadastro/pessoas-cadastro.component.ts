@@ -5,6 +5,8 @@ import {Pessoa} from "../../domain/pessoa.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PessoasService} from "../../domain/pessoas.service";
 import {isNull, notNull} from "../../../../shared/utils/object-utils";
+import {Cidade, Estado} from "../../../../shared/domain/model/integracao-ibge.model";
+import {IntegracaoIbgeService} from "../../../../shared/domain/service/integracao-ibge.service";
 
 @Component({
   selector: 'wf-pessoas-cadastro',
@@ -15,23 +17,27 @@ export class PessoasCadastroComponent implements OnInit {
   @ViewChild(NgForm, { static: false })
   form: NgForm;
 
+  estados: Estado[] = [];
+  cidades: Cidade[] = [];
   pessoa: Pessoa = new Pessoa();
 
   constructor(private readonly toastrService: ToastrService,
+              private readonly pessoaService: PessoasService,
               private readonly activatedRoute: ActivatedRoute,
-              private readonly pessoaService: PessoasService) { }
+              private readonly integracaoIbgeService: IntegracaoIbgeService) { }
 
   ngOnInit(): void {
-    const pessoaId = this.activatedRoute.snapshot.params['pessoaId'];
+    this.carregarDadosEdicao();
+    this.carregarEstados();
+  }
 
-    if (pessoaId) {
-      this.pessoaService.pessoa(pessoaId)
-        .subscribe((pessoa: Pessoa) => {
-          if (pessoa) {
-            this.pessoa = pessoa;
-          }
-        });
-    }
+  carregarCidades(uf: string) {
+    this.integracaoIbgeService.cidades(uf)
+      .subscribe((cidades: Cidade[]) => {
+        if (cidades) {
+          this.cidades = cidades;
+        }
+      });
   }
 
   salvar() {
@@ -53,6 +59,28 @@ export class PessoasCadastroComponent implements OnInit {
           this.toastrService.success(mensagemSucesso);
         }
       });
+  }
+
+  private carregarEstados() {
+    this.integracaoIbgeService.estados()
+      .subscribe((estados: Estado[]) => {
+        if (estados) {
+          this.estados = estados;
+        }
+      });
+  }
+
+  private carregarDadosEdicao() {
+    const pessoaId = this.activatedRoute.snapshot.params['pessoaId'];
+
+    if (pessoaId) {
+      this.pessoaService.pessoa(pessoaId)
+        .subscribe((pessoa: Pessoa) => {
+          if (pessoa) {
+            this.pessoa = pessoa;
+          }
+        });
+    }
   }
 
 }
