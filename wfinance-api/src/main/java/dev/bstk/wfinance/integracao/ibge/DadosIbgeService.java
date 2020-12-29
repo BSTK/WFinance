@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -30,10 +31,13 @@ public class DadosIbgeService {
         String estadosUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
         try {
             final EstadoResponse[] estados = template.getForObject(estadosUrl, EstadoResponse[].class);
+            final List<EstadoResponse> estadosReponse = CollectionHelper.isEmpty(estados)
+                                            ? new ArrayList<>()
+                                            : Arrays.asList(estados);
 
-            return CollectionHelper.isEmpty(estados)
-                ? Collections.emptyList()
-                : Arrays.asList(estados);
+            estadosReponse.sort(Comparator.comparing(EstadoResponse::getSigla));
+
+            return estadosReponse;
         } catch (HttpClientErrorException ex) {
             log.error("Não foi possível buscar estados", ex);
             throw new IntegracaoException(estadosUrl, ex.getMessage());
@@ -45,10 +49,13 @@ public class DadosIbgeService {
         String cidadesUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/distritos";
         try {
             final CidadeResponse[] cidades = template.getForObject(cidadesUrl, CidadeResponse[].class);
+            final List<CidadeResponse> cidadeResponse = CollectionHelper.isEmpty(cidades)
+                                            ? new ArrayList<>()
+                                            : Arrays.asList(cidades);
 
-            return CollectionHelper.isEmpty(cidades)
-                ? Collections.emptyList()
-                : Arrays.asList(cidades);
+            cidadeResponse.sort(Comparator.comparing(CidadeResponse::getNome));
+
+            return cidadeResponse;
         } catch (HttpClientErrorException ex) {
             log.error("Não foi possível buscar cidades", ex);
             throw new IntegracaoException(cidadesUrl, ex.getMessage());
