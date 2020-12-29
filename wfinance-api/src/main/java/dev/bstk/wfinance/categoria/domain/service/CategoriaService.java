@@ -1,7 +1,7 @@
 package dev.bstk.wfinance.categoria.domain.service;
 
 import dev.bstk.wfinance.categoria.api.NovaCategoriaRequest;
-import dev.bstk.wfinance.categoria.domain.Categoria;
+import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;

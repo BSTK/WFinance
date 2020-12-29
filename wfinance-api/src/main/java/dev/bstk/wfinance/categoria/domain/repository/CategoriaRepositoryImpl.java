@@ -1,7 +1,6 @@
 package dev.bstk.wfinance.categoria.domain.repository;
 
-import dev.bstk.wfinance.categoria.domain.Categoria;
-import dev.bstk.wfinance.core.helper.StringHelper;
+import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static dev.bstk.wfinance.core.helper.StringHelper.orEmpty;
 

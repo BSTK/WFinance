@@ -1,6 +1,6 @@
 package dev.bstk.wfinance.categoria.api;
 
-import dev.bstk.wfinance.categoria.domain.Categoria;
+import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import dev.bstk.wfinance.core.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -1,5 +1,7 @@
 package dev.bstk.wfinance.pessoa.domain;
 
+import dev.bstk.wfinance.core.exception.DadosInvalidosException;
+import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.domain.entidade.Endereco;
@@ -21,12 +23,15 @@ import static dev.bstk.wfinance.pessoa.PessoaMapper.entidade;
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
+    private final LancamentoRepository lancamentoRepository;
     private final ValidarCadastroDeEndereco validarCadastroDeEndereco;
 
     @Autowired
     public PessoaService(final PessoaRepository pessoaRepository,
+                         final LancamentoRepository lancamentoRepository,
                          final ValidarCadastroDeEndereco validarCadastroDeEndereco) {
         this.pessoaRepository = pessoaRepository;
+        this.lancamentoRepository = lancamentoRepository;
         this.validarCadastroDeEndereco = validarCadastroDeEndereco;
     }
 
@@ -83,6 +88,17 @@ public class PessoaService {
         }
 
         return Optional.empty();
+    }
+
+    public void excluir(final Long pesssoaId) {
+        final var existeLancamentoCadastrado = lancamentoRepository.existeLancamentoParaPessoa(pesssoaId);
+
+        if (existeLancamentoCadastrado) {
+            throw new DadosInvalidosException("Pessoa.Id", pesssoaId,
+                "Pessoa não pode ser exluida, pois há um lancamento atrelado!");
+        }
+
+        pessoaRepository.deleteById(pesssoaId);
     }
 
 }

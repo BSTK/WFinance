@@ -1,6 +1,6 @@
 package dev.bstk.wfinance.lancamento.domain.entidade;
 
-import dev.bstk.wfinance.categoria.domain.Categoria;
+import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;

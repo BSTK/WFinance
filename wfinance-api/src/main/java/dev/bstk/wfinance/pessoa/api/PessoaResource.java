@@ -124,8 +124,8 @@ public class PessoaResource {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_REMOVER_PESSOA') and #oauth2.hasScope('write')")
-    public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
-        pessoaRepository.deleteById(id);
+    public ResponseEntity<Void> excluir(@PathVariable("id") final Long pesssoaId) {
+        pessoaService.excluir(pesssoaId);
         return ResponseEntity.noContent().build();
     }
 }

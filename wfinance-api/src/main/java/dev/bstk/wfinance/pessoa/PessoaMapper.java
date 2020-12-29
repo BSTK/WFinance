@@ -1,7 +1,5 @@
 package dev.bstk.wfinance.pessoa;
 
-import dev.bstk.wfinance.categoria.api.CategoriaResponse;
-import dev.bstk.wfinance.categoria.domain.Categoria;
 import dev.bstk.wfinance.core.Mapper;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
