@@ -6,6 +6,7 @@ import dev.bstk.wfinance.integracao.ibge.response.CidadeResponse;
 import dev.bstk.wfinance.integracao.ibge.response.EstadoResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -21,14 +22,19 @@ public class DadosIbgeService {
 
     private final RestTemplate template;
 
+    @Value("${wfinance.integracao.ibge.url.estados}")
+    private String estadosUrl;
+
+    @Value("${wfinance.integracao.ibge.url.cidades}")
+    private String cidadesUrl;
+
     @Autowired
     public DadosIbgeService(final RestTemplate template) {
         this.template = template;
     }
 
-    /// TODO: REFATORAR PARA URL EM ARQUIVO PROPERTIES
+
     public List<EstadoResponse> estados() throws IntegracaoException {
-        String estadosUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
         try {
             final EstadoResponse[] estados = template.getForObject(estadosUrl, EstadoResponse[].class);
             final List<EstadoResponse> estadosReponse = CollectionHelper.isEmpty(estados)
@@ -44,11 +50,9 @@ public class DadosIbgeService {
         }
     }
 
-    /// TODO: REFATORAR PARA URL EM ARQUIVO PROPERTIES
     public List<CidadeResponse> cidades(final String uf) throws IntegracaoException {
-        String cidadesUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/distritos";
         try {
-            final CidadeResponse[] cidades = template.getForObject(cidadesUrl, CidadeResponse[].class);
+            final CidadeResponse[] cidades = template.getForObject(cidadesUrl.replace("$UF", uf), CidadeResponse[].class);
             final List<CidadeResponse> cidadeResponse = CollectionHelper.isEmpty(cidades)
                                             ? new ArrayList<>()
                                             : Arrays.asList(cidades);
