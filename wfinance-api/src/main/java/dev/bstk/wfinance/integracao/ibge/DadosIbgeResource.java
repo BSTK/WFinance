@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping("/api/v1/integracao/ibge")
 public class DadosIbgeResource {
 
-    // /wfinance/api/v1/integracao/ibge/estados
-
     private final DadosIbgeService dadosIbgeService;
 
     @Autowired
@@ -30,7 +28,7 @@ public class DadosIbgeResource {
         return ResponseEntity.ok(estados);
     }
 
-    @GetMapping("/estados/{UF}")
+    @GetMapping("/cidades/{UF}")
     public ResponseEntity<List<CidadeResponse>> cidades(@PathVariable("UF") final String uf) {
         final var cidades = dadosIbgeService.cidades(uf);
         return ResponseEntity.ok(cidades);
