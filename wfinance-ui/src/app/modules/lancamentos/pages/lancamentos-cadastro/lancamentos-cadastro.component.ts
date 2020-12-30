@@ -28,6 +28,8 @@ export class LancamentosCadastroComponent implements OnInit {
   readonly tipoLancamentoReceita: TipoLancamento = RECEITA;
   readonly tipoLancamentoDespesa: TipoLancamento = DESPESA;
 
+  tituloDespesaReceita = 'Novo';
+  tituloPagina = 'Novo Lançamento';
   tipoLancamentoSelecionado: TipoLancamento = RECEITA;
 
   pessoas: LancamentoPessoa[] = [];
@@ -95,7 +97,10 @@ export class LancamentosCadastroComponent implements OnInit {
      const lacamentoIdEmEdicao = this.activatedRoute.snapshot.params['lacamentoId'];
 
      if (lacamentoIdEmEdicao) {
-      this.lancamentosService.lancamento(lacamentoIdEmEdicao)
+       this.tituloDespesaReceita = 'Editar';
+       this.tituloPagina = 'Editar Lançamento';
+       this.titulo.setTitle('WF - Editar Lançamento');
+       this.lancamentosService.lancamento(lacamentoIdEmEdicao)
         .subscribe((lancamento: Lancamento) => {
           if (lancamento) {
             this.lancamento = lancamento;

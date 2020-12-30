@@ -1,5 +1,5 @@
 <div class="content-main">
-  <wf-cabecalho-pagina titulo="Novo Lançamento"
+  <wf-cabecalho-pagina [titulo]="tituloPagina"
                        subtitulo="Cadastre seus lançamentos">
   </wf-cabecalho-pagina>
 
@@ -13,7 +13,8 @@
             <div class="row">
               <div class="col-md-3 mb-3">
                 <h3 [ngClass]="tipoLancamentoSelecionado.classCss">
-                  Nova {{ tipoLancamentoSelecionado.label }}
+                  {{ tituloDespesaReceita }}
+                  {{ tipoLancamentoSelecionado.label }}
                 </h3>
               </div>
               <div class="col-md-3 mb-3">
