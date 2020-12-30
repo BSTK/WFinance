@@ -18,10 +18,11 @@
               </div>
               <div class="col-md-3 mb-3">
                 <div class="btn-group btn-group-toggle"
+                     id="tipoLancamentoSelecionado"
+                     name="tipoLancamentoSelecionado"
                      ngbRadioGroup
-                     [(ngModel)]="tipoLancamentoSelecionado"
-                     name="tipoLancamento">
-                <label class="btn-outline-success" ngbButtonLabel>
+                     [(ngModel)]="tipoLancamentoSelecionado">
+                  <label class="btn-outline-success" ngbButtonLabel>
                     <input type="radio" ngbButton [value]="tipoLancamentoReceita">
                     {{ tipoLancamentoReceita.label }}
                   </label>
@@ -122,7 +123,7 @@
                        type="text"
                        class="form-control"
                        placeholder="Ex: R$ 50,00"
-                       #valor="ngModel" [(ngModel)]="lancamento.valor" wfInputValidation
+                       [(ngModel)]="lancamento.valor" wfInputValidation
                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
               </div>
             </div>
@@ -131,22 +132,24 @@
               <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
                 <select id="categoria" name="categoria" class="form-control"
-                        [(ngModel)]="lancamento.categoria" wfInputValidation
+                        [(ngModel)]="lancamento.categoria.id" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Categoria</option>
-                  <option value="ITEM_1">Gasto com Carro</option>
-                  <option value="ITEM_2">Escola</option>
+                  <option [value]="categoria.id" *ngFor="let categoria of categorias">
+                    {{ categoria.nome }}
+                  </option>
                 </select>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label for="pessoa" class="form-label">Pessoa</label>
                 <select id="pessoa" name="pessoa" class="form-control"
-                        [(ngModel)]="lancamento.pessoa" wfInputValidation
+                        [(ngModel)]="lancamento.pessoa.id" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Pessoa</option>
-                  <option value="ITEM_1">Antonio Batata</option>
-                  <option value="ITEM_2">Supermercados Livre</option>
+                  <option [value]="pessoa.id" *ngFor="let pessoa of pessoas">
+                    {{ pessoa.nome }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -159,7 +162,7 @@
               </div>
             </div>
 
-            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid" (click)="salvar(form)">
+            <button type="button" class="btn btn-success float-right" [disabled]="form.invalid" (click)="salvar()">
               <em class="fa fa-save"></em>
               Salvar
             </button>

@@ -25,11 +25,13 @@ export class Api {
     fornecedores: {
       fornecedores: Api.url('/pessoas'),
       novoFornecedor: Api.url('/pessoas'),
+      resumo: Api.url('/pessoas/resumo'),
     },
 
     categorias: {
       categorias: Api.url('/categorias'),
       novaCategoria: Api.url('/categorias'),
+      resumo: Api.url('/categorias/resumo'),
     },
 
     integracao: {

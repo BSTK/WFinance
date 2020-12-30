@@ -1,9 +1,9 @@
 import {Observable} from "rxjs";
 import {Injectable} from '@angular/core';
 import {Paginacao} from "../../../shared";
-import {Lancamento} from "./lancamento.model";
-import {notEmpty} from "../../../shared/utils/object-utils";
+import {isNull, notEmpty} from "../../../shared/utils/object-utils";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {Lancamento, LancamentoCategoria, LancamentoPessoa} from "./lancamento.model";
 import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../../api";
 import {LancamentosFiltro} from "../components/lancamentos-pesquisa/lancamentos-filtro.model";
 
@@ -68,4 +68,26 @@ export class LancamentosService {
     return this.httpClient.delete<void>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, { headers });
   }
 
+  salvar(lancamento: Lancamento): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return (isNull(lancamento.id))
+      ? this.httpClient.post<Lancamento>(Api.URLS.lancamentos.lancamentos, lancamento, { headers })
+      : this.httpClient.put<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, lancamento, { headers });
+  }
+
+  categorias(): Observable<LancamentoCategoria[]> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.get<any[]>(Api.URLS.categorias.resumo, { headers });
+  }
+
+  pessoas(): Observable<LancamentoPessoa[]> {
+    const headers = new HttpHeaders()
+      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
+
+    return this.httpClient.get<any[]>(Api.URLS.fornecedores.resumo, { headers });
+  }
 }

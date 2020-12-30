@@ -1,3 +1,5 @@
+import {notNull} from "../../../shared/utils/object-utils";
+
 export class Lancamento {
   id: number;
   tipo: string;
@@ -6,21 +8,21 @@ export class Lancamento {
   observacao: string;
   dataPagamento: string;
   dataVencimento: string;
-  pessoa: LancamentoPessoa;
-  categoria: LancamentoCategoria
+  pessoa: LancamentoPessoa = new LancamentoPessoa();
+  categoria: LancamentoCategoria = new LancamentoCategoria();
 }
 
-export type LancamentoPessoa = {
+export class LancamentoPessoa {
   id: string;
   nome: string;
 }
 
-export type LancamentoCategoria = {
+export class LancamentoCategoria {
   id: string;
   nome: string;
 }
 
-export type TipoLancamento = {
+export class TipoLancamento {
   valor: string;
   label: string;
   classCss: string;
@@ -28,9 +30,3 @@ export type TipoLancamento = {
 
 export const DESPESA: TipoLancamento = { valor: 'DESPESA', label: 'Despesa', classCss: 'text-danger'};
 export const RECEITA: TipoLancamento = { valor: 'RECEITA', label: 'Receita', classCss: 'text-success' };
-
-export const tipoLancamento = (tipo: string) => {
-  return tipo === DESPESA.valor
-      ? DESPESA
-      : RECEITA;
-};
