@@ -1,12 +1,11 @@
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
+import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
-import {DESPESA, Lancamento, RECEITA, TipoLancamento} from "../../domain/lancamento.model";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
-import {notEmpty} from "../../../../shared/utils/object-utils";
-import {NavigateQuery} from "../../../../shared/router";
 import {LancamentosService} from "../../domain/lancamentos.service";
+import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {DESPESA, Lancamento, RECEITA, TipoLancamento} from "../../domain/lancamento.model";
 
 @Component({
   selector: 'wf-lancamentos-cadastro',
@@ -21,13 +20,16 @@ export class LancamentosCadastroComponent implements OnInit {
   lancamento: Lancamento = new Lancamento();
   tipoLancamentoSelecionado: TipoLancamento = RECEITA;
 
-  constructor(private readonly router: Router,
+  constructor(private readonly titulo: Title,
+              private readonly router: Router,
               private readonly toast: ToastrService,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly lancamentosService: LancamentosService) { }
 
   ngOnInit(): void {
+    this.titulo.setTitle('WF - Novo Lançamento');
+   /***
     const lacamentoIdEmEdicao = this.activatedRoute.snapshot.params['lacamentoId'];
 
     if (lacamentoIdEmEdicao) {
@@ -38,10 +40,12 @@ export class LancamentosCadastroComponent implements OnInit {
           }
         });
     }
+    */
   }
 
   salvar(ngForm: NgForm) {
-    console.log('Formulario valido: ', ngForm.valid);
+    this.lancamento.tipo = this.tipoLancamentoSelecionado.valor;
+    console.log('Salvando Lancamento: ', this.lancamento);
   }
 
 }

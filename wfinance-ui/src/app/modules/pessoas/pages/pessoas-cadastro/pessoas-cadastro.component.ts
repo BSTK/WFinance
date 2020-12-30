@@ -1,6 +1,7 @@
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 import {Pessoa} from "../../domain/pessoa.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PessoasService} from "../../domain/pessoas.service";
@@ -21,12 +22,14 @@ export class PessoasCadastroComponent implements OnInit {
   cidades: Cidade[] = [];
   pessoa: Pessoa = new Pessoa();
 
-  constructor(private readonly toastrService: ToastrService,
+  constructor(private readonly titulo: Title,
+              private readonly toastrService: ToastrService,
               private readonly pessoaService: PessoasService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly integracaoIbgeService: IntegracaoIbgeService) { }
 
   ngOnInit(): void {
+    this.titulo.setTitle('WF - Novo Fornecedor');
     this.carregarDadosEdicao();
     this.carregarEstados();
   }

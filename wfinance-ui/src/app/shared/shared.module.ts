@@ -5,6 +5,7 @@ import {InputValidationDirective} from './diretivas/input-validation.directive';
 import {CabecalhoPaginaComponent} from './components/cabecalho-pagina/cabecalho-pagina.component';
 import {DataTablePaginationComponent} from "./components/data-table-pagination/data-table-pagination.component";
 import {InputValidationMessageComponent} from './components/input-validation-message/input-validation-message.component';
+import {Title} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import {InputValidationMessageComponent} from './components/input-validation-mes
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    Title
   ]
 })
 export class SharedModule { }

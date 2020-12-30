@@ -12,6 +12,7 @@ import {
   pessoaFiltroQueryParam,
   ROTA_PESSOA_CADASTRO
 } from "../../domain/pessoas.helper";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'wf-pessoas',
@@ -21,7 +22,8 @@ export class PessoasComponent implements OnInit {
 
   dataSource: DataSourceTable<Pessoa> = new DataSourceTable<Pessoa>();
 
-  constructor(private readonly router: Router,
+  constructor(private readonly titulo: Title,
+              private readonly router: Router,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly pessoasService: PessoasService) {
@@ -31,6 +33,7 @@ export class PessoasComponent implements OnInit {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
     const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
     this.paginacao(paginaAtual);
+    this.titulo.setTitle('WF - Meus Fornecedores');
   }
 
   pesquisar(filtro: PessoasFiltro) {

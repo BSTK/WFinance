@@ -13,6 +13,7 @@ import {
   filtroValido,
   ROTA_CATEGORIA_CADASTRO
 } from "../../domain/categoria.helper";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'wf-categorias',
@@ -22,7 +23,8 @@ export class CategoriasComponent implements OnInit {
 
   dataSource: DataSourceTable<Categoria> = new DataSourceTable<Categoria>();
 
-  constructor(private readonly router: Router,
+  constructor(private readonly titulo: Title,
+              private readonly router: Router,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly categoriasService: CategoriasService) { }
@@ -31,6 +33,7 @@ export class CategoriasComponent implements OnInit {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
     const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
     this.paginacao(paginaAtual);
+    this.titulo.setTitle('WF - Minhas Categorias');
   }
 
   pesquisar(filtro: CategoriasFiltro) {

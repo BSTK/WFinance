@@ -6,13 +6,15 @@ import {FooterComponent} from './footer/footer.component';
 import {TopbarComponent} from './topbar/topbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {MenuComponent} from './sidebar/components/menu/menu.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     MenuComponent,
     FooterComponent,
     TopbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    PageNotFoundComponent
   ],
   exports: [
     FooterComponent,

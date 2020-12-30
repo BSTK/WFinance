@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Categoria} from "../../domain/categoria.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CategoriasService} from "../../domain/categorias.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'wf-categorias-cadastro',
@@ -16,11 +17,13 @@ export class CategoriasCadastroComponent implements OnInit {
 
   categoria: Categoria = new Categoria();
 
-  constructor(private readonly toastrService: ToastrService,
+  constructor(private readonly titulo: Title,
+              private readonly toastrService: ToastrService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly categoriaService: CategoriasService) { }
 
   ngOnInit(): void {
+    this.titulo.setTitle('WF - Nova Categoria');
     const categoriaId = this.activatedRoute.snapshot.params['categoriaId'];
 
     if (categoriaId) {

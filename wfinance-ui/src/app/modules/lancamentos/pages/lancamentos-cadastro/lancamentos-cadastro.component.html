@@ -43,9 +43,10 @@
                          placeholder="Ex: 01/02/2020"
                          ngbDatepicker readonly wfInputValidation
                          [navigation]="'none'"
-                         #dataVencimento="ngbDatepicker" ngModel
+                         #dataVencimento="ngbDatepicker"
                          (dateSelect)="dataVencimento.toggle()"
-                         (focus)="dataVencimento.toggle()">
+                         (focus)="dataVencimento.toggle()"
+                         [(ngModel)]="lancamento.dataVencimento">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary"
                             (click)="dataVencimento.toggle()"
@@ -67,7 +68,8 @@
                          [navigation]="'none'"
                          #dataRecebimento="ngbDatepicker" ngModel
                          (dateSelect)="dataRecebimento.toggle()"
-                         (focus)="dataRecebimento.toggle()">
+                         (focus)="dataRecebimento.toggle()"
+                         [(ngModel)]="lancamento.dataPagamento">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary"
                             (click)="dataRecebimento.toggle()"
@@ -89,7 +91,8 @@
                          [navigation]="'none'"
                          #dataPagamento="ngbDatepicker" ngModel
                          (dateSelect)="dataPagamento.toggle()"
-                         (focus)="dataPagamento.toggle()">
+                         (focus)="dataPagamento.toggle()"
+                         [(ngModel)]="lancamento.dataPagamento">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary"
                             (click)="dataPagamento.toggle()"
@@ -128,7 +131,7 @@
               <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
                 <select id="categoria" name="categoria" class="form-control"
-                        #categoria="ngModel" [(ngModel)]="lancamento.categoria.id" wfInputValidation
+                        [(ngModel)]="lancamento.categoria" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Categoria</option>
                   <option value="ITEM_1">Gasto com Carro</option>
@@ -139,7 +142,7 @@
               <div class="col-md-6 mb-3">
                 <label for="pessoa" class="form-label">Pessoa</label>
                 <select id="pessoa" name="pessoa" class="form-control"
-                        #pessoa="ngModel" [(ngModel)]="lancamento.pessoa.id" wfInputValidation
+                        [(ngModel)]="lancamento.pessoa" wfInputValidation
                         required minlength="1">
                   <option value="">Selecionar Pessoa</option>
                   <option value="ITEM_1">Antonio Batata</option>

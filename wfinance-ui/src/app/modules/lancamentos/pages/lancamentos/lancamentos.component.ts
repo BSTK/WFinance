@@ -14,6 +14,7 @@ import {
   ResponseToDataSource
 } from '../../../../shared';
 import {confirmDialogConfigExclusao, filtroValido, lancamentoFiltroQueryParam} from "../../domain/lancamento.helper";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-lancamentos',
@@ -23,7 +24,8 @@ export class LancamentosComponent implements OnInit {
 
   dataSource: DataSourceTable<Lancamento> = new DataSourceTable<Lancamento>();
 
-  constructor(private readonly router: Router,
+  constructor(private readonly titulo: Title,
+              private readonly router: Router,
               private readonly toast: ToastrService,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
@@ -33,6 +35,7 @@ export class LancamentosComponent implements OnInit {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
     const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
     this.paginacao(paginaAtual);
+    this.titulo.setTitle('WF - Meus Lançamentos');
   }
 
   pesquisar(filtro: LancamentosFiltro) {
