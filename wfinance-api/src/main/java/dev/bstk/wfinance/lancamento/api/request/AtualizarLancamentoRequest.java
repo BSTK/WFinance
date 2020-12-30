@@ -1,6 +1,7 @@
 package dev.bstk.wfinance.lancamento.api.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.bstk.wfinance.lancamento.domain.entidade.Tipo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AtualizarLancamentoRequest {
 
     @NotNull
