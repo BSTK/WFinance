@@ -15,4 +15,5 @@ public class LancamentoCategoriaRequest {
 
     @NotNull
     private Long id;
+
 }

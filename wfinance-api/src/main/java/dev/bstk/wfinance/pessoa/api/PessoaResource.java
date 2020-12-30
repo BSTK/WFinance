@@ -4,6 +4,7 @@ import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.pessoa.api.request.EnderecoRequest;
 import dev.bstk.wfinance.pessoa.api.request.NovaPessoaRequest;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
+import dev.bstk.wfinance.pessoa.api.response.PessoaResumoResponse;
 import dev.bstk.wfinance.pessoa.domain.PessoaService;
 import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static dev.bstk.wfinance.pessoa.PessoaMapper.response;
+import static dev.bstk.wfinance.pessoa.PessoaMapper.resumo;
 
 @Slf4j
 @RestController
@@ -46,6 +50,14 @@ public class PessoaResource {
                                                         final Pageable pageable) {
         final var pessoas = pessoaService.pessoas(nome, pageable);
         final var pessoasResponse = response(pessoas);
+        return ResponseEntity.ok(pessoasResponse);
+    }
+
+    @GetMapping("/resumo")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
+    public ResponseEntity<List<PessoaResumoResponse>> pessoas() {
+        final var pessoas = pessoaRepository.findAll();
+        final var pessoasResponse = resumo(pessoas);
         return ResponseEntity.ok(pessoasResponse);
     }
 

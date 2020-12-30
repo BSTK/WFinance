@@ -1,6 +1,6 @@
 package dev.bstk.wfinance.lancamento.api.response;
 
-import dev.bstk.wfinance.categoria.api.CategoriaResponse;
+import dev.bstk.wfinance.categoria.api.response.CategoriaResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Tipo;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
 import lombok.Data;

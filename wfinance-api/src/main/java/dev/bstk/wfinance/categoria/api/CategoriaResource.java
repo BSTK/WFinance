@@ -1,5 +1,8 @@
 package dev.bstk.wfinance.categoria.api;
 
+import dev.bstk.wfinance.categoria.api.request.NovaCategoriaRequest;
+import dev.bstk.wfinance.categoria.api.response.CategoriaResponse;
+import dev.bstk.wfinance.categoria.api.response.CategoriaResumoResponse;
 import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.categoria.domain.service.CategoriaService;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 import static dev.bstk.wfinance.categoria.api.CategoriaMapper.response;
+import static dev.bstk.wfinance.categoria.api.CategoriaMapper.resumo;
 
 @RestController
 @RequestMapping("/api/v1/categorias")
@@ -44,6 +49,14 @@ public class CategoriaResource {
         final var categorias = categoriaService.categorias(nome, pageable);
         final var categoriasResponse = response(categorias);
 
+        return ResponseEntity.ok(categoriasResponse);
+    }
+
+    @GetMapping("/resumo")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
+    public ResponseEntity<List<CategoriaResumoResponse>> categorias() {
+        final var categorias = categoriaRepository.findAll();
+        final var categoriasResponse = resumo(categorias);
         return ResponseEntity.ok(categoriasResponse);
     }
 

@@ -1,4 +1,4 @@
-package dev.bstk.wfinance.categoria.api;
+package dev.bstk.wfinance.pessoa.api.response;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,10 +9,10 @@ import java.io.Serializable;
 @Data
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoriaResponse implements Serializable {
+public class PessoaResumoResponse implements Serializable {
 
     @EqualsAndHashCode.Include
     private Long id;
     private String nome;
-    private String cor;
+
 }
