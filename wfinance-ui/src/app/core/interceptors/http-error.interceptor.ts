@@ -1,10 +1,9 @@
 import {ToastrService} from "ngx-toastr";
 import {Injectable} from "@angular/core";
 import {Observable, throwError} from "rxjs";
-import {catchError, retry} from "rxjs/operators";
+import {catchError} from "rxjs/operators";
 import {StatusCodes} from "http-status-codes/build/cjs";
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Api} from "../../api";
 
 @Injectable({
   providedIn: 'root'
@@ -33,21 +32,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             return throwError(this.OPERACAO_NAO_PERMITIDA);
           }
 
-          if (this.login(error, request)) {
-            this.toast.warning('Login/Senha inválidos !', this.LABEL_AVISO);
-            return throwError(this.OPERACAO_NAO_PERMITIDA);
-          }
-
           this.toast.error(this.ERRO_DE_SISTEMA, this.LABEL_ERRO);
           return throwError(this.ERRO_DE_SISTEMA);
         })
       );
-  }
-
-  private login(error: HttpErrorResponse, request: HttpRequest<any>): boolean {
-    return error && error.status === StatusCodes.UNAUTHORIZED
-      && request.url === Api.URLS.oauth.token
-      && request.method === 'POST';
   }
 
 }

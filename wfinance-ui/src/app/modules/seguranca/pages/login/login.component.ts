@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     this.autenticadorService
       .login(this.usuario)
       .subscribe((value: any ) => {
+        console.log('Login == ', value);
         if (value) {
           this.autenticadorService.eventUsuarioLogado.emit(true);
           this.router.navigate(['/lancamentos']);
