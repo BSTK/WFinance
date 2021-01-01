@@ -5,6 +5,11 @@ import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.compon
 
 const ROUTES: Routes = [
   {
+    path: 'login',
+    loadChildren: () => import('./modules/seguranca/seguranca.module')
+      .then(module => module.SegurancaModule)
+  },
+  {
     path: 'categorias',
     loadChildren: () => import('./modules/categorias/categorias.module')
       .then(module => module.CategoriasModule)
