@@ -1,6 +1,7 @@
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {Router} from "@angular/router";
 import {Usuario} from "./usuario.model";
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {notEmpty} from "../../../shared/utils/object-utils";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EventEmitter, Injectable, OnInit} from '@angular/core';
@@ -10,20 +11,19 @@ import {
   HTTP_HEADER_AUTHORIZATION,
   HTTP_HEADER_CONTENT_TYPE
 } from "../../../api";
-import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticadorService implements OnInit {
 
+  private readonly PARAM_ACCESS_TOKEN = 'access_token';
   private readonly KEY_OAUTH_ACCESS_TOKEN = 'KEY_OAUTH_ACCESS_TOKEN';
 
   readonly jwtPayload = { payload: '' };
   readonly eventUsuarioLogado: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private readonly router: Router,
-              private readonly httpClient: HttpClient,
+  constructor(private readonly httpClient: HttpClient,
               private readonly jwtHelperService: JwtHelperService) { }
 
   ngOnInit(): void {
@@ -37,20 +37,20 @@ export class AutenticadorService implements OnInit {
         .append(HTTP_HEADER_AUTHORIZATION, 'Basic d2ViLWFuZ3VsYXI6d2ViLWFuZ3VsYXItcHdk')
         .append(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_APPLICATION_FORM_URLENCODED);
 
+      /// TODO: REFATORAR PARA FUNÇÃO
       const body = `username=${ usuario.email }&password=${ usuario.senha }&grant_type=password`;
-      const dados = this.httpClient.post(Api.URLS.oauth.token, body,{ headers });
+      const observable = this.httpClient.post(Api.URLS.oauth.token, body,{ headers });
 
-      dados.subscribe((accessTokenResponse: any) => {
-        if (accessTokenResponse && accessTokenResponse['access_token']) {
-          this.armazenarToken(accessTokenResponse['access_token']);
-          this.eventUsuarioLogado.emit(true);
+      observable.subscribe((accessTokenResponse: any) => {
+        if (accessTokenResponse && accessTokenResponse[this.PARAM_ACCESS_TOKEN]) {
+          this.armazenarToken(accessTokenResponse[this.PARAM_ACCESS_TOKEN]);
         }
       });
 
-      return dados;
+      return observable;
     }
 
-    return null;
+    return of ({});
   }
 
   private carregarTokenOAuth() {
@@ -65,15 +65,6 @@ export class AutenticadorService implements OnInit {
       this.jwtPayload.payload = this.jwtHelperService.decodeToken(accessToken);
       localStorage.setItem(this.KEY_OAUTH_ACCESS_TOKEN, accessToken);
     }
-  }
-
-  /// TODO: REMOVER
-  usuarioEstaAutenticado(): boolean {
-    const usuarioLogin = localStorage.getItem('usuario.email');
-    const usuarioSenha = localStorage.getItem('usuario.senha');
-
-    return usuarioLogin === 'login@email.com'
-        && usuarioSenha === 'senha';
   }
 
 }

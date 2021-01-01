@@ -1,3 +1,4 @@
+import {Router} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from "../../domain/usuario.model";
 import {AutenticadorService} from "../../domain/autenticador.service";
@@ -11,16 +12,19 @@ export class LoginComponent implements OnInit {
 
   readonly usuario: Usuario = new Usuario();
 
-  constructor(private readonly autenticadorService: AutenticadorService) { }
+  constructor(private readonly router: Router,
+              private readonly autenticadorService: AutenticadorService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   login() {
     this.autenticadorService
       .login(this.usuario)
       .subscribe((value: any ) => {
-        console.log('[LoginComponent] Logado = ', value);
+        if (value) {
+          this.autenticadorService.eventUsuarioLogado.emit(true);
+          this.router.navigate(['/lancamentos']);
+        }
       });
   }
 
