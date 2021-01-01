@@ -7,8 +7,9 @@ import {registerLocaleData} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_ROUTING_PROVIDER, ROUTING} from './app.routing';
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpErrorInterceptor} from "./core/interceptors/http-error-interceptor";
+import {HttpErrorInterceptor} from "./core/interceptors/http-error.interceptor";
 import {AutenticadorService} from "./modules/seguranca/domain/autenticador.service";
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from "./shared";
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -25,11 +26,22 @@ registerLocaleData(ptBr);
     CoreModule,
     BrowserModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    })
   ],
   providers: [
-    APP_ROUTING_PROVIDER,
+    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
     AutenticadorService,
+    JwtHelperService,
+    APP_ROUTING_PROVIDER,
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: NgbDateAdapter, useClass: DatePickerCustomAdapter },
     { provide: NgbDateParserFormatter, useClass: DatePickerCustomDateParserFormatter },

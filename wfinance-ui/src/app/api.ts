@@ -5,12 +5,19 @@ export const HTTP_HEADER_BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX
 
 export const HTTP_HEADER_CONTENT_TYPE = 'Content-Type';
 export const HTTP_HEADER_APPLICATION_JSON = 'application/json';
+export const HTTP_HEADER_APPLICATION_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 export class Api {
 
   static url(path: string | string[]) {
     return environment.httpLocalhost
       .concat(environment.httpWfinanceApiV1)
+      .concat(...path);
+  }
+
+  static oauth(path: string | string[]) {
+    return environment.httpLocalhost
+      .concat(environment.httpWfinanceApiOAuth)
       .concat(...path);
   }
 
@@ -39,6 +46,10 @@ export class Api {
         estados: Api.url('/integracao/ibge/estados'),
         cidades: Api.url('/integracao/ibge/cidades'),
       }
+    },
+
+    oauth: {
+      token: Api.oauth('/token'),
     }
   });
 

@@ -5,5 +5,6 @@
 export const environment = {
   production: false,
   httpLocalhost: 'http://localhost:8080',
-  httpWfinanceApiV1: '/wfinance/api/v1'
+  httpWfinanceApiV1: '/wfinance/api/v1',
+  httpWfinanceApiOAuth: '/wfinance/oauth'
 };

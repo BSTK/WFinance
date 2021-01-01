@@ -4,7 +4,7 @@ import {RouterModule} from "@angular/router";
 import {CommonModule} from '@angular/common';
 import {SharedModule} from "../../shared/shared.module";
 import {SEGUANCA_ROUTES} from "./seguranca.module.routes";
-import { LoginComponent } from './pages/login/login.component';
+import {LoginComponent} from './pages/login/login.component';
 
 @NgModule({
   declarations: [

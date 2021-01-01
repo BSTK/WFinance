@@ -1,5 +1,5 @@
-import {Usuario} from "../../domain/usuario.model";
 import {Component, OnInit} from '@angular/core';
+import {Usuario} from "../../domain/usuario.model";
 import {AutenticadorService} from "../../domain/autenticador.service";
 
 @Component({
@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.autenticadorService
-        .login(this.usuario);
+      .login(this.usuario)
+      .subscribe((value: any ) => {
+        console.log('[LoginComponent] Logado = ', value);
+      });
   }
 
 }
