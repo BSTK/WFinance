@@ -1,9 +1,8 @@
 import {Observable, of} from "rxjs";
-import {Router} from "@angular/router";
 import {Usuario} from "./usuario.model";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {notEmpty} from "../../../shared/utils/object-utils";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EventEmitter, Injectable, OnInit} from '@angular/core';
 import {
   Api,
@@ -11,7 +10,6 @@ import {
   HTTP_HEADER_AUTHORIZATION,
   HTTP_HEADER_CONTENT_TYPE
 } from "../../../api";
-import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'

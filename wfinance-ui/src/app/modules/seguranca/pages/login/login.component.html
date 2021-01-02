@@ -8,18 +8,20 @@
           <div class="col-lg-6">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Bem Vindo (-:</h1>
+                <h1 class="h4 text-gray-900 mb-4">WFinance</h1>
               </div>
-              <form class="user">
+              <form id="form" #form="ngForm" class="user">
                 <div class="form-group">
                   <input id="login" name="login" [(ngModel)]="usuario.email"
                          type="email" class="form-control form-control-user"
-                         aria-describedby="emailHelp" placeholder="Email ...">
+                         aria-describedby="emailHelp" placeholder="Email ..."
+                         required wfInputValidation email>
                 </div>
                 <div class="form-group">
                   <input id="senha" name="senha" [(ngModel)]="usuario.senha"
                          type="password" class="form-control form-control-user"
-                         placeholder="Senha ...">
+                         placeholder="Senha ..." maxlength="100" minlength="5"
+                         required wfInputValidation>
                 </div>
                 <div class="form-group">
                   <div class="custom-control custom-checkbox small">
@@ -27,9 +29,11 @@
                     <label class="custom-control-label" for="customCheck">Lembrar-me</label>
                   </div>
                 </div>
-                <a class="btn btn-primary btn-user btn-block" (click)="login()">
+                <button class="login btn btn-primary btn-user btn-block"
+                        (click)="login()"
+                        [disabled]="form.invalid" >
                   Login
-                </a>
+                </button>
               </form>
               <hr>
               <div class="text-center">
