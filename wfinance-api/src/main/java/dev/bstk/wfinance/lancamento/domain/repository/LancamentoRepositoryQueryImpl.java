@@ -21,12 +21,13 @@ import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositor
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryFiltro;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryResumo;
 
+/// TODO: REFATORAR PARA USO ABSTRACT
 public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery {
 
     @PersistenceContext
     private EntityManager manager;
 
-    private final String QUERY_CLAUSURA_WHERE = "WHERE";
+    private static final String QUERY_CLAUSURA_WHERE = "WHERE";
 
     @Override
     public Page<Lancamento> filtar(final Pageable pageable,
@@ -36,6 +37,7 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
         return executar(query, qlString, pageable, request);
     }
 
+    /// TODO: REFATORAR PARA USO ABSTRACT
     @Override
     public Page<ResumoLancamento> resumo(final Pageable pageable,
                                          final LancamentoFiltroRequest request) {
@@ -44,6 +46,7 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
         return executar(query, qlString, pageable, request);
     }
 
+    /// TODO: REFATORAR PARA USO ABSTRACT
     private <T> Page<T> executar(final Query query,
                                  final String qlString,
                                  final Pageable pageable,
@@ -66,6 +69,7 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
         return new PageImpl<>(resultado, pageable, totalRegistros);
     }
 
+    /// TODO: REFATORAR PARA O USO DO ABSTRACT
     private Long calcularTotalRegistros(final String qlString,
                                         final LancamentoFiltroRequest request) {
         final var where = Arrays.asList(qlString.split(QUERY_CLAUSURA_WHERE));
