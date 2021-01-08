@@ -5,7 +5,7 @@ import java.util.Objects;
 public final class StringHelper {
 
     private StringHelper() {
-        throw new AssertionError("Não instanciar StringHelper");
+        throw new AssertionError("Não instânciar StringHelper");
     }
 
     public static Object orEmpty(final Object o) {

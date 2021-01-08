@@ -33,7 +33,6 @@ public class DadosIbgeService {
         this.template = template;
     }
 
-
     public List<EstadoResponse> estados() throws IntegracaoException {
         try {
             final EstadoResponse[] estados = template.getForObject(estadosUrl, EstadoResponse[].class);
