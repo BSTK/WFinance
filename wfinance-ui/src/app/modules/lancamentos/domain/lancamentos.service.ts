@@ -1,10 +1,10 @@
 import {Observable} from "rxjs";
+import {Api} from "../../../api";
 import {Injectable} from '@angular/core';
 import {Paginacao} from "../../../shared";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Lancamento, LancamentoCategoria, LancamentoPessoa} from "./lancamento.model";
-import {Api, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN} from "../../../api";
 import {LancamentosFiltro} from "../components/lancamentos-pesquisa/lancamentos-filtro.model";
 
 @Injectable({
@@ -21,27 +21,18 @@ export class LancamentosService {
   constructor(private httpClient: HttpClient) { }
 
   lancamento(lancamentoId: number): Observable<Lancamento> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
-    return this.httpClient.get<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamentoId}`, { headers });
+    return this.httpClient.get<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamentoId}`);
   }
 
   lancamentos(paginacao: Paginacao): Observable<any[]> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
-    let params = new HttpParams()
+    const params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
 
-    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { headers, params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { params });
   }
 
   resumo(filtro: LancamentosFiltro, paginacao: Paginacao): Observable<any[]> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
     let params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
@@ -58,36 +49,25 @@ export class LancamentosService {
       params = params.append(this.PARAMS_DATA_VENCIMENTO_ATE, filtro.dataVencimentoAte);
     }
 
-    return this.httpClient.get<any[]>(Api.URLS.lancamentos.resumo, { headers, params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.resumo, { params });
   }
 
   excluir(lancamento: Lancamento): Observable<void> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
-    return this.httpClient.delete<void>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, { headers });
+    return this.httpClient.delete<void>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`);
   }
 
   salvar(lancamento: Lancamento): Observable<Lancamento> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
     return (isNull(lancamento.id))
-      ? this.httpClient.post<Lancamento>(Api.URLS.lancamentos.lancamentos, lancamento, { headers })
-      : this.httpClient.put<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, lancamento, { headers });
+      ? this.httpClient.post<Lancamento>(Api.URLS.lancamentos.lancamentos, lancamento)
+      : this.httpClient.put<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamento.id}`, lancamento);
   }
 
   categorias(): Observable<LancamentoCategoria[]> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
-    return this.httpClient.get<any[]>(Api.URLS.categorias.resumo, { headers });
+    return this.httpClient.get<any[]>(Api.URLS.categorias.resumo);
   }
 
   pessoas(): Observable<LancamentoPessoa[]> {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER_TOKEN);
-
-    return this.httpClient.get<any[]>(Api.URLS.fornecedores.resumo, { headers });
+    return this.httpClient.get<any[]>(Api.URLS.fornecedores.resumo);
   }
+
 }

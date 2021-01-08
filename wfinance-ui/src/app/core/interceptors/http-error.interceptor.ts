@@ -4,8 +4,8 @@ import {catchError} from "rxjs/operators";
 import {Observable, throwError} from "rxjs";
 import {StatusCodes} from "http-status-codes/build/cjs";
 import {notEmpty} from "../../shared/utils/object-utils";
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {AutenticadorService} from "../../modules/seguranca/domain/autenticador.service";
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
