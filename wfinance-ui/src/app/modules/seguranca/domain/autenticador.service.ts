@@ -1,15 +1,10 @@
 import {Api} from "../../../api";
 import {tap} from "rxjs/operators";
 import {Usuario} from "./usuario.model";
+import {HttpClient} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {notEmpty} from "../../../shared/utils/object-utils";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EventEmitter, Injectable, OnInit} from '@angular/core';
-import {
-  HTTP_HEADER_APPLICATION_FORM_URLENCODED,
-  HTTP_HEADER_AUTHORIZATION,
-  HTTP_HEADER_CONTENT_TYPE
-} from "../../../shared/utils/constants/http-headers.constants";
 import {KEY_OAUTH_ACCESS_TOKEN, PARAM_ACCESS_TOKEN} from "../../../shared/utils/constants/seguranca.constants";
 
 @Injectable({
@@ -30,12 +25,8 @@ export class AutenticadorService implements OnInit {
   }
 
   login(usuario: Usuario) {
-    const headers = new HttpHeaders()
-      .append(HTTP_HEADER_AUTHORIZATION, 'Basic d2ViLWFuZ3VsYXI6d2ViLWFuZ3VsYXItcHdk')
-      .append(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_APPLICATION_FORM_URLENCODED);
-
     const body = `username=${ usuario.email }&password=${ usuario.senha }&grant_type=password`;
-    return this.httpClient.post(Api.URLS.oauth.token, body,{ headers })
+    return this.httpClient.post(Api.URLS.oauth.token, body)
       .pipe(
         tap((accessTokenResponse: any) => {
           if (accessTokenResponse && accessTokenResponse[PARAM_ACCESS_TOKEN]) {

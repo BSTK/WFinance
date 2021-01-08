@@ -12,6 +12,7 @@ import {APP_ROUTING_PROVIDER, ROUTING} from './app.routing';
 import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpErrorInterceptor} from "./core/interceptors/http-error.interceptor";
+import {AuthTokenInterceptor} from "./core/interceptors/auth-token.interceptor";
 import {AutenticadorService} from "./modules/seguranca/domain/autenticador.service";
 import {KEY_OAUTH_ACCESS_TOKEN} from "./shared/utils/constants/seguranca.constants";
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from "./shared";
@@ -41,6 +42,7 @@ registerLocaleData(ptBr);
     })
   ],
   providers: [
+
     /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
     AutenticadorService,
     JwtHelperService,
@@ -48,11 +50,8 @@ registerLocaleData(ptBr);
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: NgbDateAdapter, useClass: DatePickerCustomAdapter },
     { provide: NgbDateParserFormatter, useClass: DatePickerCustomDateParserFormatter },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
-    }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
