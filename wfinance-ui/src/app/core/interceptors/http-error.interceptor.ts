@@ -5,6 +5,7 @@ import {Observable, throwError} from "rxjs";
 import {StatusCodes} from "http-status-codes/build/cjs";
 import {notEmpty} from "../../shared/utils/object-utils";
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {AutenticadorService} from "../../modules/seguranca/domain/autenticador.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   private readonly OPERACAO_NAO_PERMITIDA = 'Operadoção não permitida!';
   private readonly USUARIO_NAO_TEM_PERMISSAO = 'Usuário tem permissão para está operação!';
 
-  constructor(private toast: ToastrService) { }
+  constructor(private readonly toast: ToastrService,
+              private readonly autenticadorService: AutenticadorService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
@@ -37,7 +39,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
 
           if (this.loginInvalido(errorResponse)) {
-            console.log('>>> TODO: EMITIR EVENTO DE LOGIN INVÁLIDO <<<');
+            this.autenticadorService.eventUsuarioLoginInvalido.emit(errorResponse.error);
             const { error_description } = errorResponse.error;
             return throwError(error_description);
           }
