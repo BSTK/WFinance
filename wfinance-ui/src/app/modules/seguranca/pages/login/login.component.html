@@ -15,12 +15,14 @@
                   <input id="login" name="login" [(ngModel)]="usuario.email"
                          type="email" class="form-control form-control-user"
                          aria-describedby="emailHelp" placeholder="Email ..."
+                         autocomplete="username"
                          required wfInputValidation email>
                 </div>
                 <div class="form-group">
                   <input id="senha" name="senha" [(ngModel)]="usuario.senha"
                          type="password" class="form-control form-control-user"
                          placeholder="Senha ..." maxlength="100" minlength="5"
+                         autocomplete="current-password"
                          required wfInputValidation>
                 </div>
                 <div class="form-group">
