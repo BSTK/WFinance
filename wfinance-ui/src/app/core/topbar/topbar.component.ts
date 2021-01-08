@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AutenticadorService} from "../../modules/seguranca/domain/autenticador.service";
 
 @Component({
   selector: 'wf-topbar',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(readonly autenticadorService: AutenticadorService) { }
 
   ngOnInit(): void {
   }

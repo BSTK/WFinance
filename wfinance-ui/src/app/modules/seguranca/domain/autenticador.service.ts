@@ -12,10 +12,9 @@ import {KEY_OAUTH_ACCESS_TOKEN, PARAM_ACCESS_TOKEN} from "../../../shared/utils/
 })
 export class AutenticadorService implements OnInit {
 
+  readonly jwtPayload = { payload: '' };
   readonly eventUsuarioLoginInvalido: EventEmitter<any> = new EventEmitter<any>();
   readonly eventUsuarioLogado: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private readonly jwtPayload = { payload: '' };
 
   constructor(private readonly httpClient: HttpClient,
               private readonly jwtHelperService: JwtHelperService) { }
