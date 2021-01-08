@@ -25,6 +25,9 @@
                          autocomplete="current-password"
                          required wfInputValidation>
                 </div>
+                <div class="form-group login-invalido" *ngIf="loginInvalido">
+                  <span class="login-invalido">{{ loginInvalido['error_description'] }}</span>
+                </div>
                 <button class="login btn btn-primary btn-user btn-block"
                         (click)="login()"
                         [disabled]="form.invalid" >

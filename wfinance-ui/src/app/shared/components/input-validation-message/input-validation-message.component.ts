@@ -9,7 +9,6 @@ import {NgModel} from "@angular/forms";
 })
 export class InputValidationMessageComponent implements OnInit {
 
-  @Input() readonly erro: string;
   @Input() readonly campo: NgModel;
   @Input() readonly mensagem: string;
 

@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   readonly usuario = new Usuario();
 
+  loginInvalido: any;
+
   @ViewChild(NgForm, { static: false })
   form: NgForm;
 
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.autenticadorService
         .eventUsuarioLoginInvalido
         .subscribe((loginInvalido: any ) => {
-          console.log('LOGIN INVALIDO = ', loginInvalido);
+          this.loginInvalido = loginInvalido;
           this.form.controls['login'].setErrors({required: false});
           this.form.controls['senha'].setErrors({required: false});
         });
