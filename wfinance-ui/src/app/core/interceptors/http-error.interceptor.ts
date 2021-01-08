@@ -1,3 +1,4 @@
+import {Api} from "../../api";
 import {ToastrService} from "ngx-toastr";
 import {Injectable} from "@angular/core";
 import {catchError} from "rxjs/operators";
@@ -15,8 +16,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   private readonly LABEL_ERRO = 'Erro';
   private readonly LABEL_AVISO = 'Aviso';
 
-  private readonly ERRO_INVALID_GRANT = 'invalid_grant';
   private readonly ERRO_DE_SISTEMA = 'Erro de sistema';
+  private readonly ERRO_INVALID_GRANT = 'invalid_grant';
+  private readonly ERRO_TOKEN_EXPIRADO = 'Token expirado';
 
   private readonly OPERACAO_NAO_PERMITIDA = 'Operadoção não permitida!';
   private readonly USUARIO_NAO_TEM_PERMISSAO = 'Usuário tem permissão para está operação!';
@@ -44,6 +46,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             return throwError(error_description);
           }
 
+          if (this.tokenExpirado(errorResponse)) {
+            return throwError(this.ERRO_TOKEN_EXPIRADO);
+          }
+
           this.toast.error(this.ERRO_DE_SISTEMA, this.LABEL_ERRO);
           return throwError(this.ERRO_DE_SISTEMA);
         })
@@ -55,6 +61,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       && errorResponse.status === StatusCodes.BAD_REQUEST
       && errorResponse.error['error'] === this.ERRO_INVALID_GRANT
       && notEmpty(errorResponse.error['error_description']);
+  }
+
+  private tokenExpirado(errorResponse: HttpErrorResponse) {
+    return errorResponse
+      && errorResponse.status === StatusCodes.UNAUTHORIZED
+      && errorResponse.url !== Api.URLS.oauth.token
+      && this.autenticadorService.accessTokenExpirado();
   }
 
 }

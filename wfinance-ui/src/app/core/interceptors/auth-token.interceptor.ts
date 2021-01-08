@@ -1,6 +1,7 @@
 import {Api} from "../../api";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {environment} from "../../../environments/environment";
 import {KEY_OAUTH_ACCESS_TOKEN} from "../../shared/utils/constants/seguranca.constants";
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {
@@ -18,8 +19,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request && request.url === Api.URLS.oauth.token) {
       const headers = new HttpHeaders()
-      /// TODO: REFATORAR PARA PEGAR API_KEY
-        .append(HTTP_HEADER_AUTHORIZATION, 'Basic d2ViLWFuZ3VsYXI6d2ViLWFuZ3VsYXItcHdk')
+        .append(HTTP_HEADER_AUTHORIZATION, environment.httpWfinanceApiKey)
         .append(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_APPLICATION_FORM_URLENCODED);
 
       const newRequest = request.clone({ headers });

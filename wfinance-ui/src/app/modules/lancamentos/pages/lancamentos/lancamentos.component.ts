@@ -1,10 +1,12 @@
 import {ToastrService} from "ngx-toastr";
 import {Component, OnInit} from '@angular/core';
+import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Lancamento} from "../../domain/lancamento.model";
 import {isEmpty} from '../../../../shared/utils/object-utils';
 import {LancamentosService} from "../../domain/lancamentos.service";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
 import {LancamentosFiltro} from "../../components/lancamentos-pesquisa/lancamentos-filtro.model";
 import {
   DataSourceTable,
@@ -14,7 +16,6 @@ import {
   ResponseToDataSource
 } from '../../../../shared';
 import {confirmDialogConfigExclusao, filtroValido, lancamentoFiltroQueryParam} from "../../domain/lancamento.helper";
-import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-lancamentos',
@@ -29,6 +30,7 @@ export class LancamentosComponent implements OnInit {
               private readonly toast: ToastrService,
               private readonly dialogService: DialogService,
               private readonly activatedRoute: ActivatedRoute,
+              private readonly authService: AutenticadorService,
               private readonly lancamentosService: LancamentosService) { }
 
   ngOnInit() {

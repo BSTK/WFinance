@@ -17,6 +17,7 @@ import {AutenticadorService} from "./modules/seguranca/domain/autenticador.servi
 import {KEY_OAUTH_ACCESS_TOKEN} from "./shared/utils/constants/seguranca.constants";
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from "./shared";
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AuthTokenExpiradoInterceptor} from "./core/interceptors/auth-token-expirado.interceptor";
 
 registerLocaleData(ptBr);
 
@@ -51,7 +52,8 @@ registerLocaleData(ptBr);
     { provide: NgbDateAdapter, useClass: DatePickerCustomAdapter },
     { provide: NgbDateParserFormatter, useClass: DatePickerCustomDateParserFormatter },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenExpiradoInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
