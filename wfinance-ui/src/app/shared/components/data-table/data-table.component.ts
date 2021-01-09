@@ -15,14 +15,12 @@ export abstract class DataTableComponent<T = any> implements OnChanges {
 
   public dados: T[] = [];
 
-  protected constructor() { }
-
   ngOnChanges() {
     if (notNull(this.dataSource.conteudo)) {
       this.page = this.dataSource.pagina;
-      this.itensPorPagina = this.dataSource.totalItensPagina;
-      this.totalRegistros = this.dataSource.totalRegistros;
       this.dados = this.dataSource.conteudo;
+      this.totalRegistros = this.dataSource.totalRegistros;
+      this.itensPorPagina = this.dataSource.totalItensPagina;
     }
   }
 

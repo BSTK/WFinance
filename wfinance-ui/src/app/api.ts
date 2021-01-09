@@ -43,6 +43,7 @@ export class Api {
 
     oauth: {
       token: Api.oauth('/token'),
+      logout: Api.url('/token/logout'),
     }
   });
 

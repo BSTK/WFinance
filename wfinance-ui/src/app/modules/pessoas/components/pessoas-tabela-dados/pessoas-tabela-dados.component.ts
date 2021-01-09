@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
 import {Pessoa} from "../../domain/pessoa.model";
+import {Component, EventEmitter, Output} from '@angular/core';
 import {DataTableComponent} from "../../../../shared/components";
+import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
 
 @Component({
   selector: 'wf-pessoas-tabela-dados',
@@ -11,7 +12,7 @@ export class PessoasTabelaDadosComponent extends DataTableComponent<Pessoa> {
 
   @Output() readonly eventAtivar: EventEmitter<Pessoa> = new EventEmitter<Pessoa>();
 
-  constructor() {
+  constructor(public readonly autenticadorService: AutenticadorService) {
     super();
   }
 

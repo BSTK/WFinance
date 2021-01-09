@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Title} from "@angular/platform-browser";
 import {InputValidationDirective} from './diretivas';

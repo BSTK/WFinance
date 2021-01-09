@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DataTableComponent} from "../../../../shared";
 import {Lancamento} from "../../domain/lancamento.model";
+import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
 
 @Component({
   selector: 'wf-lancamentos-tabela-dados',
@@ -9,7 +10,7 @@ import {Lancamento} from "../../domain/lancamento.model";
 })
 export class LancamentosTabelaDadosComponent extends DataTableComponent<Lancamento> {
 
-  constructor() {
+  constructor(public readonly autenticadorService: AutenticadorService) {
     super();
   }
 

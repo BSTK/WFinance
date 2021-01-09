@@ -18,15 +18,18 @@
         {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
       </td>
       <td width="100px">
-        <span class="icon" placement="top" ngbTooltip="Editar" (click)="editar(pessoa)">
+        <span *ngIf="autenticadorService.temPermissao('ROLE_CADASTRAR_PESSOA')"
+              class="icon" placement="top" ngbTooltip="Editar" (click)="editar(pessoa)">
           <em class="fas fa-edit"></em>
         </span>
         <span class="p-1"></span>
-        <span class="icon" placement="top" ngbTooltip="Exluir" (click)="excluir(pessoa)">
+        <span *ngIf="autenticadorService.temPermissao('ROLE_REMOVER_PESSOA')"
+              class="icon" placement="top" ngbTooltip="Exluir" (click)="excluir(pessoa)">
           <em class="fas fa-trash-alt"></em>
         </span>
         <span class="p-1"></span>
-        <span class="icon" placement="top" (click)="ativar(pessoa)"
+        <span *ngIf="autenticadorService.temPermissao('ROLE_CADASTRAR_PESSOA')"
+              class="icon" placement="top" (click)="ativar(pessoa)"
                            [ngbTooltip]="pessoa.ativo ? 'Inativar' : 'Ativar'">
 
           <em class="fas " [ngClass]="pessoa.ativo

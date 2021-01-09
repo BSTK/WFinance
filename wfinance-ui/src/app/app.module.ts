@@ -18,6 +18,7 @@ import {KEY_OAUTH_ACCESS_TOKEN} from "./shared/utils/constants/seguranca.constan
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from "./shared";
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AuthTokenExpiradoInterceptor} from "./core/interceptors/auth-token-expirado.interceptor";
+import {AutenticadorGuard} from "./modules/seguranca/domain/autenticador.guard";
 
 registerLocaleData(ptBr);
 
@@ -46,7 +47,10 @@ registerLocaleData(ptBr);
 
     /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
     AutenticadorService,
+    AutenticadorGuard,
     JwtHelperService,
+    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
+
     APP_ROUTING_PROVIDER,
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: NgbDateAdapter, useClass: DatePickerCustomAdapter },

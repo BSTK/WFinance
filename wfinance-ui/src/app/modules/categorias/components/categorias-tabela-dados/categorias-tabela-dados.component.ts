@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Categoria} from "../../domain/categoria.model";
 import {DataTableComponent} from "../../../../shared/components";
+import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
 
 @Component({
   selector: 'wf-categorias-tabela-dados',
@@ -9,7 +10,7 @@ import {DataTableComponent} from "../../../../shared/components";
 })
 export class CategoriasTabelaDadosComponent extends DataTableComponent<Categoria> {
 
-  constructor() {
+  constructor(public readonly autenticadorService: AutenticadorService) {
     super();
   }
 }

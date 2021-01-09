@@ -9,7 +9,12 @@ export class TopbarComponent implements OnInit {
 
   constructor(readonly autenticadorService: AutenticadorService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  logout() {
+    this.autenticadorService
+      .logout()
+      .subscribe((_) => {});
   }
 
 }

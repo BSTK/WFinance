@@ -3,8 +3,8 @@ import {tap} from "rxjs/operators";
 import {Usuario} from "./usuario.model";
 import {HttpClient} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {isNull, notEmpty, notNull} from "../../../shared/utils/object-utils";
 import {EventEmitter, Injectable, OnInit} from '@angular/core';
+import {isNull, notEmpty} from "../../../shared/utils/object-utils";
 import {
   KEY_OAUTH_ACCESS_TOKEN,
   PARAM_ACCESS_TOKEN,
@@ -40,6 +40,16 @@ export class AutenticadorService implements OnInit {
       );
   }
 
+  logout(): Observable<any> {
+    return this.httpClient
+      .post(Api.URLS.oauth.logout,{ withCredentials: true })
+      .pipe(
+        tap((_) => {
+          this.removerAccessToken();
+        })
+      );
+  }
+
   novoAccessToken(): Observable<any> {
     return this.httpClient
       .post(Api.URLS.oauth.token, REFRESH_TOKEN_PAYLOAD, { withCredentials: true })
@@ -55,6 +65,16 @@ export class AutenticadorService implements OnInit {
   accessTokenExpirado(): boolean {
     const token = localStorage.getItem(KEY_OAUTH_ACCESS_TOKEN);
     return isNull(token) || this.jwtHelperService.isTokenExpired(token);
+  }
+
+  temPermissao(permissao: string) {
+    return this.jwtPayload.payload['authorities']
+      && this.jwtPayload.payload['authorities'].includes(permissao);
+  }
+
+  private removerAccessToken() {
+    this.jwtPayload.payload = null;
+    localStorage.removeItem(KEY_OAUTH_ACCESS_TOKEN);
   }
 
   private carregarTokenOAuth() {
