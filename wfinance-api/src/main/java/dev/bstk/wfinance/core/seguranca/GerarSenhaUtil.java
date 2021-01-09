@@ -9,5 +9,6 @@ public class GerarSenhaUtil {
     public static void main(String[] args) {
         final var bcrypt = new BCryptPasswordEncoder();
         log.info("Senha: {}", bcrypt.encode("web-angular-pwd"));
+        log.info("Senha: {}", bcrypt.encode("maria123"));
     }
 }

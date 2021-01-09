@@ -66,6 +66,7 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
             .scopes("read", "write")
             .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
             .refreshTokenValiditySeconds(TEMPO_DE_VIDA_REFRESH_TOKEN)
-            .accessTokenValiditySeconds(TEMPO_DE_VIDA_ACCESS_TOKEN);
+            // .accessTokenValiditySeconds(TEMPO_DE_VIDA_ACCESS_TOKEN);
+            .accessTokenValiditySeconds(10);
     }
 }
