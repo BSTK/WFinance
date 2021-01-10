@@ -9,7 +9,9 @@ export const LANCAMENTOS_ROUTES: Routes = [
     component: LancamentosComponent,
     canActivate: [ AutenticadorGuard ],
     data: {
-      roles: ['ROLE_PESQUISAR_LANCAMENTO']
+      roles: [
+        'ROLE_PESQUISAR_LANCAMENTO_GUARD_TESTE'
+      ]
     }
   },
   {
@@ -17,7 +19,9 @@ export const LANCAMENTOS_ROUTES: Routes = [
     component: LancamentosCadastroComponent,
     canActivate: [ AutenticadorGuard ],
     data: {
-      roles: ['ROLE_CADASTRAR_LANCAMENTO']
+      roles: [
+        'ROLE_CADASTRAR_LANCAMENTO'
+      ]
     }
   },
   {
@@ -25,7 +29,9 @@ export const LANCAMENTOS_ROUTES: Routes = [
     component: LancamentosCadastroComponent,
     canActivate: [ AutenticadorGuard ],
     data: {
-      roles: ['ROLE_CADASTRAR_LANCAMENTO']
+      roles: [
+        'ROLE_CADASTRAR_LANCAMENTO'
+      ]
     }
   },
 ];

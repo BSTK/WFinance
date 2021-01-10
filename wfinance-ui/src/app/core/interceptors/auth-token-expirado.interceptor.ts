@@ -14,14 +14,18 @@ export class AuthTokenExpiradoInterceptor implements HttpInterceptor {
   constructor(private readonly autenticadorService: AutenticadorService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request && request.url !== Api.URLS.oauth.token && this.autenticadorService.accessTokenExpirado()) {
-      this.autenticadorService.novoAccessToken()
+    const isUrlToken: boolean = request && request.url !== Api.URLS.oauth.token;
+    const isTokenExpirado: boolean = this.autenticadorService.accessTokenExpirado();
+
+    if (isUrlToken && isTokenExpirado) {
+      this.autenticadorService
+        .novoAccessToken()
         .subscribe((_) => {
           const headers = new HttpHeaders()
             .append(HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_BEARER.concat(localStorage.getItem(KEY_OAUTH_ACCESS_TOKEN)));
 
-          const newRequest = request.clone({ headers });
-          return next.handle(newRequest);
+          const novaRequest = request.clone({ headers });
+          return next.handle(novaRequest);
         });
     }
 

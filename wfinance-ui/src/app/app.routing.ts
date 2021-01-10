@@ -1,7 +1,8 @@
 import {APP_BASE_HREF} from "@angular/common";
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.component";
+import {PageNotFoundComponent} from "./core/pages/page-not-found/page-not-found.component";
+import {PageNaoAutorizadoComponent} from "./core/pages/page-nao-autorizado/page-nao-autorizado.component";
 
 const ROUTES: Routes = [
   {
@@ -25,13 +26,20 @@ const ROUTES: Routes = [
       .then(module => module.PessoasModule)
   },
   {
+    path: 'pagina-nao-autorizado',
+    component: PageNaoAutorizadoComponent
+  },
+  {
     path: 'pagina-nao-encontrada', component: PageNotFoundComponent
   },
   {
     /// TODO: REFARORAR PARA REDIRECIONAR PARA O DASHBOARD ASSIM QUE IMPLEMENTADO
     path: '', redirectTo: 'lancamentos', pathMatch: 'full'
   },
-  { path: '**', redirectTo: 'pagina-nao-encontrada' }
+  {
+    path: '**',
+    redirectTo: 'pagina-nao-encontrada'
+  }
 ];
 
 export const APP_ROUTING_PROVIDER: any[] = [

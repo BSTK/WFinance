@@ -72,7 +72,6 @@ export class AutenticadorService implements OnInit {
       && this.jwtPayload.payload['authorities'].includes(permissao);
   }
 
-  /// TODO: UTILIZAR NO CanActived Router
   temPermissoes(permissoes: string[]): boolean {
     if (permissoes) {
       for (const permissao in permissoes) {

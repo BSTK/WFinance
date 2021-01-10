@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AutenticadorService} from "../../modules/seguranca/domain/autenticador.service";
+import {AutenticadorService} from "../../../modules/seguranca/domain/autenticador.service";
 
 @Component({
   selector: 'wf-topbar',
