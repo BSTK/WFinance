@@ -72,6 +72,19 @@ export class AutenticadorService implements OnInit {
       && this.jwtPayload.payload['authorities'].includes(permissao);
   }
 
+  /// TODO: UTILIZAR NO CanActived Router
+  temPermissoes(permissoes: string[]): boolean {
+    if (permissoes) {
+      for (const permissao in permissoes) {
+        if (this.temPermissao(permissao)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   private removerAccessToken() {
     this.jwtPayload.payload = null;
     localStorage.removeItem(KEY_OAUTH_ACCESS_TOKEN);

@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
+import {AutenticadorGuard} from "../seguranca/domain/autenticador.guard";
 import {CategoriasComponent} from "./pages/categorias/categorias.component";
 import {CategoriasCadastroComponent} from "./pages/categorias-cadastro/categorias-cadastro.component";
-import {AutenticadorGuard} from "../seguranca/domain/autenticador.guard";
 
 export const CATEGORIAS_ROUTES: Routes = [
   {
