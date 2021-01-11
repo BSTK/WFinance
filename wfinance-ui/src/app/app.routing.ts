@@ -1,8 +1,8 @@
-import {APP_BASE_HREF} from "@angular/common";
+import {APP_BASE_HREF} from '@angular/common';
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PageNotFoundComponent} from "./core/pages/page-not-found/page-not-found.component";
-import {PageNaoAutorizadoComponent} from "./core/pages/page-nao-autorizado/page-nao-autorizado.component";
+import {PageNotFoundComponent} from './core/pages/page-not-found/page-not-found.component';
+import {PageNaoAutorizadoComponent} from './core/pages/page-nao-autorizado/page-nao-autorizado.component';
 
 const ROUTES: Routes = [
   {

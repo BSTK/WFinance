@@ -1,13 +1,13 @@
-import {ParamMap} from "@angular/router";
-import {Lancamento} from "./lancamento.model";
-import {notEmpty} from "../../../shared/utils/object-utils";
-import {LancamentosFiltro} from "../components/lancamentos-pesquisa/lancamentos-filtro.model";
-import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from "../../../shared/components/dialog/confirm-dialog-config";
+import {ParamMap} from '@angular/router';
+import {Lancamento} from './lancamento.model';
+import {notEmpty} from '../../../shared/utils/object-utils';
+import {LancamentosFiltro} from '../components/lancamentos-pesquisa/lancamentos-filtro.model';
+import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from '../../../shared/components/dialog/confirm-dialog-config';
 
 export const confirmDialogConfigExclusao = (lancamento: Lancamento): ConfirmDialogConfig => {
   return {
     titulo: 'Deseja excluir lancamento?',
-    texto: `Excluindo lançamento "${ lancamento.descricao }" 
+    texto: `Excluindo lançamento '${ lancamento.descricao }' 
             do fornecedor "${ lancamento.pessoa.nome }" 
             no valor de "R$ ${ lancamento.valor }"`,
     tipo: ConfirmDialogConfigTipo.EXCLUSAO

@@ -1,7 +1,7 @@
-import {Observable} from "rxjs";
-import {Api} from "../../../api";
+import {Observable} from 'rxjs';
+import {Api} from '../../../api';
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 import {Cidade, Estado} from "../model/integracao-ibge.model";
 
 @Injectable({

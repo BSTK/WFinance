@@ -3,13 +3,13 @@ import {environment} from "../environments/environment";
 export class Api {
 
   static url(path: string | string[]) {
-    return environment.httpLocalhost
+    return environment.httpWfinanceHost
       .concat(environment.httpWfinanceApiV1)
       .concat(...path);
   }
 
   static oauth(path: string | string[]) {
-    return environment.httpLocalhost
+    return environment.httpWfinanceHost
       .concat(environment.httpWfinanceApiOAuth)
       .concat(...path);
   }

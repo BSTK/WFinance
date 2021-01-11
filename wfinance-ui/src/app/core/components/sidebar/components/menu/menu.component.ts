@@ -1,5 +1,5 @@
+import {Menu} from './menu.model';
 import {Component, Input, OnInit} from '@angular/core';
-import {Menu} from "./menu.model";
 
 @Component({
   selector: 'wf-menu',

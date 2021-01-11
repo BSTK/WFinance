@@ -1,6 +1,6 @@
-import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 import {Usuario} from "../../domain/usuario.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {notEmpty} from "../../../../shared/utils/object-utils";

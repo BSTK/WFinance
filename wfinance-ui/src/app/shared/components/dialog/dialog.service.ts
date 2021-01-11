@@ -1,9 +1,9 @@
-import {from, Observable} from "rxjs";
+import {from, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
-import {DialogComponent} from "./dialog.component";
-import {ConfirmDialogConfig} from "./confirm-dialog-config";
-import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+import {ToastrService} from 'ngx-toastr';
+import {DialogComponent} from './dialog.component';
+import {ConfirmDialogConfig} from './confirm-dialog-config';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'

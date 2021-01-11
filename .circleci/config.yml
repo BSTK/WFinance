@@ -26,8 +26,13 @@ jobs:
             - ~/.npm
 
       # Roda os comandos do NPM
-      - run: cd wfinance-ui && npm run style
-      - run: cd wfinance-ui && npm run lint
+
+      # TODO: CONFIGURAR style 
+      # - run: cd wfinance-ui && npm run style
+
+      # TODO: CONFIGURAR lint
+      # - run: cd wfinance-ui && npm run lint
+      
       - run: cd wfinance-ui && npm run build:prod
       - run:
           name: Tar & Gzip compiled app

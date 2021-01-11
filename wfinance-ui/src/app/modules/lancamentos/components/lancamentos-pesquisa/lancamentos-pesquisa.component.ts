@@ -1,7 +1,7 @@
-import {Router} from "@angular/router";
-import {LancamentosFiltro} from "./lancamentos-filtro.model";
+import {Router} from '@angular/router';
+import {LancamentosFiltro} from './lancamentos-filtro.model';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {navigationExtras} from "../../../../shared/router/router-navigation";
+import {navigationExtras} from '../../../../shared/router/router-navigation';
 
 @Component({
   selector: 'wf-lancamentos-pesquisa',

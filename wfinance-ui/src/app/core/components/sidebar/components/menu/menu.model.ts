@@ -1,4 +1,4 @@
-import {MenuItem} from "./menu-item.model";
+import {MenuItem} from './menu-item.model';
 
 export class Menu {
 
