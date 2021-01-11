@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
+import {AutenticadorGuard} from "../seguranca/domain/autenticador.guard";
 import {LancamentosComponent} from "./pages/lancamentos/lancamentos.component";
 import {LancamentosCadastroComponent} from "./pages/lancamentos-cadastro/lancamentos-cadastro.component";
-import {AutenticadorGuard} from "../seguranca/domain/autenticador.guard";
 
 export const LANCAMENTOS_ROUTES: Routes = [
   {
@@ -10,7 +10,7 @@ export const LANCAMENTOS_ROUTES: Routes = [
     canActivate: [ AutenticadorGuard ],
     data: {
       roles: [
-        'ROLE_PESQUISAR_LANCAMENTO_GUARD_TESTE'
+        'ROLE_PESQUISAR_LANCAMENTO'
       ]
     }
   },

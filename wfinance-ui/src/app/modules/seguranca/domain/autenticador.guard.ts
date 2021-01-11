@@ -2,7 +2,6 @@ import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {AutenticadorService} from "./autenticador.service";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Api} from "../../../api";
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +21,13 @@ export class AutenticadorGuard implements CanActivate {
     }
 
     /// TODO: USAR DEPOIS DO LOGOUT
-    if (this.autenticadorService.accessTokenExpirado()) {
+    /*if (this.autenticadorService.accessTokenExpirado()) {
       this.autenticadorService.novoAccessToken()
           .subscribe((_) => {
             this.router.navigate(['/login']);
             return false;
           });
-    }
+    }*/
 
     /// TODO: IMPLEMENTAR O ACESSO NEGADO
 

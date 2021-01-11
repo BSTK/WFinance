@@ -73,11 +73,9 @@ export class AutenticadorService implements OnInit {
   }
 
   temPermissoes(permissoes: string[]): boolean {
-    if (permissoes) {
-      for (const permissao in permissoes) {
-        if (this.temPermissao(permissao)) {
-          return true;
-        }
+    for (const permissao of permissoes) {
+      if (this.temPermissao(permissao)) {
+        return true;
       }
     }
 
