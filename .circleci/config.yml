@@ -10,15 +10,15 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package-lock.json" }}
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "package-lock.json" }}
 
       # Usa-se 'npm ci' para instalar as dependencias como se fosse um "NPM Install"
       - run: cd wfinance-ui && npm ci
 
       # Forçar um update do Web Drive
-      - run: cd wfinance-ui && cd ./node_modules/protractor && npm i webdrivermanager@latest
+      #- run: cd wfinance-ui && cd ./node_modules/protractor && npm i webdrivermanager@latest
 
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
