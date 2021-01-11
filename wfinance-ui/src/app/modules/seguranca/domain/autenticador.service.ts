@@ -7,6 +7,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {EventEmitter, Injectable} from '@angular/core';
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
 import {
+  KEY_AUTHORITIES,
   KEY_OAUTH_ACCESS_TOKEN,
   PARAM_ACCESS_TOKEN,
   REFRESH_TOKEN_PAYLOAD
@@ -67,8 +68,8 @@ export class AutenticadorService {
   }
 
   temPermissao(permissao: string) {
-    return this.jwtPayload.payload['authorities']
-        && this.jwtPayload.payload['authorities'].includes(permissao);
+    return this.jwtPayload.payload[KEY_AUTHORITIES]
+        && this.jwtPayload.payload[KEY_AUTHORITIES].includes(permissao);
   }
 
   temPermissoes(permissoes: string[]): boolean {
