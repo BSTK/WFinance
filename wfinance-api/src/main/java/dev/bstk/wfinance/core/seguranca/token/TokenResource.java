@@ -14,7 +14,7 @@ import static dev.bstk.wfinance.core.seguranca.token.RefreshTokenConstants.PATH_
 import static dev.bstk.wfinance.core.seguranca.token.RefreshTokenConstants.REFRESH_TOKEN;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/v1/token")
 public class TokenResource {
 
     @Value("${wfinance.configuracao.cookie-secure}")
