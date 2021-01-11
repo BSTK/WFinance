@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/node:lts-browsers
 
-    working_directory: ~/wfinance
+    working_directory: ~/wfinance/wfinance-ui
 
     steps:
       - checkout
@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Tar & Gzip compiled app
-          command: tar zcf ~/wfinance/wfinance-ui/dist.tar.gz ~/wfinance/wfinance-ui/dist/wfinance-ui
+          command: cd wfinance-ui && tar zcf dist.tar.gz dist/wfinance-ui
 
       - store_artifacts:
           path: dist.tar.gz
