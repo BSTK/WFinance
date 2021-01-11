@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
               private readonly autenticadorService: AutenticadorService) { }
 
   ngOnInit(): void {
+    this.autenticadorService.eventUsuarioLogado.emit(false);
     this.autenticadorService
         .eventUsuarioLoginInvalido
         .subscribe((loginInvalido: any ) => {

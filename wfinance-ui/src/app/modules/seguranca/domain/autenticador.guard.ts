@@ -9,27 +9,33 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTre
 export class AutenticadorGuard implements CanActivate {
 
   constructor(private readonly router: Router,
-              private readonly autenticadorService: AutenticadorService) {}
+              private readonly autenticadorService: AutenticadorService) {
+    this.autenticadorService.verificaUsuarioLogado();
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (next.data.roles && !this.autenticadorService.temPermissoes(next.data.roles)) {
-      this.router.navigate(['/pagina-nao-autorizado']);
+      const navegarProximaPagina = !this.autenticadorService.accessTokenExpirado()
+        ? '/pagina-nao-autorizado'
+        : '/login';
+
+      this.router.navigate([navegarProximaPagina]);
       return false;
     }
 
-    /// TODO: USAR DEPOIS DO LOGOUT
-    /*if (this.autenticadorService.accessTokenExpirado()) {
-      this.autenticadorService.novoAccessToken()
-          .subscribe((_) => {
+    if (this.autenticadorService.accessTokenExpirado()) {
+      this.autenticadorService
+        .novoAccessToken()
+        .subscribe((_) => {
+          if (this.autenticadorService.accessTokenExpirado()) {
             this.router.navigate(['/login']);
             return false;
-          });
-    }*/
-
-    /// TODO: IMPLEMENTAR O ACESSO NEGADO
+          }
+        });
+    }
 
     return true;
   }

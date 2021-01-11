@@ -1,30 +1,28 @@
 import {Api} from "../../../api";
+import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 import {Usuario} from "./usuario.model";
 import {HttpClient} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {EventEmitter, Injectable, OnInit} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
 import {
   KEY_OAUTH_ACCESS_TOKEN,
   PARAM_ACCESS_TOKEN,
   REFRESH_TOKEN_PAYLOAD
 } from "../../../shared/utils/constants/seguranca.constants";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AutenticadorService implements OnInit {
+export class AutenticadorService {
 
   readonly jwtPayload = { payload: '' };
   readonly eventUsuarioLoginInvalido: EventEmitter<any> = new EventEmitter<any>();
   readonly eventUsuarioLogado: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private readonly httpClient: HttpClient,
-              private readonly jwtHelperService: JwtHelperService) { }
-
-  ngOnInit(): void {
+              private readonly jwtHelperService: JwtHelperService) {
     this.carregarTokenOAuth();
   }
 
@@ -42,10 +40,11 @@ export class AutenticadorService implements OnInit {
 
   logout(): Observable<any> {
     return this.httpClient
-      .post(Api.URLS.oauth.logout,{ withCredentials: true })
+      .delete(Api.URLS.oauth.logout,{ withCredentials: true })
       .pipe(
         tap((_) => {
           this.removerAccessToken();
+          this.eventUsuarioLogado.emit(false);
         })
       );
   }
@@ -69,7 +68,7 @@ export class AutenticadorService implements OnInit {
 
   temPermissao(permissao: string) {
     return this.jwtPayload.payload['authorities']
-      && this.jwtPayload.payload['authorities'].includes(permissao);
+        && this.jwtPayload.payload['authorities'].includes(permissao);
   }
 
   temPermissoes(permissoes: string[]): boolean {
@@ -80,6 +79,12 @@ export class AutenticadorService implements OnInit {
     }
 
     return false;
+  }
+
+  verificaUsuarioLogado() {
+    if (!this.accessTokenExpirado()) {
+      this.eventUsuarioLogado.emit(true);
+    }
   }
 
   private removerAccessToken() {
