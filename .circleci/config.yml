@@ -10,7 +10,9 @@ jobs:
     steps:
       - checkout
       - run: cd wfinance-ui
-      
+      - run: echo $PWD
+      - run: ls -l
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}
