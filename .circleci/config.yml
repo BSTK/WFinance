@@ -5,12 +5,10 @@ jobs:
     docker:
       - image: circleci/node:lts-browsers
 
-    working_directory: ~/wfinance
+    working_directory: ~/wfinance/wfinance-ui
 
     steps:
       - checkout
-      - run: cd wfinance-ui
-      - run: echo $PWD
       - run: ls -l
 
       - restore_cache:
