@@ -5,21 +5,20 @@ jobs:
     docker:
       - image: circleci/node:lts-browsers
 
-    working_directory: ~/wfinance/wfinance-ui
+    working_directory: ~/wfinance
 
     steps:
       - checkout
-      - run: ls -l
 
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}
 
       # Usa-se 'npm ci' para instalar as dependencias como se fosse um "NPM Install"
-      - run: npm ci
+      - run: cd wfinance-ui && npm ci
 
       # Forçar um update do Web Drive
-      - run: cd ./node_modules/protractor && npm i webdrivermanager@latest
+      - run: cd wfinance-ui && cd ./node_modules/protractor && npm i webdrivermanager@latest
 
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
@@ -27,12 +26,12 @@ jobs:
             - ~/.npm
 
       # Roda os comandos do NPM
-      - run: npm run style
-      - run: npm run lint
-      - run: npm run build:prod
+      - run: cd wfinance-ui && npm run style
+      - run: cd wfinance-ui && npm run lint
+      - run: cd wfinance-ui && npm run build:prod
       - run:
           name: Tar & Gzip compiled app
-          command: tar zcf dist.tar.gz dist/wfinance-ui
+          command: cd wfinance-ui && tar zcf dist.tar.gz dist/wfinance-ui
 
       - store_artifacts:
           path: dist.tar.gz
