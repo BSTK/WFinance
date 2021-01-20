@@ -92,6 +92,7 @@ export class LancamentosComponent implements OnInit {
     }
   }
 
+  /// TODO: 2 - Utilizar método resumo igual as demais entidades
   private carregarTodosLancamentos(pagina: number) {
     this.lancamentosService
       .lancamentos(DataTablePaginacaoDefault.pagina(pagina))
