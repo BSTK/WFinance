@@ -6,6 +6,16 @@ abstract class LancamentoRepositoryQueryConstants {
 
     static final String QUERY_FILTRO = "SELECT l FROM Lancamento l JOIN FETCH l.pessoa JOIN FETCH l.categoria";
 
+    static final String QUERY_ESTATISTICA_CATEGORIA = "SELECT NEW "
+        + " dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria( "
+        + " SUM(l.valor), "
+        + " c.nome) "
+        + " FROM Lancamento l "
+        + " JOIN  l.categoria c "
+        + " WHERE l.dataVencimento >= :primeiroDia "
+        + " AND   l.dataVencimento <= :ultimoDia   "
+        + " GROUP BY c.nome ";
+
     static final String QUERY_RESUMO = "SELECT NEW dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento("
         + " l.id, "
         + " l.descricao, "

@@ -19,7 +19,7 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurerAdapter {
 
-    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 30;
+    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 300000;
     private static final int TEMPO_DE_VIDA_REFRESH_TOKEN = 40;
 
     private static final String GRANT_TYPE_PASSWORD = "password";
