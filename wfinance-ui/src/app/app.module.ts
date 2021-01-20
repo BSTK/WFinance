@@ -13,12 +13,12 @@ import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
 import {AuthTokenInterceptor} from './core/interceptors/auth-token.interceptor';
+import {AutenticadorGuard} from './modules/seguranca/domain/autenticador.guard';
 import {AutenticadorService} from './modules/seguranca/domain/autenticador.service';
 import {KEY_OAUTH_ACCESS_TOKEN} from './shared/utils/constants/seguranca.constants';
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from './shared';
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AuthTokenExpiradoInterceptor} from './core/interceptors/auth-token-expirado.interceptor';
-import {AutenticadorGuard} from './modules/seguranca/domain/autenticador.guard';
 
 registerLocaleData(ptBr);
 
@@ -34,7 +34,7 @@ registerLocaleData(ptBr);
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
 
-    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
+    /// TODO: 1 - Mover provider JwtModule para o módulo de de segurança e autenticação
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem(KEY_OAUTH_ACCESS_TOKEN),
@@ -45,11 +45,10 @@ registerLocaleData(ptBr);
   ],
   providers: [
 
-    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
+    /// TODO: 2 - Mover providers AutenticadorService, AutenticadorGuard e JwtHelperService para o módulo de de segurança e autenticação
     AutenticadorService,
     AutenticadorGuard,
     JwtHelperService,
-    /// TODO: AJUSTAR PROVIDERS DE SEGURANÇA E AUTENTICAÇÃO
 
     APP_ROUTING_PROVIDER,
     { provide: LOCALE_ID, useValue: 'pt' },

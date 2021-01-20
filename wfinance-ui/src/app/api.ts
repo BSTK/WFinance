@@ -21,7 +21,7 @@ export class Api {
       novoLancamento: Api.url('/lancamentos'),
     },
 
-    /// TODO: REFATORAR 'pessoas' PARA 'fornecedores'
+    /// TODO: 1 - Refatorar 'pessoas' para 'fornecedores'
     fornecedores: {
       fornecedores: Api.url('/pessoas'),
       novoFornecedor: Api.url('/pessoas'),

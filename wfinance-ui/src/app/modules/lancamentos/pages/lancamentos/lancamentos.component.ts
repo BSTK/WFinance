@@ -85,7 +85,7 @@ export class LancamentosComponent implements OnInit {
     }
   }
 
-  /// TODO: IMPLEMENTAR MÉTODO DE ATUALIZAR
+  /// TODO: 1 - Implementar método de atualizar
   editar(lancamento: Lancamento) {
     if (lancamento) {
       this.router.navigate(['lancamentos/cadastro/' + lancamento.id]);
