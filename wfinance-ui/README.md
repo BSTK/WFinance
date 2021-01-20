@@ -1,6 +1,6 @@
 # WfinanceUi
 
-Ponto de parada: 20.1. Configurando a aplicação com environment do Angular CLI
+Ponto de parada: 22.4. Criando consulta para dados por dia
 
 ## Lista de TODOS a serem finalizados
 
