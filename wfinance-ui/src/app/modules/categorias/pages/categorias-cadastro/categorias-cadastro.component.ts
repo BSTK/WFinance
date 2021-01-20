@@ -1,10 +1,10 @@
 import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 import {Categoria} from "../../domain/categoria.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CategoriasService} from "../../domain/categorias.service";
-import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'wf-categorias-cadastro',
@@ -24,7 +24,7 @@ export class CategoriasCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.titulo.setTitle('WF - Nova Categoria');
-    const categoriaId = this.activatedRoute.snapshot.params['categoriaId'];
+    const categoriaId: number = this.activatedRoute.snapshot.params['categoriaId'];
 
     if (categoriaId) {
       this.categoriaService.categoria(categoriaId)
