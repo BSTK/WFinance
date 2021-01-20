@@ -15,7 +15,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public abstract class AbstractRepositoryQuery {
 
-    private static final String QUERY_CLAUSURA_WHERE = "WHERE";
+    private static final String QUERY_WHERE = "WHERE";
 
     @PersistenceContext
     protected EntityManager manager;
@@ -42,12 +42,12 @@ public abstract class AbstractRepositoryQuery {
     }
 
     private Long calcularTotalRegistros(final Map<String, Object> params) {
-        final var where = Arrays.asList(queryFiltro().split(QUERY_CLAUSURA_WHERE));
+        final var where = Arrays.asList(queryFiltro().split(QUERY_WHERE));
 
         if (isNotEmpty(where)) {
             final Query queryCount = where.size() == 1
                 ? manager.createQuery(queryCount(), Long.class)
-                : manager.createQuery(queryCount().concat(QUERY_CLAUSURA_WHERE) + where.get(1), Long.class);
+                : manager.createQuery(queryCount().concat(QUERY_WHERE) + where.get(1), Long.class);
 
             params.forEach((k, v) -> {
                 if (isNotEmpty(v.toString())) {
