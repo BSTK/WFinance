@@ -1,6 +1,6 @@
 # WfinanceUi
 
-Ponto de parada: 22.4. Criando consulta para dados por dia
+Ponto de parada: 22.9. Criando os campos e parâmetros do relatório
 
 ## Lista de TODOS a serem finalizados
 
