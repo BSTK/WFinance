@@ -5,10 +5,12 @@ import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoEstatisticaPorCategoriaResponse;
+import dev.bstk.wfinance.lancamento.api.response.LancamentoEstatisticaPorDiaResponse;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.api.response.ResumoLancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.LancamentoService;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria;
+import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -68,15 +70,27 @@ public class LancamentoResource {
     @GetMapping("/estatisticas/por-categorias")
     @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public ResponseEntity<List<LancamentoEstatisticaPorCategoriaResponse>> estatisticasPorCategoria() {
-        final var lancamentoEstatisticaPorCategoriasResponse = new ArrayList<LancamentoEstatisticaPorCategoriaResponse>();
-        final var lancamentoEstatisticaPorCategorias = lancamentoRepository.porCategoria(LocalDate.now());
+        final var estatisticaPorCategoriasResponse = new ArrayList<LancamentoEstatisticaPorCategoriaResponse>();
+        final var estatisticaPorCategorias = lancamentoRepository.porCategoria(LocalDate.now());
 
-        for (LancamentoEstatisticaPorCategoria lancamentoEstatisticaPorCategoria : lancamentoEstatisticaPorCategorias) {
-            final var item = map(lancamentoEstatisticaPorCategoria, LancamentoEstatisticaPorCategoriaResponse.class);
-            lancamentoEstatisticaPorCategoriasResponse.add(item);
+        for (LancamentoEstatisticaPorCategoria estatistica : estatisticaPorCategorias) {
+            estatisticaPorCategoriasResponse.add(map(estatistica, LancamentoEstatisticaPorCategoriaResponse.class));
         }
 
-        return ResponseEntity.ok(lancamentoEstatisticaPorCategoriasResponse);
+        return ResponseEntity.ok(estatisticaPorCategoriasResponse);
+    }
+
+    @GetMapping("/estatisticas/por-dia")
+    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+    public ResponseEntity<List<LancamentoEstatisticaPorDiaResponse>> estatisticasPorDia() {
+        final var estatisticaPorDiaResponse = new ArrayList<LancamentoEstatisticaPorDiaResponse>();
+        final var estatisticaPorDia = lancamentoRepository.porDia(LocalDate.now());
+
+        for (LancamentoEstatisticaPorDia estatistica : estatisticaPorDia) {
+            estatisticaPorDiaResponse.add(map(estatistica, LancamentoEstatisticaPorDiaResponse.class));
+        }
+
+        return ResponseEntity.ok(estatisticaPorDiaResponse);
     }
 
     @GetMapping("/{id}")

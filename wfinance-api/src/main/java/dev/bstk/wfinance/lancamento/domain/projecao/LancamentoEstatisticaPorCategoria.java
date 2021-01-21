@@ -16,8 +16,8 @@ public class LancamentoEstatisticaPorCategoria {
     @NotNull
     private final String categoria;
 
-    public LancamentoEstatisticaPorCategoria(@NotNull final BigDecimal total,
-                                             @NotNull final String categoria) {
+    public LancamentoEstatisticaPorCategoria(final @NotNull BigDecimal total,
+                                             final @NotNull String categoria) {
         this.total = total;
         this.categoria = categoria;
     }

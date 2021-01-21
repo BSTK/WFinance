@@ -3,6 +3,7 @@ package dev.bstk.wfinance.lancamento.domain.repository;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria;
+import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia;
 import dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static dev.bstk.wfinance.core.helper.StringHelper.orEmpty;
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_COUNT;
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_ESTATISTICA_CATEGORIA;
+import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.*;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryFiltro;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.queryResumo;
 
@@ -32,6 +32,15 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
     private EntityManager manager;
 
     private static final String QUERY_CLAUSURA_WHERE = "WHERE";
+
+    @Override
+    public List<LancamentoEstatisticaPorDia> porDia(LocalDate mesReferencia) {
+        final var query = manager.createQuery(QUERY_ESTATISTICA_DIA, LancamentoEstatisticaPorDia.class);
+        query.setParameter("primeiroDia", mesReferencia.withDayOfMonth(1));
+        query.setParameter("ultimoDia", mesReferencia.withDayOfMonth(mesReferencia.lengthOfMonth()));
+
+        return query.getResultList();
+    }
 
     @Override
     public List<LancamentoEstatisticaPorCategoria> porCategoria(final LocalDate mesReferencia) {

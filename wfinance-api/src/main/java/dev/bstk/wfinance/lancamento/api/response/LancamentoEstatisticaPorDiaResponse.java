@@ -1,7 +1,6 @@
 package dev.bstk.wfinance.lancamento.api.response;
 
 import dev.bstk.wfinance.lancamento.domain.entidade.Tipo;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,15 +10,14 @@ import java.time.LocalDate;
 
 @Data
 @ToString
-@AllArgsConstructor
 public class LancamentoEstatisticaPorDiaResponse {
 
     @NotNull
-    private final Tipo tipo;
+    private Tipo tipo;
 
     @NotNull
-    private final LocalDate dia;
+    private LocalDate dia;
 
     @NotNull
-    private final BigDecimal total;
+    private BigDecimal total;
 }

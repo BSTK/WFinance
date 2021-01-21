@@ -16,6 +16,18 @@ abstract class LancamentoRepositoryQueryConstants {
         + " AND   l.dataVencimento <= :ultimoDia   "
         + " GROUP BY c.nome ";
 
+    static final String QUERY_ESTATISTICA_DIA = "SELECT NEW "
+        + " dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia( "
+        + "     l.tipo, "
+        + "     l.dataVencimento, "
+        + "     SUM(l.valor)"
+        + " ) "
+        + " FROM  Lancamento  l "
+        + " JOIN  l.categoria c "
+        + " WHERE l.dataVencimento >= :primeiroDia "
+        + " AND   l.dataVencimento <= :ultimoDia   "
+        + " GROUP BY l.tipo, l.dataVencimento ";
+
     static final String QUERY_RESUMO = "SELECT NEW dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento("
         + " l.id, "
         + " l.descricao, "
