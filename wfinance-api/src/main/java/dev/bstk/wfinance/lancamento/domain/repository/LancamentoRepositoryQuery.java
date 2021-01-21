@@ -4,6 +4,7 @@ import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia;
+import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorPessoa;
 import dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ import java.util.List;
 public interface LancamentoRepositoryQuery {
 
     List<LancamentoEstatisticaPorDia> porDia(final LocalDate mesReferencia);
+
+    List<LancamentoEstatisticaPorPessoa> porPessoa(final LocalDate mesReferencia);
 
     List<LancamentoEstatisticaPorCategoria> porCategoria(final LocalDate mesReferencia);
 

@@ -1,16 +1,12 @@
-package dev.bstk.wfinance.lancamento.api;
+package dev.bstk.wfinance.lancamento.api.resource;
 
 import dev.bstk.wfinance.core.evento.NovoRecursoCriadoEvento;
 import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
-import dev.bstk.wfinance.lancamento.api.response.LancamentoEstatisticaPorCategoriaResponse;
-import dev.bstk.wfinance.lancamento.api.response.LancamentoEstatisticaPorDiaResponse;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
 import dev.bstk.wfinance.lancamento.api.response.ResumoLancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.LancamentoService;
-import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria;
-import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -23,11 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import static dev.bstk.wfinance.core.Mapper.map;
 import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.response;
 import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.responseResumo;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -65,32 +58,6 @@ public class LancamentoResource {
         final var resumoLancamentos = lancamentoRepository.resumo(pageable, request);
         final var resumoLancamentosResponse = responseResumo(resumoLancamentos);
         return ResponseEntity.ok(resumoLancamentosResponse);
-    }
-
-    @GetMapping("/estatisticas/por-categorias")
-    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
-    public ResponseEntity<List<LancamentoEstatisticaPorCategoriaResponse>> estatisticasPorCategoria() {
-        final var estatisticaPorCategoriasResponse = new ArrayList<LancamentoEstatisticaPorCategoriaResponse>();
-        final var estatisticaPorCategorias = lancamentoRepository.porCategoria(LocalDate.now());
-
-        for (LancamentoEstatisticaPorCategoria estatistica : estatisticaPorCategorias) {
-            estatisticaPorCategoriasResponse.add(map(estatistica, LancamentoEstatisticaPorCategoriaResponse.class));
-        }
-
-        return ResponseEntity.ok(estatisticaPorCategoriasResponse);
-    }
-
-    @GetMapping("/estatisticas/por-dia")
-    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
-    public ResponseEntity<List<LancamentoEstatisticaPorDiaResponse>> estatisticasPorDia() {
-        final var estatisticaPorDiaResponse = new ArrayList<LancamentoEstatisticaPorDiaResponse>();
-        final var estatisticaPorDia = lancamentoRepository.porDia(LocalDate.now());
-
-        for (LancamentoEstatisticaPorDia estatistica : estatisticaPorDia) {
-            estatisticaPorDiaResponse.add(map(estatistica, LancamentoEstatisticaPorDiaResponse.class));
-        }
-
-        return ResponseEntity.ok(estatisticaPorDiaResponse);
     }
 
     @GetMapping("/{id}")

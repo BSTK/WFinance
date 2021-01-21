@@ -12,11 +12,19 @@ import java.math.BigDecimal;
 public class LancamentoEstatisticaPorPessoa {
 
     @NotNull
-    private Tipo tipo;
+    private final Tipo tipo;
 
     @NotNull
-    private String pessoa;
+    private final String pessoa;
 
     @NotNull
-    private BigDecimal total;
+    private final BigDecimal total;
+
+    public LancamentoEstatisticaPorPessoa(final @NotNull Tipo tipo,
+                                          final @NotNull String pessoa,
+                                          final @NotNull BigDecimal total) {
+        this.tipo = tipo;
+        this.pessoa = pessoa;
+        this.total = total;
+    }
 }
