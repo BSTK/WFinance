@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 @Configuration
-public class Beans {
+public class ConfiguracaoBeans {
 
     @Bean
     public RestTemplate template() {
