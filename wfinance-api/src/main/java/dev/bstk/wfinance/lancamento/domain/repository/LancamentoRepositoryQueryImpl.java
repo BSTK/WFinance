@@ -35,9 +35,11 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
     private static final String QUERY_CLAUSURA_WHERE = "WHERE";
     private static final String QUERY_PARAM_ULTIMO_DIA = "ultimoDia";
     private static final String QUERY_PARAM_PRIMEIRO_DIA = "primeiroDia";
+    private static final String QUERY_PARAM_INICIO = "inicio";
+    private static final String QUERY_PARAM_FIM = "fim";
 
     @Override
-    public List<LancamentoEstatisticaPorDia> porDia(LocalDate mesReferencia) {
+    public List<LancamentoEstatisticaPorDia> porDia(final LocalDate mesReferencia) {
         final var query = manager.createQuery(QUERY_ESTATISTICA_DIA, LancamentoEstatisticaPorDia.class);
         query.setParameter(QUERY_PARAM_PRIMEIRO_DIA, mesReferencia.withDayOfMonth(1));
         query.setParameter(QUERY_PARAM_ULTIMO_DIA, mesReferencia.withDayOfMonth(mesReferencia.lengthOfMonth()));
@@ -46,10 +48,10 @@ public class LancamentoRepositoryQueryImpl implements LancamentoRepositoryQuery 
     }
 
     @Override
-    public List<LancamentoEstatisticaPorPessoa> porPessoa(LocalDate mesReferencia) {
+    public List<LancamentoEstatisticaPorPessoa> porPessoa(final LocalDate inicio, final LocalDate fim) {
         final var query = manager.createQuery(QUERY_ESTATISTICA_PESSOA, LancamentoEstatisticaPorPessoa.class);
-        query.setParameter(QUERY_PARAM_PRIMEIRO_DIA, mesReferencia.withDayOfMonth(1));
-        query.setParameter(QUERY_PARAM_ULTIMO_DIA, mesReferencia.withDayOfMonth(mesReferencia.lengthOfMonth()));
+        query.setParameter(QUERY_PARAM_INICIO, inicio);
+        query.setParameter(QUERY_PARAM_FIM, fim);
 
         return query.getResultList();
     }

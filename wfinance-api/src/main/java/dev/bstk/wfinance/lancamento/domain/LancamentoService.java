@@ -4,12 +4,18 @@ import dev.bstk.wfinance.categoria.domain.repository.CategoriaRepository;
 import dev.bstk.wfinance.core.exception.DadosInvalidosException;
 import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
+import dev.bstk.wfinance.lancamento.api.response.LancamentoEstatisticaPorPessoaResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
+import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorPessoa;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import dev.bstk.wfinance.pessoa.domain.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import static dev.bstk.wfinance.core.Mapper.map;
 import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.entidade;
 
 @Service
@@ -82,5 +88,19 @@ public class LancamentoService {
 
         final var lancamento = entidade(request, id);
         return lancamentoRepository.save(lancamento);
+    }
+
+    /// TODO: IMPLEMENTAR BUSCAR NO SERVIÇO DE GERAR RELATÓRIOS PDF
+    public byte[] relatorioEstatisticaPorPessoa(final LocalDate inicio, final LocalDate fim) {
+        final var estatisticaPorPessoaResponse = new ArrayList<LancamentoEstatisticaPorPessoaResponse>();
+        final var estatisticaPorPessoa = lancamentoRepository.porPessoa(inicio, fim);
+
+        for (LancamentoEstatisticaPorPessoa estatistica : estatisticaPorPessoa) {
+            estatisticaPorPessoaResponse.add(map(estatistica, LancamentoEstatisticaPorPessoaResponse.class));
+        }
+
+        /// TODO: CHAMADO DO SERVIÇO DE GERAR RELATÓRIOS PDF
+
+        return new byte[] {};
     }
 }

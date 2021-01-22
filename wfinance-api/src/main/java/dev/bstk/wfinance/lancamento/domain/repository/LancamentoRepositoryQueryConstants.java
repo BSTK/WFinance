@@ -14,9 +14,9 @@ abstract class LancamentoRepositoryQueryConstants {
         + " ) "
         + " FROM Lancamento l "
         + " JOIN  l.pessoa p "
-        + " WHERE l.dataVencimento >= :primeiroDia "
-        + " AND   l.dataVencimento <= :ultimoDia   "
-        + " GROUP BY l.tipo, l.dataVencimento, p.nome ";
+        + " WHERE l.dataVencimento >= :inicio "
+        + " AND   l.dataVencimento <= :fim   "
+        + " GROUP BY l.tipo, p.nome ";
 
     static final String QUERY_ESTATISTICA_CATEGORIA = "SELECT NEW "
         + " dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria( "

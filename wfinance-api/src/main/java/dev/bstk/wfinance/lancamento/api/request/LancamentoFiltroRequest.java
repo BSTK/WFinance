@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+import static dev.bstk.wfinance.core.helper.Constantes.FormatoData.DD_MM_YYYY;
+
 @Data
 @ToString
 @NoArgsConstructor
@@ -16,9 +18,9 @@ public class LancamentoFiltroRequest {
 
     private String descricao;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = DD_MM_YYYY)
     private LocalDate dataVencimentoDe;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = DD_MM_YYYY)
     private LocalDate dataVencimentoAte;
 }

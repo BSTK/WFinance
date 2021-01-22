@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static dev.bstk.wfinance.core.helper.Constantes.FormatoData.DD_MM_YYYY;
+
 @Data
 @ToString
 @NoArgsConstructor
@@ -23,10 +25,10 @@ public class AtualizarLancamentoRequest {
     private String descricao;
 
     @NotNull
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = DD_MM_YYYY)
     private LocalDate dataVencimento;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = DD_MM_YYYY)
     private LocalDate dataPagamento;
 
     @NotNull

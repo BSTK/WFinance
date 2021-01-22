@@ -16,9 +16,9 @@ public interface LancamentoRepositoryQuery {
 
     List<LancamentoEstatisticaPorDia> porDia(final LocalDate mesReferencia);
 
-    List<LancamentoEstatisticaPorPessoa> porPessoa(final LocalDate mesReferencia);
-
     List<LancamentoEstatisticaPorCategoria> porCategoria(final LocalDate mesReferencia);
+
+    List<LancamentoEstatisticaPorPessoa> porPessoa(final LocalDate inicio, final LocalDate fim);
 
     Page<Lancamento> filtar(final Pageable pageable, final LancamentoFiltroRequest request);
 
