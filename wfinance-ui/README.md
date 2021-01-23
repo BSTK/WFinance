@@ -1,6 +1,6 @@
 # WfinanceUi
 
-Ponto de parada: 22.9. Criando os campos e parâmetros do relatório
+Ponto de parada: 22.31. Criando o bucket no S3 automaticamente
 
 ## Lista de TODOS a serem finalizados
 
