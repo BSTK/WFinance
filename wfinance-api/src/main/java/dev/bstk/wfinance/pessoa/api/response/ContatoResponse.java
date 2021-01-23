@@ -4,21 +4,25 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PessoaResponse implements Serializable {
+public class ContatoResponse implements Serializable {
 
     @EqualsAndHashCode.Include
     private Long id;
 
+    @NotNull @NotEmpty
     private String nome;
-    private boolean ativo;
-    private EnderecoResponse endereco;
-    private Set<ContatoResponse> contatos = new HashSet<>();
+
+    @NotNull @NotEmpty
+    private String email;
+
+    @NotNull @NotEmpty
+    private String telefone;
 
 }

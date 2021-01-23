@@ -20,6 +20,7 @@ public class NovaPessoaRequest implements Serializable {
     @NotNull
     private boolean ativo = true;
 
+    private ContatoRequest contato;
     private EnderecoRequest endereco;
 
 }
