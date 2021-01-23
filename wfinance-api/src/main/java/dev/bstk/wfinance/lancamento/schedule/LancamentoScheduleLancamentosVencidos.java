@@ -3,9 +3,11 @@ package dev.bstk.wfinance.lancamento.schedule;
 import dev.bstk.wfinance.core.email.Email;
 import dev.bstk.wfinance.core.email.EmailHtml;
 import dev.bstk.wfinance.core.email.EnvioEmail;
+import dev.bstk.wfinance.core.helper.CollectionHelper;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import dev.bstk.wfinance.usuario.domain.UsuarioRepository;
 import dev.bstk.wfinance.usuario.domain.entidade.Usuario;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,14 +21,15 @@ import static dev.bstk.wfinance.core.helper.Constantes.EmailTemplate.EMAIL_AVISO
 import static dev.bstk.wfinance.core.helper.Constantes.Permissoes.ROLE_PESQUISAR_LANCAMENTO;
 import static dev.bstk.wfinance.core.helper.Constantes.SchedulesCron.EXECUTAR_TODO_DIA_AS_6_HORAS_DA_MANHA;
 
+@Slf4j
 @Component
 public class LancamentoScheduleLancamentosVencidos {
 
     @Value("${wfinance.configuracao.email.remetente.sistema}")
     private String usuarioRemetendeSistema;
 
-    private final String EMAIL_PARAMETROS_LANCAMENTOS = "lancamentos";
-    private final String EMAIL_ASSUNTO = "WFinance - Lançamentos Vencidos";
+    private static final String EMAIL_PARAMETROS_LANCAMENTOS = "lancamentos";
+    private static final String EMAIL_ASSUNTO = "WFinance - Lançamentos Vencidos";
 
     private final EnvioEmail envioEmail;
     private final UsuarioRepository usuarioRepository;
@@ -44,9 +47,27 @@ public class LancamentoScheduleLancamentosVencidos {
 
     @Scheduled(cron = EXECUTAR_TODO_DIA_AS_6_HORAS_DA_MANHA)
     public void executar() {
-        final var usuarios = usuarioRepository.buscarPorPermissao(ROLE_PESQUISAR_LANCAMENTO);
-        final var emailsDestinatarios = usuarios.stream().map(Usuario::getEmail).collect(Collectors.toList());
+        if (log.isDebugEnabled()) {
+            log.debug("Preparando schedule para envio de email dos lançamentos vencidos");
+        }
+
         final var lancamentosVencidos = lancamentoRepository.lancamentosVencidos(LocalDate.now());
+
+        if (CollectionHelper.isEmpty(lancamentosVencidos)) {
+            log.warn("Não há lançamentos vencidos para a data atual.");
+            return;
+        }
+
+        log.debug("Existem {} lançamentos vecidos.", lancamentosVencidos.size());
+
+        final var usuarios = usuarioRepository.buscarPorPermissao(ROLE_PESQUISAR_LANCAMENTO);
+
+        if (CollectionHelper.isEmpty(usuarios)) {
+            log.warn("Não há usuários para serem avisados.");
+            return;
+        }
+
+        final var emailsDestinatarios = usuarios.stream().map(Usuario::getEmail).collect(Collectors.toList());
 
         final var email = Email.builder()
             .menssagem("")
@@ -62,6 +83,11 @@ public class LancamentoScheduleLancamentosVencidos {
             .build();
 
         envioEmail.enviar(emailHtml);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Envio de email's concluidos. Usuários: {}",
+                String.join(", ", emailsDestinatarios));
+        }
     }
 
 }
