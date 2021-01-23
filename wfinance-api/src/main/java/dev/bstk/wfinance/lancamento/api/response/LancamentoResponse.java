@@ -1,5 +1,6 @@
 package dev.bstk.wfinance.lancamento.api.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.bstk.wfinance.categoria.api.response.CategoriaResponse;
 import dev.bstk.wfinance.lancamento.domain.entidade.Tipo;
 import dev.bstk.wfinance.pessoa.api.response.PessoaResponse;
@@ -25,6 +26,8 @@ public class LancamentoResponse {
     private String observacao;
     private Tipo tipo;
     private CategoriaResponse categoria;
+
+    @JsonIgnoreProperties("contatos")
     private PessoaResponse pessoa;
 
 }

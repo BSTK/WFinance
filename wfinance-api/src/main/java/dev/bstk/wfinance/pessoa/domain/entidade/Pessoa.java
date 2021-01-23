@@ -40,7 +40,11 @@ public class Pessoa implements Serializable {
     @Valid
     @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("pessoa")
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @OneToMany(
+        mappedBy = "pessoa",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     private Set<Contato> contatos = new HashSet<>();
 
     @Override

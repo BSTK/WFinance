@@ -1,5 +1,6 @@
 package dev.bstk.wfinance.lancamento.domain.entidade;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.bstk.wfinance.categoria.domain.entidade.Categoria;
 import dev.bstk.wfinance.pessoa.domain.entidade.Pessoa;
 import lombok.Data;
@@ -47,6 +48,7 @@ public class Lancamento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "PESSOA_ID")
+    @JsonIgnoreProperties("contatos")
     private Pessoa pessoa;
 
     @Override
