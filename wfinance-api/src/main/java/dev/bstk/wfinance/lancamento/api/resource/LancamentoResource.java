@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -128,5 +129,12 @@ public class LancamentoResource {
     public ResponseEntity<Void> excluir(@PathVariable("id") final Long id) {
         lancamentoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/anexo/{id}")
+    @PreAuthorize("hasRole('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
+    public ResponseEntity<String> adicionarAnexo(@PathVariable("id") final Long lancamentoId,
+                                                 @RequestParam("anexo") final MultipartFile anexo) {
+        return ResponseEntity.ok("OK");
     }
 }
