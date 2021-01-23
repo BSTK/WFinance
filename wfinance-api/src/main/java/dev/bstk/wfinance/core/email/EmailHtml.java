@@ -8,24 +8,21 @@ import lombok.ToString;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
 @ToString
 @AllArgsConstructor
-public class Email implements Serializable {
+public class EmailHtml implements Serializable {
+
+    @NotNull
+    private final Email email;
 
     @NotNull @NotEmpty
-    private final String assunto;
+    private final String templateHtml;
 
     @NotNull @NotEmpty
-    private final String remetente;
-
-    @NotNull @NotEmpty
-    private final String menssagem;
-
-    @NotNull @NotEmpty
-    private final List<String> destinatarios;
+    private final Map<String, Object> parametros;
 
 }

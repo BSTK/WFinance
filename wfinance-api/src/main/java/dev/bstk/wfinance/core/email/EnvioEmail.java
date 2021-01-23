@@ -11,7 +11,6 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 @Slf4j
 @Component
@@ -44,16 +43,16 @@ public class EnvioEmail {
         }
     }
 
-    public void enviar(final Email email, final String templateHtml, final Map<String, Object> parametros) {
+    public void enviar(final EmailHtml emailHtml) {
         final var context = new Context(Locale.forLanguageTag("pt_BR"));
-        parametros.forEach(context::setVariable);
+        emailHtml.getParametros().forEach(context::setVariable);
 
-        final var emailMensagemHtml = templateEngine.process(templateHtml, context);
+        final var emailMensagemHtml = templateEngine.process(emailHtml.getTemplateHtml(), context);
         final var emailComHtml = new Email(
-            email.getAssunto(),
-            email.getRemetente(),
+            emailHtml.getEmail().getAssunto(),
+            emailHtml.getEmail().getRemetente(),
             emailMensagemHtml,
-            email.getDestinatarios()
+            emailHtml.getEmail().getDestinatarios()
         );
 
         enviar(emailComHtml);
