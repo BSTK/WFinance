@@ -22,10 +22,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private readonly router: Router,
               private readonly httpClient: HttpClient,
-              private readonly autenticadorService: AutenticadorService) { }
+              private readonly autenticadorService: AutenticadorService) {
+  }
 
   ngOnInit(): void {
-    this.autenticadorService.eventUsuarioLogado.emit(false);
+    this.autenticadorService.usuarioLogado.next(false);
     this.autenticadorService
         .eventUsuarioLoginInvalido
         .subscribe((loginInvalido: any ) => {
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
     if (notEmpty(this.usuario.email) && notEmpty(this.usuario.senha)) {
       this.autenticadorService.login(this.usuario)
         .subscribe((_) => {
-          this.autenticadorService.eventUsuarioLogado.emit(true);
+          this.autenticadorService.usuarioLogado.next(true);
           this.router.navigate(['/lancamentos']);
         });
     }

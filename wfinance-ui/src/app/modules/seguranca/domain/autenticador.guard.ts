@@ -32,6 +32,7 @@ export class AutenticadorGuard implements CanActivate {
         .subscribe((_) => {
           if (this.autenticadorService.accessTokenExpirado()) {
             this.router.navigate(['/login']);
+            this.autenticadorService.usuarioLogado.next(false);
             return false;
           }
         });

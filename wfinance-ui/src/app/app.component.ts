@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.autenticadorService
-        .eventUsuarioLogado
+        .usuarioLogado
         .subscribe((usuarioLogado: boolean) => {
           if (usuarioLogado) {
             this.renderizarTemplateApp = true;

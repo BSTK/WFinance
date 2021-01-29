@@ -52,7 +52,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
 
           if (this.refreshTokenExpirado(request)) {
-            this.autenticadorService.eventUsuarioLogado.emit(false);
+            this.autenticadorService.usuarioLogado.next(false);
             this.toastrService.warning(this.AVISO_TOKEN_EXPIRADO, this.LABEL_AVISO);
             this.router.navigate(['/login']);
             return throwError(this.ERRO_TOKEN_EXPIRADO);

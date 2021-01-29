@@ -12,12 +12,10 @@ export class TopbarComponent {
               readonly autenticadorService: AutenticadorService) { }
 
   logout() {
-    this.autenticadorService
-      .logout()
-      .subscribe((_) => {
-        this.autenticadorService.eventUsuarioLogado.emit(false);
-        this.router.navigate(['/login']);
-      });
+    this.autenticadorService.logout();
+    this.router.navigate(['/login']);
+    window.location.href = '/login';
+    window.location.reload();
   }
 
 }

@@ -1,8 +1,8 @@
 import {Api} from "../../../api";
-import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 import {Usuario} from "./usuario.model";
 import {HttpClient} from "@angular/common/http";
+import {BehaviorSubject, Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {EventEmitter, Injectable} from '@angular/core';
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
@@ -20,7 +20,7 @@ export class AutenticadorService {
 
   readonly jwtPayload = { payload: '' };
   readonly eventUsuarioLoginInvalido: EventEmitter<any> = new EventEmitter<any>();
-  readonly eventUsuarioLogado: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly usuarioLogado: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private readonly httpClient: HttpClient,
               private readonly jwtHelperService: JwtHelperService) {
@@ -39,18 +39,14 @@ export class AutenticadorService {
       );
   }
 
-  logout(): Observable<any> {
-    return this.httpClient
-      .delete(Api.URLS.oauth.logout,{ withCredentials: true })
-      .pipe(
-        tap((_) => {
-          this.removerAccessToken();
-          this.eventUsuarioLogado.emit(false);
-        })
-      );
+  logout(): void {
+    this.httpClient.delete(Api.URLS.oauth.logout,{ withCredentials: true });
+    this.removerAccessToken();
+    this.usuarioLogado.next(false);
   }
 
   novoAccessToken(): Observable<any> {
+    console.log('00 - NOVO_ACCESS_TOKEN');
     return this.httpClient
       .post(Api.URLS.oauth.token, REFRESH_TOKEN_PAYLOAD, { withCredentials: true })
       .pipe(
@@ -84,7 +80,7 @@ export class AutenticadorService {
 
   verificaUsuarioLogado() {
     if (!this.accessTokenExpirado()) {
-      this.eventUsuarioLogado.emit(true);
+      this.usuarioLogado.next(true);
     }
   }
 
