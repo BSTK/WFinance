@@ -14,8 +14,6 @@ export class TopbarComponent {
   logout() {
     this.autenticadorService.logout();
     this.router.navigate(['/login']);
-    window.location.href = '/login';
-    window.location.reload();
   }
 
 }

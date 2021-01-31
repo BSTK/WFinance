@@ -31,8 +31,11 @@ export class AutenticadorGuard implements CanActivate {
         .novoAccessToken()
         .subscribe((_) => {
           if (this.autenticadorService.accessTokenExpirado()) {
-            this.router.navigate(['/login']);
             this.autenticadorService.usuarioLogado.next(false);
+            this.router.navigate(['/login']);
+
+            console.log('AutenticadorGuard == ');
+            console.log('STATE == ', state);
             return false;
           }
         });

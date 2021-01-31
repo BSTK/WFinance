@@ -1,6 +1,6 @@
 # WfinanceUi
 
-Ponto de parada: 22.31. Criando o bucket no S3 automaticamente
+Ponto de parada: 23.1. Criando o módulo Dashboard
 
 ## Lista de TODOS a serem finalizados
 

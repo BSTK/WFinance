@@ -46,7 +46,7 @@ export class AutenticadorService {
   }
 
   novoAccessToken(): Observable<any> {
-    console.log('00 - NOVO_ACCESS_TOKEN');
+    console.log('NOVO_ACCESS_TOKEN');
     return this.httpClient
       .post(Api.URLS.oauth.token, REFRESH_TOKEN_PAYLOAD, { withCredentials: true })
       .pipe(

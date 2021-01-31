@@ -13,11 +13,11 @@ class LancamentoRepositoryQueryFormatadorSql {
         throw new AssertionError("Não instanciar LancamentoRepositoryQueryFormatadorSQL");
     }
 
-    static String queryFiltro(final LancamentoFiltroRequest request) {
+    static String formatarQueryFiltro(final LancamentoFiltroRequest request) {
         return query(QUERY_FILTRO, request);
     }
 
-    static String queryResumo(final LancamentoFiltroRequest request) {
+    static String formatarQueryResumo(final LancamentoFiltroRequest request) {
         return query(QUERY_RESUMO, request);
     }
 

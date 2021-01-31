@@ -63,7 +63,7 @@ public class LancamentoResource {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
-    public ResponseEntity<LancamentoResponse> lancamentos(@PathVariable("id") final Long id) {
+    public ResponseEntity<LancamentoResponse> lancamento(@PathVariable("id") final Long id) {
         final var lancamentoOptional = lancamentoRepository.findById(id);
 
         if (lancamentoOptional.isPresent()) {
