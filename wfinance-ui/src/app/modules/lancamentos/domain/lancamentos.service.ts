@@ -49,7 +49,7 @@ export class LancamentosService {
       params = params.append(this.PARAMS_DATA_VENCIMENTO_ATE, filtro.dataVencimentoAte);
     }
 
-    return this.httpClient.get<any[]>(Api.URLS.lancamentos.resumo, { params });
+    return this.httpClient.get<any[]>(Api.URLS.lancamentos.lancamentos, { params });
   }
 
   excluir(lancamento: Lancamento): Observable<void> {

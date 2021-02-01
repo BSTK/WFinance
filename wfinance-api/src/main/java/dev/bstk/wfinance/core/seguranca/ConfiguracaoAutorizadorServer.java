@@ -2,6 +2,7 @@ package dev.bstk.wfinance.core.seguranca;
 
 import dev.bstk.wfinance.usuario.domain.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -19,8 +20,11 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurerAdapter {
 
-    private static final int TEMPO_DE_VIDA_ACCESS_TOKEN = 10;
-    private static final int TEMPO_DE_VIDA_REFRESH_TOKEN = 15;
+    @Value("${wfinance.configuracao.tempoDeVidaAccessToken}")
+    private int tempoDeVidaAccessToken = 0;
+
+    @Value("${wfinance.configuracao.tempoDeVidaRefreshToken}")
+    private int tempoDeVidaRefreshToken = 0;
 
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
@@ -64,7 +68,7 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
             .secret("$2a$10$51JK4K3kEMdlui9Aj6fkmOb/IVT1e4aqPXAxTKGAm3dT/tsYOOHBG")
             .scopes("read", "write")
             .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
-            .refreshTokenValiditySeconds(TEMPO_DE_VIDA_REFRESH_TOKEN)
-            .accessTokenValiditySeconds(TEMPO_DE_VIDA_ACCESS_TOKEN);
+            .refreshTokenValiditySeconds(tempoDeVidaRefreshToken)
+            .accessTokenValiditySeconds(tempoDeVidaAccessToken);
     }
 }

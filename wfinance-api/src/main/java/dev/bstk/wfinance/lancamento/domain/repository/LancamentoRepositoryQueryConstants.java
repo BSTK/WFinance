@@ -2,9 +2,9 @@ package dev.bstk.wfinance.lancamento.domain.repository;
 
 abstract class LancamentoRepositoryQueryConstants {
 
-    static final String QUERY_COUNT = "SELECT count(*) FROM Lancamento l ";
+    static String QUERY_COUNT = "SELECT count(*) FROM Lancamento l ";
 
-    static final String QUERY_FILTRO = "SELECT l FROM Lancamento l JOIN FETCH l.pessoa JOIN FETCH l.categoria";
+    static String QUERY_FILTRO = "SELECT l FROM Lancamento l JOIN FETCH l.pessoa JOIN FETCH l.categoria";
 
     static final String QUERY_ESTATISTICA_PESSOA = "SELECT NEW "
         + " dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorPessoa( "

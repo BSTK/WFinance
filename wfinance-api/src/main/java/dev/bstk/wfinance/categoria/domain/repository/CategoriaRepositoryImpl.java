@@ -24,9 +24,4 @@ public class CategoriaRepositoryImpl extends AbstractRepositoryQuery implements 
         return QUERY_COUNT;
     }
 
-    @Override
-    public String queryFiltro() {
-        return QUERY_FILTRO;
-    }
-
 }

@@ -4,7 +4,6 @@ import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import org.apache.commons.lang3.StringUtils;
 
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_FILTRO;
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.QUERY_RESUMO;
 import static java.util.Objects.nonNull;
 
 class LancamentoRepositoryQueryFormatadorSql {
@@ -15,10 +14,6 @@ class LancamentoRepositoryQueryFormatadorSql {
 
     static String formatarQueryFiltro(final LancamentoFiltroRequest request) {
         return query(QUERY_FILTRO, request);
-    }
-
-    static String formatarQueryResumo(final LancamentoFiltroRequest request) {
-        return query(QUERY_RESUMO, request);
     }
 
     private static String query(String query, final LancamentoFiltroRequest request) {

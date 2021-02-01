@@ -5,7 +5,6 @@ import dev.bstk.wfinance.lancamento.api.request.AtualizarLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.request.LancamentoFiltroRequest;
 import dev.bstk.wfinance.lancamento.api.request.NovoLancamentoRequest;
 import dev.bstk.wfinance.lancamento.api.response.LancamentoResponse;
-import dev.bstk.wfinance.lancamento.api.response.ResumoLancamentoResponse;
 import dev.bstk.wfinance.lancamento.domain.LancamentoService;
 import dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.response;
-import static dev.bstk.wfinance.lancamento.api.LancamentoMapper.responseResumo;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @RestController
@@ -50,15 +48,6 @@ public class LancamentoResource {
         final var lancamentos = lancamentoRepository.filtar(pageable, request);
         final var lancamentosResponse = response(lancamentos);
         return ResponseEntity.ok(lancamentosResponse);
-    }
-
-    @GetMapping("/resumo")
-    @PreAuthorize("hasRole('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<ResumoLancamentoResponse>> resumo(final Pageable pageable,
-                                                                 final LancamentoFiltroRequest request) {
-        final var resumoLancamentos = lancamentoRepository.resumo(pageable, request);
-        final var resumoLancamentosResponse = responseResumo(resumoLancamentos);
-        return ResponseEntity.ok(resumoLancamentosResponse);
     }
 
     @GetMapping("/{id}")

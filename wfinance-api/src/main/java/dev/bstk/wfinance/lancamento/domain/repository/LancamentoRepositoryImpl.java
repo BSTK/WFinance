@@ -6,7 +6,6 @@ import dev.bstk.wfinance.lancamento.domain.entidade.Lancamento;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorCategoria;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorDia;
 import dev.bstk.wfinance.lancamento.domain.projecao.LancamentoEstatisticaPorPessoa;
-import dev.bstk.wfinance.lancamento.domain.projecao.ResumoLancamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryImplHelper.parametros;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryConstants.*;
 import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.formatarQueryFiltro;
-import static dev.bstk.wfinance.lancamento.domain.repository.LancamentoRepositoryQueryFormatadorSql.formatarQueryResumo;
 
 public class LancamentoRepositoryImpl extends AbstractRepositoryQuery implements LancamentoRepositoryQuery {
 
@@ -59,19 +57,8 @@ public class LancamentoRepositoryImpl extends AbstractRepositoryQuery implements
     }
 
     @Override
-    public Page<ResumoLancamento> resumo(Pageable pageable, LancamentoFiltroRequest request) {
-        final var query = manager.createQuery(formatarQueryResumo(request), ResumoLancamento.class);
-        return executar(query, pageable, parametros(request));
-    }
-
-    @Override
     public String queryCount() {
         return QUERY_COUNT;
-    }
-
-    @Override
-    public String queryFiltro() {
-        return QUERY_FILTRO;
     }
 
 }

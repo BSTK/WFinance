@@ -24,9 +24,4 @@ public class PessoaRepositoryImpl extends AbstractRepositoryQuery implements Pes
         return QUERY_COUNT;
     }
 
-    @Override
-    public String queryFiltro() {
-        return QUERY_FILTRO;
-    }
-
 }

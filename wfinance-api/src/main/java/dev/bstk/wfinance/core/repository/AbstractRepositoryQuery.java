@@ -1,5 +1,6 @@
 package dev.bstk.wfinance.core.repository;
 
+import org.hibernate.query.internal.QueryImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +24,10 @@ public abstract class AbstractRepositoryQuery {
     protected <T> Page<T> executar(final Query query,
                                    final Pageable pageable,
                                    final Map<String, Object> params) {
+
+        final var queryFiltro = ((QueryImpl) query).getQueryString();
         final var totalRegistrosPorPagina = pageable.getPageSize();
-        final var totalRegistros = calcularTotalRegistros(params);
+        final var totalRegistros = calcularTotalRegistros(params, queryFiltro);
         final var primeiraPgaina = pageable.getPageNumber() * pageable.getPageSize();
 
         params.forEach((k, v) -> {
@@ -41,8 +44,9 @@ public abstract class AbstractRepositoryQuery {
         return new PageImpl<>(resultado, pageable, totalRegistros);
     }
 
-    private Long calcularTotalRegistros(final Map<String, Object> params) {
-        final var where = Arrays.asList(queryFiltro().split(QUERY_WHERE));
+    private Long calcularTotalRegistros(final Map<String, Object> params,
+                                        final String queryFiltro) {
+        final var where = Arrays.asList(queryFiltro.split(QUERY_WHERE));
 
         if (isNotEmpty(where)) {
             final Query queryCount = where.size() == 1
@@ -62,7 +66,5 @@ public abstract class AbstractRepositoryQuery {
     }
 
     public abstract String queryCount();
-
-    public abstract String queryFiltro();
 
 }
