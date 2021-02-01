@@ -23,11 +23,12 @@ Ponto de parada: 23.1. Criando o módulo Dashboard
 > src/app/modules/lancamentos/pages/lancamentos/lancamentos.component.ts
 - TODO: 1 - Implementar método de atualizar
 
-## TODOS Globais
-- TODO: 1 - Tornar genérico o onInit de pesquisa
-- TODO: 2 - Tornar genérico o carregamentos de carregarTodos__ENTIDADE__
-- TODO: 3 - Tornar genérico o carregamentos de carregarPesquisa__ENTIDADE__
 
+> Implementar o anexo de arquivos
+- TODO: Implementar upload de dados no Firebase Store
+- TODO: Implementar anexo para lançamento
+- TODO: Implementar anexo documentos para Pessoa/Fornecedor
+- TODO: Implementar upload foto Pessoa/Fornecedor
 
 ## BUGS
 - TODO: 1 - Corrigir e implementar Subject ao mudar de usuarioLogado para usuarioNaoLogado
