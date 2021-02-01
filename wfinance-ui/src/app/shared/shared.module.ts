@@ -1,10 +1,10 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Title} from "@angular/platform-browser";
+import {Title} from '@angular/platform-browser';
 import {InputValidationDirective} from './diretivas';
 import {CabecalhoPaginaComponent} from './components';
 import {DialogComponent} from './components/dialog/dialog.component';
-import {DataTablePaginationComponent} from "./components/data-table-pagination/data-table-pagination.component";
+import {DataTablePaginationComponent} from './components/data-table-pagination/data-table-pagination.component';
 import {InputValidationMessageComponent} from './components/input-validation-message/input-validation-message.component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import {InputValidationMessageComponent} from './components/input-validation-mes
     CabecalhoPaginaComponent,
     InputValidationDirective,
     DataTablePaginationComponent,
-    InputValidationMessageComponent
+    InputValidationMessageComponent,
   ],
   imports: [
     CommonModule,

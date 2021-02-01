@@ -1,45 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {Categoria} from "../../domain/categoria.model";
-import {ActivatedRoute, Router} from "@angular/router";
-import {isEmpty} from "../../../../shared/utils/object-utils";
-import {CategoriasService} from "../../domain/categorias.service";
-import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
-import {CategoriasFiltro} from "../../components/categorias-pesquisa/categorias-filtro.model";
-import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
+import {Component} from '@angular/core';
+import {Categoria} from '../../domain/categoria.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {isEmpty} from '../../../../shared/utils/object-utils';
+import {CategoriasService} from '../../domain/categorias.service';
+import {NavigateQuery, navigationExtrasPagina} from '../../../../shared/router';
+import {DialogService} from '../../../../shared/components/dialog/dialog.service';
+import {CategoriasFiltro} from '../../components/categorias-pesquisa/categorias-filtro.model';
+import {DataTablePaginacaoDefault, ResponseToDataSource} from '../../../../shared/components';
+import {ListagemDadosComponent} from '../../../../shared/components/listagem-dados/listagem-dados.component';
 import {
   categoriaFiltroQueryParam,
   confirmDialogConfigExclusao,
   filtroValido,
   ROTA_CATEGORIA_CADASTRO
-} from "../../domain/categoria.helper";
-import {Title} from "@angular/platform-browser";
+} from '../../domain/categoria.helper';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'wf-categorias',
   templateUrl: './categorias.component.html'
 })
-export class CategoriasComponent implements OnInit {
-
-  dataSource: DataSourceTable<Categoria> = new DataSourceTable<Categoria>();
-
-  constructor(private readonly titulo: Title,
-              private readonly router: Router,
+export class CategoriasComponent extends ListagemDadosComponent<Categoria, CategoriasFiltro> {
+  
+  constructor(private readonly router: Router,
               private readonly dialogService: DialogService,
-              private readonly activatedRoute: ActivatedRoute,
-              private readonly categoriasService: CategoriasService) { }
-
-  ngOnInit(): void {
-    const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
-    const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
-    this.paginacao(paginaAtual);
-    this.titulo.setTitle('WF - Minhas Categorias');
+              readonly title: Title,
+              readonly activatedRoute: ActivatedRoute,
+              readonly categoriasService: CategoriasService) {
+    super(title,
+      'WF - Minhas Categorias',
+      activatedRoute,
+      categoriasService);
   }
 
   pesquisar(filtro: CategoriasFiltro) {
     const observable = filtroValido(filtro)
       ? this.categoriasService.resumo(filtro, DataTablePaginacaoDefault.pagina())
-      : this.categoriasService.categorias(DataTablePaginacaoDefault.pagina());
+      : this.categoriasService.carregar(DataTablePaginacaoDefault.pagina());
 
     observable.subscribe((response: any) => {
       if (response && response.content) {
@@ -53,11 +50,11 @@ export class CategoriasComponent implements OnInit {
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
 
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
-      this.carregarTodasCategorias(pagina);
+      this.carregar(pagina);
     }
 
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
-      this.carregarPesquisaCategorias(pagina);
+      this.carregarPesquisa(pagina, categoriaFiltroQueryParam);
     }
   }
 
@@ -87,26 +84,6 @@ export class CategoriasComponent implements OnInit {
         ROTA_CATEGORIA_CADASTRO.concat(categoria.id.toString())
       ]);
     }
-  }
-
-  private carregarTodasCategorias(pagina: number) {
-    this.categoriasService
-      .categorias(DataTablePaginacaoDefault.pagina(pagina))
-      .subscribe((response: any) => {
-        if (response && response.content) {
-          this.dataSource = ResponseToDataSource<Categoria>(response);
-        }
-      });
-  }
-
-  private carregarPesquisaCategorias(pagina: number) {
-    const filtro: CategoriasFiltro = categoriaFiltroQueryParam(this.activatedRoute.snapshot.queryParamMap);
-    this.categoriasService.resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
-      .subscribe((response: any) => {
-        if (response && response.content) {
-          this.dataSource = ResponseToDataSource<Categoria>(response);
-        }
-      });
   }
 
 }

@@ -1,28 +1,25 @@
-import {Observable} from "rxjs";
-import {Api} from "../../../api";
+import {Observable} from 'rxjs';
+import {Api} from '../../../api';
 import {Injectable} from '@angular/core';
-import {Categoria} from "./categoria.model";
-import {Paginacao} from "../../../shared/components";
-import {notEmpty} from "../../../shared/utils/object-utils";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {CategoriasFiltro} from "../components/categorias-pesquisa/categorias-filtro.model";
+import {Categoria} from './categoria.model';
+import {Paginacao} from '../../../shared/components';
+import {notEmpty} from '../../../shared/utils/object-utils';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {CategoriasFiltro} from '../components/categorias-pesquisa/categorias-filtro.model';
+import {ListagemDadosService} from '../../../shared/components/listagem-dados/listagem-dados.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriasService {
+export class CategoriasService implements ListagemDadosService {
 
   readonly PARAMS_NOME = 'nome';
   readonly PARAMS_PAGINA_ATUAL = 'page';
   readonly PARAMS_ITENS_POR_PAGINA = 'size';
 
   constructor(private readonly httpClient: HttpClient) { }
-
-  categoria(categoriaId: number): Observable<Categoria> {
-    return this.httpClient.get<Categoria>(`${Api.URLS.categorias.categorias}/${categoriaId}`);
-  }
-
-  categorias(paginacao: Paginacao): Observable<any[]> {
+  
+  carregar(paginacao: Paginacao): Observable<any[]> {
     const params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
@@ -40,6 +37,10 @@ export class CategoriasService {
     }
 
     return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, { params });
+  }
+  
+  categoria(categoriaId: number): Observable<Categoria> {
+    return this.httpClient.get<Categoria>(`${Api.URLS.categorias.categorias}/${categoriaId}`);
   }
 
   excluir(categoria: Categoria): Observable<void> {
