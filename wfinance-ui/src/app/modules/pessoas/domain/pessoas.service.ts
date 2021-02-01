@@ -5,11 +5,12 @@ import {Pessoa, PessoasFiltro} from "./pessoa.model";
 import {Paginacao} from "../../../shared/components";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
+import {ListagemDadosService} from '../../../shared/components/listagem-dados/listagem-dados.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PessoasService {
+export class PessoasService implements ListagemDadosService {
 
   readonly PARAMS_NOME = 'nome';
   readonly PARAMS_PAGINA_ATUAL = 'page';
@@ -21,7 +22,7 @@ export class PessoasService {
     return this.httpClient.get<Pessoa>(`${Api.URLS.fornecedores.fornecedores}/${pessoaId}`);
   }
 
-  pessoas(paginacao: Paginacao): Observable<any[]> {
+  carregar(paginacao: Paginacao): Observable<any[]> {
     const params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());

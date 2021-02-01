@@ -1,45 +1,43 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {PessoasService} from "../../domain/pessoas.service";
-import {isEmpty} from "../../../../shared/utils/object-utils";
-import {Pessoa, PessoasFiltro} from "../../domain/pessoa.model";
-import {NavigateQuery, navigationExtrasPagina} from "../../../../shared/router";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
-import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from "../../../../shared/components";
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PessoasService} from '../../domain/pessoas.service';
+import {isEmpty} from '../../../../shared/utils/object-utils';
+import {Pessoa, PessoasFiltro} from '../../domain/pessoa.model';
+import {NavigateQuery, navigationExtrasPagina} from '../../../../shared/router';
+import {DialogService} from '../../../../shared/components/dialog/dialog.service';
+import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from '../../../../shared/components';
 import {
   confirmDialogConfigExclusao,
   filtroValido,
   pessoaFiltroQueryParam,
   ROTA_PESSOA_CADASTRO
-} from "../../domain/pessoas.helper";
-import {Title} from "@angular/platform-browser";
+} from '../../domain/pessoas.helper';
+import {Title} from '@angular/platform-browser';
+import {ListagemDadosComponent} from '../../../../shared/components/listagem-dados/listagem-dados.component';
 
 @Component({
   selector: 'wf-pessoas',
   templateUrl: './pessoas.component.html'
 })
-export class PessoasComponent implements OnInit {
+export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFiltro> {
 
   dataSource: DataSourceTable<Pessoa> = new DataSourceTable<Pessoa>();
 
-  constructor(private readonly titulo: Title,
+  constructor(readonly title: Title,
               private readonly router: Router,
               private readonly dialogService: DialogService,
-              private readonly activatedRoute: ActivatedRoute,
-              private readonly pessoasService: PessoasService) {
-  }
-
-  ngOnInit(): void {
-    const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
-    const paginaAtual = isEmpty(pagina) ? 1 : Number(pagina);
-    this.paginacao(paginaAtual);
-    this.titulo.setTitle('WF - Meus Fornecedores');
+              readonly activatedRoute: ActivatedRoute,
+              readonly pessoasService: PessoasService) {
+    super(title,
+      'WF - Meus Fornecedores',
+      activatedRoute,
+      pessoasService);
   }
 
   pesquisar(filtro: PessoasFiltro) {
     const observable = filtroValido(filtro)
       ? this.pessoasService.resumo(filtro, DataTablePaginacaoDefault.pagina())
-      : this.pessoasService.pessoas(DataTablePaginacaoDefault.pagina());
+      : this.pessoasService.carregar(DataTablePaginacaoDefault.pagina());
 
     observable.subscribe((response: any) => {
       if (response && response.content) {
@@ -53,11 +51,11 @@ export class PessoasComponent implements OnInit {
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
 
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
-      this.carregarTodasPessoas(pagina);
+      this.carregar(pagina);
     }
 
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
-      this.carregarPesquisaPessoas(pagina);
+      this.carregarPesquisa(pagina, pessoaFiltroQueryParam);
     }
   }
 
@@ -102,24 +100,5 @@ export class PessoasComponent implements OnInit {
       });
     }
   }
-
-  private carregarTodasPessoas(pagina: number) {
-    this.pessoasService
-      .pessoas(DataTablePaginacaoDefault.pagina(pagina))
-      .subscribe((response: any) => {
-        if (response && response.content) {
-          this.dataSource = ResponseToDataSource<Pessoa>(response);
-        }
-      });
-  }
-
-  private carregarPesquisaPessoas(pagina: number) {
-    const filtro: PessoasFiltro = pessoaFiltroQueryParam(this.activatedRoute.snapshot.queryParamMap);
-    this.pessoasService.resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
-      .subscribe((response: any) => {
-        if (response && response.content) {
-          this.dataSource = ResponseToDataSource<Pessoa>(response);
-        }
-      });
-  }
+  
 }

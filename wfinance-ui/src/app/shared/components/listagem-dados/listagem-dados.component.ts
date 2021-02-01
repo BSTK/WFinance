@@ -1,9 +1,9 @@
 import {OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {isEmpty} from '../../utils/object-utils';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ListagemDadosService} from './listagem-dados.service';
 import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from '..';
-import {Title} from '@angular/platform-browser';
 
 export abstract class ListagemDadosComponent<T, F = any> implements OnInit {
   
