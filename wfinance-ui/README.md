@@ -22,7 +22,6 @@ Ponto de parada: 23.1. Criando o módulo Dashboard
 
 > src/app/modules/lancamentos/pages/lancamentos/lancamentos.component.ts
 - TODO: 1 - Implementar método de atualizar
-- TODO: 2 - Utilizar método resumo igual as demais entidades
 
 ## TODOS Globais
 - TODO: 1 - Tornar genérico o onInit de pesquisa
