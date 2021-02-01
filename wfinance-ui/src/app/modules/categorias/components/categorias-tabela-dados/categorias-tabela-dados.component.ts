@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Categoria} from "../../domain/categoria.model";
+import {Categoria} from "../../services/categoria.model";
 import {DataTableComponent} from "../../../../shared/components";
-import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
+import {AutenticadorService} from "../../../seguranca/services/autenticador.service";
 
 @Component({
   selector: 'wf-categorias-tabela-dados',

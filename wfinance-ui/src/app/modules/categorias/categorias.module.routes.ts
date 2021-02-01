@@ -1,5 +1,5 @@
 import {Routes} from '@angular/router';
-import {AutenticadorGuard} from "../seguranca/domain/autenticador.guard";
+import {AutenticadorGuard} from "../seguranca/services/autenticador.guard";
 import {CategoriasComponent} from "./pages/categorias/categorias.component";
 import {CategoriasCadastroComponent} from "./pages/categorias-cadastro/categorias-cadastro.component";
 

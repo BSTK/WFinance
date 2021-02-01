@@ -3,7 +3,7 @@ import {ToastrService} from "ngx-toastr";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LancamentosService} from "../../domain/lancamentos.service";
+import {LancamentosService} from "../../services/lancamentos.service";
 import {DialogService} from "../../../../shared/components/dialog/dialog.service";
 import {
   DESPESA,
@@ -12,7 +12,7 @@ import {
   LancamentoPessoa,
   RECEITA,
   TipoLancamento
-} from "../../domain/lancamento.model";
+} from "../../services/lancamento.model";
 import {isNull, notNull} from "../../../../shared/utils/object-utils";
 
 @Component({

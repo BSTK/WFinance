@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {DataTableComponent} from '../../../../shared';
-import {Lancamento} from '../../domain/lancamento.model';
-import {AutenticadorService} from '../../../seguranca/domain/autenticador.service';
+import {Lancamento} from '../../services/lancamento.model';
+import {AutenticadorService} from '../../../seguranca/services/autenticador.service';
 
 @Component({
   selector: 'wf-lancamentos-tabela-dados',

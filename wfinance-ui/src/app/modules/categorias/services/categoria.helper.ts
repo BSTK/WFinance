@@ -23,4 +23,3 @@ export const categoriaFiltroQueryParam = (queryParamMap: ParamMap): CategoriasFi
     nome: queryParamMap.get('nome')
   };
 };
-

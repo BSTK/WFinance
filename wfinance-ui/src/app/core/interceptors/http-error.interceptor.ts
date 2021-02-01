@@ -7,7 +7,7 @@ import {Observable, throwError} from "rxjs";
 import {StatusCodes} from "http-status-codes/build/cjs";
 import {notEmpty} from "../../shared/utils/object-utils";
 import {REFRESH_TOKEN_PAYLOAD} from "../../shared/utils/constants/seguranca.constants";
-import {AutenticadorService} from "../../modules/seguranca/domain/autenticador.service";
+import {AutenticadorService} from "../../modules/seguranca/services/autenticador.service";
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 
 @Injectable({

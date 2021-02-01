@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PessoasService} from '../../domain/pessoas.service';
+import {PessoasService} from '../../services/pessoas.service';
 import {isEmpty} from '../../../../shared/utils/object-utils';
-import {Pessoa, PessoasFiltro} from '../../domain/pessoa.model';
+import {Pessoa, PessoasFiltro} from '../../services/pessoa.model';
 import {NavigateQuery, navigationExtrasPagina} from '../../../../shared/router';
 import {DialogService} from '../../../../shared/components/dialog/dialog.service';
 import {DataTablePaginacaoDefault, ResponseToDataSource} from '../../../../shared/components';
@@ -11,7 +11,7 @@ import {
   filtroValido,
   pessoaFiltroQueryParam,
   ROTA_PESSOA_CADASTRO
-} from '../../domain/pessoas.helper';
+} from '../../services/pessoas.helper';
 import {Title} from '@angular/platform-browser';
 import {ListagemDadosComponent} from '../../../../shared/components/listagem-dados/listagem-dados.component';
 

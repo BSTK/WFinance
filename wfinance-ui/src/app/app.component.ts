@@ -1,6 +1,6 @@
 import {Title} from "@angular/platform-browser";
 import {Component, OnInit} from '@angular/core';
-import {AutenticadorService} from "./modules/seguranca/domain/autenticador.service";
+import {AutenticadorService} from "./modules/seguranca/services/autenticador.service";
 
 @Component({
   selector: 'app-root',

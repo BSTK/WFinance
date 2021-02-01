@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {Categoria} from '../../domain/categoria.model';
+import {Categoria} from '../../services/categoria.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {isEmpty} from '../../../../shared/utils/object-utils';
-import {CategoriasService} from '../../domain/categorias.service';
+import {CategoriasService} from '../../services/categorias.service';
 import {NavigateQuery, navigationExtrasPagina} from '../../../../shared/router';
 import {DialogService} from '../../../../shared/components/dialog/dialog.service';
 import {CategoriasFiltro} from '../../components/categorias-pesquisa/categorias-filtro.model';
@@ -13,7 +13,7 @@ import {
   confirmDialogConfigExclusao,
   filtroValido,
   ROTA_CATEGORIA_CADASTRO
-} from '../../domain/categoria.helper';
+} from '../../services/categoria.helper';
 import {Title} from '@angular/platform-browser';
 
 @Component({

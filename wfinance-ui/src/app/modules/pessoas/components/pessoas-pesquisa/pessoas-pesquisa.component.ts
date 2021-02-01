@@ -1,5 +1,5 @@
 import {Router} from "@angular/router";
-import {PessoasFiltro} from "../../domain/pessoa.model";
+import {PessoasFiltro} from "../../services/pessoa.model";
 import {navigationExtras} from "../../../../shared/router";
 import {Component, EventEmitter, Output} from '@angular/core';
 

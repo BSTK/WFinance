@@ -1,7 +1,7 @@
-import {Pessoa} from "../../domain/pessoa.model";
+import {Pessoa} from "../../services/pessoa.model";
 import {Component, EventEmitter, Output} from '@angular/core';
 import {DataTableComponent} from "../../../../shared/components";
-import {AutenticadorService} from "../../../seguranca/domain/autenticador.service";
+import {AutenticadorService} from "../../../seguranca/services/autenticador.service";
 
 @Component({
   selector: 'wf-pessoas-tabela-dados',

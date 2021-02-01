@@ -1,10 +1,10 @@
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {Usuario} from "../../domain/usuario.model";
+import {Usuario} from "../../services/usuario.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {notEmpty} from "../../../../shared/utils/object-utils";
-import {AutenticadorService} from "../../domain/autenticador.service";
+import {AutenticadorService} from "../../services/autenticador.service";
 
 @Component({
   selector: 'wf-login',

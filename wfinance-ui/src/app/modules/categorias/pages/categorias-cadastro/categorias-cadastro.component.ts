@@ -2,9 +2,9 @@ import {NgForm} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {Categoria} from "../../domain/categoria.model";
+import {Categoria} from "../../services/categoria.model";
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CategoriasService} from "../../domain/categorias.service";
+import {CategoriasService} from "../../services/categorias.service";
 
 @Component({
   selector: 'wf-categorias-cadastro',
