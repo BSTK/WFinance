@@ -5,7 +5,7 @@ import {isEmpty} from '../../../../shared/utils/object-utils';
 import {Pessoa, PessoasFiltro} from '../../domain/pessoa.model';
 import {NavigateQuery, navigationExtrasPagina} from '../../../../shared/router';
 import {DialogService} from '../../../../shared/components/dialog/dialog.service';
-import {DataSourceTable, DataTablePaginacaoDefault, ResponseToDataSource} from '../../../../shared/components';
+import {DataTablePaginacaoDefault, ResponseToDataSource} from '../../../../shared/components';
 import {
   confirmDialogConfigExclusao,
   filtroValido,
@@ -20,9 +20,7 @@ import {ListagemDadosComponent} from '../../../../shared/components/listagem-dad
   templateUrl: './pessoas.component.html'
 })
 export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFiltro> {
-
-  dataSource: DataSourceTable<Pessoa> = new DataSourceTable<Pessoa>();
-
+  
   constructor(readonly title: Title,
               private readonly router: Router,
               private readonly dialogService: DialogService,

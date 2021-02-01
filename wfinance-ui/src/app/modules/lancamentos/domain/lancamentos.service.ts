@@ -6,11 +6,12 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {isNull, notEmpty} from "../../../shared/utils/object-utils";
 import {Lancamento, LancamentoCategoria, LancamentoPessoa} from "./lancamento.model";
 import {LancamentosFiltro} from "../components/lancamentos-pesquisa/lancamentos-filtro.model";
+import {ListagemDadosService} from '../../../shared/components/listagem-dados/listagem-dados.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LancamentosService {
+export class LancamentosService implements ListagemDadosService {
 
   readonly PARAMS_PAGINA_ATUAL = 'page';
   readonly PARAMS_ITENS_POR_PAGINA = 'size';
@@ -24,7 +25,7 @@ export class LancamentosService {
     return this.httpClient.get<Lancamento>(`${Api.URLS.lancamentos.lancamentos}/${lancamentoId}`);
   }
 
-  lancamentos(paginacao: Paginacao): Observable<any[]> {
+  carregar(paginacao: Paginacao): Observable<any[]> {
     const params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
