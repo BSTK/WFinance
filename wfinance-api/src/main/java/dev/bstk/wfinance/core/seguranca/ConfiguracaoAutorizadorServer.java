@@ -26,6 +26,12 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
     @Value("${wfinance.configuracao.tempoDeVidaRefreshToken}")
     private int tempoDeVidaRefreshToken = 0;
 
+    @Value("${wfinance.configuracao.clienteWeb}")
+    private String clienteWeb;
+
+    @Value("${wfinance.configuracao.clienteWebToken}")
+    private String clienteWebToken;
+
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
@@ -64,8 +70,8 @@ public class ConfiguracaoAutorizadorServer extends AuthorizationServerConfigurer
     @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-            .withClient("web-angular")
-            .secret("$2a$10$51JK4K3kEMdlui9Aj6fkmOb/IVT1e4aqPXAxTKGAm3dT/tsYOOHBG")
+            .withClient(clienteWeb)
+            .secret(clienteWebToken)
             .scopes("read", "write")
             .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
             .refreshTokenValiditySeconds(tempoDeVidaRefreshToken)
