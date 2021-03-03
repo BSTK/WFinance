@@ -1,6 +1,6 @@
 import {Router} from '@angular/router';
 import {Component} from '@angular/core';
-import {AutenticadorService} from "../../../modules/seguranca/services/autenticador.service";
+import {AutenticadorService} from '../../../modules/seguranca/services/autenticador.service';
 
 @Component({
   selector: 'wf-topbar',

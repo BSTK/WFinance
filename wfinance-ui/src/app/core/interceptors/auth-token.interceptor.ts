@@ -17,6 +17,11 @@ import {
 export class AuthTokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const isUrlLogout: boolean = request && request.url === Api.URLS.oauth.logout;
+    
+    console.log(`URL = ${request.url } | isUrlLogout = ${isUrlLogout}`);
+    console.log(`METOD = ${request.method }`);
+    
     if (request && request.url === Api.URLS.oauth.token) {
       const headers = new HttpHeaders()
         .append(HTTP_HEADER_AUTHORIZATION, environment.httpWfinanceApiKey)

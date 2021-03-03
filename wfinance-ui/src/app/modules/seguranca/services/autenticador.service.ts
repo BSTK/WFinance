@@ -40,13 +40,13 @@ export class AutenticadorService {
   }
 
   logout(): void {
+    console.log('logout()');
     this.httpClient.delete(Api.URLS.oauth.logout,{ withCredentials: true });
     this.removerAccessToken();
     this.usuarioLogado.next(false);
   }
 
   novoAccessToken(): Observable<any> {
-    console.log('NOVO_ACCESS_TOKEN');
     return this.httpClient
       .post(Api.URLS.oauth.token, REFRESH_TOKEN_PAYLOAD, { withCredentials: true })
       .pipe(

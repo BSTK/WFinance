@@ -20,14 +20,8 @@ export class AuthTokenExpiradoInterceptor implements HttpInterceptor {
     const isUrlToken: boolean = request && request.url !== Api.URLS.oauth.token;
     const isTokenExpirado: boolean = this.autenticadorService.accessTokenExpirado();
 
-    console.log('==> AuthTokenExpiradoInterceptor');
     if (isUrlToken && isTokenExpirado) {
-
-      console.log('==> AuthTokenExpiradoInterceptor = NOVO_TOKEN');
-      console.log('==> router =', this.router);
-      console.log('==> activatedRoute = ', this.activatedRoute);
-
-      this.autenticadorService
+      /*this.autenticadorService
           .novoAccessToken()
           .subscribe((_) => {
             const headers = new HttpHeaders()
@@ -35,7 +29,7 @@ export class AuthTokenExpiradoInterceptor implements HttpInterceptor {
 
             const novaRequest = request.clone({ headers });
             return next.handle(novaRequest);
-        });
+        });*/
     }
 
     return next.handle(request);

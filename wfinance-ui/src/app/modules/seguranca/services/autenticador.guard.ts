@@ -16,6 +16,8 @@ export class AutenticadorGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    
+    console.log('');
 
     if (next.data.roles && !this.autenticadorService.temPermissoes(next.data.roles)) {
       const navegarProximaPagina = !this.autenticadorService.accessTokenExpirado()
@@ -27,7 +29,7 @@ export class AutenticadorGuard implements CanActivate {
     }
 
     if (this.autenticadorService.accessTokenExpirado()) {
-      this.autenticadorService
+      /*this.autenticadorService
         .novoAccessToken()
         .subscribe((_) => {
           if (this.autenticadorService.accessTokenExpirado()) {
@@ -38,7 +40,7 @@ export class AutenticadorGuard implements CanActivate {
             console.log('STATE == ', state);
             return false;
           }
-        });
+        });*/
     }
 
     return true;

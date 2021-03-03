@@ -33,10 +33,6 @@ const ROUTES: Routes = [
     path: 'pagina-nao-encontrada', component: PageNotFoundComponent
   },
   {
-    /// TODO: 1 - Refarorar para redirecionar para o dashboard assim que implementado
-    path: '', redirectTo: 'lancamentos', pathMatch: 'full'
-  },
-  {
     path: '**',
     redirectTo: 'pagina-nao-encontrada'
   }
