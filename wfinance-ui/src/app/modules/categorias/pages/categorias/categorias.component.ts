@@ -32,32 +32,32 @@ export class CategoriasComponent extends ListagemDadosComponent<Categoria, Categ
       activatedRoute,
       categoriasService);
   }
-
+  
   pesquisar(filtro: CategoriasFiltro) {
     const observable = filtroValido(filtro)
       ? this.categoriasService.resumo(filtro, DataTablePaginacaoDefault.pagina())
       : this.categoriasService.carregar(DataTablePaginacaoDefault.pagina());
-
+    
     observable.subscribe((response: any) => {
       if (response && response.content) {
         this.dataSource = ResponseToDataSource<Categoria>(response);
       }
     });
   }
-
+  
   paginacao(pagina: number) {
     this.router.navigate([], navigationExtrasPagina(pagina));
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
       this.carregar(pagina);
     }
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
       this.carregarPesquisa(pagina, categoriaFiltroQueryParam);
     }
   }
-
+  
   excluir(categoria: Categoria) {
     if (categoria) {
       const dialogConfig = confirmDialogConfigExclusao(categoria);
@@ -77,7 +77,7 @@ export class CategoriasComponent extends ListagemDadosComponent<Categoria, Categ
       });
     }
   }
-
+  
   editar(categoria: Categoria) {
     if (categoria) {
       this.router.navigate([
@@ -85,5 +85,5 @@ export class CategoriasComponent extends ListagemDadosComponent<Categoria, Categ
       ]);
     }
   }
-
+  
 }

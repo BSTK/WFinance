@@ -17,7 +17,8 @@ class ExceptionRequestErros {
     private static final String DADOS_INVALIDOS = "Dados inválidos";
     private static final String CAMPOS_DESCONHECIDOS = "Campos Desconhecidos";
 
-    private ExceptionRequestErros() { }
+    private ExceptionRequestErros() {
+    }
 
     static ExceptionError criaListaDeErrosOcorridos(final WebRequest request,
                                                     final BindingResult bindingResult) {

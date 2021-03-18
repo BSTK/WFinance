@@ -14,9 +14,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
 import {AuthTokenInterceptor} from './core/interceptors/auth-token.interceptor';
 import {AutenticadorGuard} from './modules/seguranca/services/autenticador.guard';
-import {AutenticadorService} from './modules/seguranca/services/autenticador.service';
 import {KEY_OAUTH_ACCESS_TOKEN} from './shared/utils/constants/seguranca.constants';
 import {DatePickerCustomAdapter, DatePickerCustomDateParserFormatter} from './shared';
+import {AutenticadorService} from './modules/seguranca/services/autenticador.service';
+import {HttpResponseInterceptor} from './core/interceptors/http-response.interceptor';
 import {NgbDateAdapter, NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AuthTokenExpiradoInterceptor} from './core/interceptors/auth-token-expirado.interceptor';
 
@@ -33,7 +34,7 @@ registerLocaleData(ptBr);
     BrowserModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-
+    
     /// TODO: 1 - Mover provider JwtModule para o módulo de de segurança e autenticação
     JwtModule.forRoot({
       config: {
@@ -44,19 +45,20 @@ registerLocaleData(ptBr);
     })
   ],
   providers: [
-
+    
     /// TODO: 2 - Mover providers AutenticadorService, AutenticadorGuard e JwtHelperService para o módulo de de segurança e autenticação
     AutenticadorService,
     AutenticadorGuard,
     JwtHelperService,
-
+    
     APP_ROUTING_PROVIDER,
-    { provide: LOCALE_ID, useValue: 'pt' },
-    { provide: NgbDateAdapter, useClass: DatePickerCustomAdapter },
-    { provide: NgbDateParserFormatter, useClass: DatePickerCustomDateParserFormatter },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenExpiradoInterceptor, multi: true },
+    {provide: LOCALE_ID, useValue: 'pt'},
+    {provide: NgbDateAdapter, useClass: DatePickerCustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: DatePickerCustomDateParserFormatter},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthTokenExpiradoInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

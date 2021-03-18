@@ -101,6 +101,6 @@ public class LancamentoService {
 
         /// TODO: CHAMADO DO SERVIÇO DE GERAR RELATÓRIOS PDF
 
-        return new byte[] {};
+        return new byte[]{};
     }
 }

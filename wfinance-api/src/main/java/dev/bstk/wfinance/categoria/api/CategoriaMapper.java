@@ -40,7 +40,9 @@ public class CategoriaMapper extends Mapper {
     }
 
     public static List<CategoriaResumoResponse> resumo(final List<Categoria> categorias) {
-        if (isEmpty(categorias)) { return Collections.emptyList(); }
+        if (isEmpty(categorias)) {
+            return Collections.emptyList();
+        }
 
         return categorias
             .stream()

@@ -1,4 +1,4 @@
-export const ResponseToDataSource = <T>(response: any): DataSourceTable<T>  => {
+export const ResponseToDataSource = <T>(response: any): DataSourceTable<T> => {
   const dataSource = new DataSourceTable<T>();
   dataSource.pagina = response.number;
   dataSource.totalItensPagina = response.size;

@@ -7,11 +7,13 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
+  
   @Input() menu: Menu;
-
-  constructor() { }
-
-  ngOnInit(): void { }
-
+  
+  constructor() {
+  }
+  
+  ngOnInit(): void {
+  }
+  
 }

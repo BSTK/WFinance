@@ -16,13 +16,16 @@ public class ContatoResponse implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String nome;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String email;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String telefone;
 
 }

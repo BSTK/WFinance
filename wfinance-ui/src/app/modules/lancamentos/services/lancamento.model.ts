@@ -1,4 +1,4 @@
-import {notNull} from "../../../shared/utils/object-utils";
+import {notNull} from '../../../shared/utils/object-utils';
 
 export class Lancamento {
   id: number;
@@ -28,5 +28,5 @@ export class TipoLancamento {
   classCss: string;
 }
 
-export const DESPESA: TipoLancamento = { valor: 'DESPESA', label: 'Despesa', classCss: 'text-danger'};
-export const RECEITA: TipoLancamento = { valor: 'RECEITA', label: 'Receita', classCss: 'text-success' };
+export const DESPESA: TipoLancamento = {valor: 'DESPESA', label: 'Despesa', classCss: 'text-danger'};
+export const RECEITA: TipoLancamento = {valor: 'RECEITA', label: 'Receita', classCss: 'text-success'};

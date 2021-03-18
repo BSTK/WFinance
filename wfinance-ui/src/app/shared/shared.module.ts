@@ -19,13 +19,14 @@ import {InputValidationMessageComponent} from './components/input-validation-mes
     CabecalhoPaginaComponent,
     InputValidationDirective,
     DataTablePaginationComponent,
-    InputValidationMessageComponent,
+    InputValidationMessageComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   providers: [
     Title
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

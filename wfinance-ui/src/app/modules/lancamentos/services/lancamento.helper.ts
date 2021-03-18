@@ -7,9 +7,9 @@ import {ConfirmDialogConfig, ConfirmDialogConfigTipo} from '../../../shared/comp
 export const confirmDialogConfigExclusao = (lancamento: Lancamento): ConfirmDialogConfig => {
   return {
     titulo: 'Deseja excluir lancamento?',
-    texto: `Excluindo lançamento '${ lancamento.descricao }' 
-            do fornecedor "${ lancamento.pessoa.nome }" 
-            no valor de "R$ ${ lancamento.valor }"`,
+    texto: `Excluindo lançamento '${lancamento.descricao}' 
+            do fornecedor "${lancamento.pessoa.nome}" 
+            no valor de "R$ ${lancamento.valor}"`,
     tipo: ConfirmDialogConfigTipo.EXCLUSAO
   };
 };

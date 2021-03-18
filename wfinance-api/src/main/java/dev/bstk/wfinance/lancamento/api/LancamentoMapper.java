@@ -42,7 +42,9 @@ public class LancamentoMapper extends Mapper {
     }
 
     public static List<Lancamento> entidade(final List<LancamentoResponse> responses) {
-        if (isEmpty(responses)) { return Collections.emptyList(); }
+        if (isEmpty(responses)) {
+            return Collections.emptyList();
+        }
 
         return responses
             .stream()
@@ -51,7 +53,9 @@ public class LancamentoMapper extends Mapper {
     }
 
     public static List<LancamentoResponse> response(final List<Lancamento> lancamentos) {
-        if (isEmpty(lancamentos)) { return Collections.emptyList(); }
+        if (isEmpty(lancamentos)) {
+            return Collections.emptyList();
+        }
 
         return lancamentos
             .stream()
@@ -62,8 +66,8 @@ public class LancamentoMapper extends Mapper {
     public static Page<LancamentoResponse> response(final Page<Lancamento> lancamentos) {
         final var lancamentosResponse = response(lancamentos.getContent());
         return new PageImpl<>(lancamentosResponse,
-                              lancamentos.getPageable(),
-                              lancamentos.getTotalElements());
+            lancamentos.getPageable(),
+            lancamentos.getTotalElements());
     }
 
 }

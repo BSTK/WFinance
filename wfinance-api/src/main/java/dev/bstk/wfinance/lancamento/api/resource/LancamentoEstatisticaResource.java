@@ -47,9 +47,9 @@ public class LancamentoEstatisticaResource {
         final var relatorioPdfNomeArquivo = "attachment; filename=relatorio-de-$DATA_INICIO-a-$DATA_INICIO.pdf";
         final var relatorioPdf = lancamentoService.relatorioEstatisticaPorPessoa(inicio, fim);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
-                .header(HttpHeaders.CONTENT_DISPOSITION, relatorioPdfNomeArquivo)
-                .body(relatorioPdf);
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
+            .header(HttpHeaders.CONTENT_DISPOSITION, relatorioPdfNomeArquivo)
+            .body(relatorioPdf);
     }
 
     @GetMapping("/por-categorias")

@@ -40,13 +40,12 @@ public class PessoaResource {
                           final ApplicationEventPublisher applicationEventPublisher) {
         this.pessoaService = pessoaService;
         this.pessoaRepository = pessoaRepository;
-        this.applicationEventPublisher =applicationEventPublisher;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<PessoaResponse>> pessoas(@RequestParam(value = "nome", defaultValue = "", required = false)
-                                                        final String nome,
+    public ResponseEntity<Page<PessoaResponse>> pessoas(@RequestParam(value = "nome", defaultValue = "", required = false) final String nome,
                                                         final Pageable pageable) {
         final var pessoas = pessoaService.pessoas(nome, pageable);
         final var pessoasResponse = response(pessoas);
@@ -123,7 +122,7 @@ public class PessoaResource {
     @PreAuthorize("hasRole('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
     public ResponseEntity<PessoaResponse> atualizarAtivo(@PathVariable("id") final Long id,
                                                          @RequestBody final Boolean ativo) {
-        final var pessoaOptional = pessoaService.atualizarAtivo(id,ativo);
+        final var pessoaOptional = pessoaService.atualizarAtivo(id, ativo);
 
         if (pessoaOptional.isPresent()) {
             final var pessoa = pessoaOptional.get();

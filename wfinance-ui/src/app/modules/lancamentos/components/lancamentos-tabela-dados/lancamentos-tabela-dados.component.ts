@@ -9,9 +9,9 @@ import {AutenticadorService} from '../../../seguranca/services/autenticador.serv
   styleUrls: ['lancamentos-tabela-dados.component.scss']
 })
 export class LancamentosTabelaDadosComponent extends DataTableComponent<Lancamento> {
-
+  
   constructor(public readonly autenticadorService: AutenticadorService) {
     super();
   }
-
+  
 }

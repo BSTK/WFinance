@@ -31,32 +31,32 @@ export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFilt
       activatedRoute,
       pessoasService);
   }
-
+  
   pesquisar(filtro: PessoasFiltro) {
     const observable = filtroValido(filtro)
       ? this.pessoasService.resumo(filtro, DataTablePaginacaoDefault.pagina())
       : this.pessoasService.carregar(DataTablePaginacaoDefault.pagina());
-
+    
     observable.subscribe((response: any) => {
       if (response && response.content) {
         this.dataSource = ResponseToDataSource<Pessoa>(response);
       }
     });
   }
-
+  
   paginacao(pagina: number) {
     this.router.navigate([], navigationExtrasPagina(pagina));
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
       this.carregar(pagina);
     }
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
       this.carregarPesquisa(pagina, pessoaFiltroQueryParam);
     }
   }
-
+  
   excluir(pessoa: Pessoa) {
     if (pessoa) {
       const dialogConfig = confirmDialogConfigExclusao(pessoa);
@@ -76,7 +76,7 @@ export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFilt
       });
     }
   }
-
+  
   editar(pessoa: Pessoa) {
     if (pessoa) {
       this.router.navigate([
@@ -84,7 +84,7 @@ export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFilt
       ]);
     }
   }
-
+  
   ativar(pessoa: Pessoa) {
     if (pessoa) {
       this.pessoasService.ativar(pessoa)
@@ -95,7 +95,7 @@ export class PessoasComponent extends ListagemDadosComponent<Pessoa, PessoasFilt
             const mensagem = (pessoa.ativo) ? 'Ativada' : 'Desativada';
             this.dialogService.sucesso('Ativar/Desativar', `Pessoa ${mensagem}`);
           }
-      });
+        });
     }
   }
   

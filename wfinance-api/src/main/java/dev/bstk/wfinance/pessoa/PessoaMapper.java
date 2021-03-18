@@ -33,7 +33,9 @@ public class PessoaMapper extends Mapper {
     }
 
     public static List<PessoaResponse> response(final List<Pessoa> pessoas) {
-        if (isEmpty(pessoas)) { return Collections.emptyList(); }
+        if (isEmpty(pessoas)) {
+            return Collections.emptyList();
+        }
 
         return pessoas
             .stream()
@@ -42,7 +44,9 @@ public class PessoaMapper extends Mapper {
     }
 
     public static List<PessoaResumoResponse> resumo(final List<Pessoa> pessoas) {
-        if (isEmpty(pessoas)) { return Collections.emptyList(); }
+        if (isEmpty(pessoas)) {
+            return Collections.emptyList();
+        }
 
         return pessoas
             .stream()

@@ -17,4 +17,5 @@ import {LoginComponent} from './pages/login/login.component';
     RouterModule.forChild(SEGUANCA_ROUTES)
   ]
 })
-export class SegurancaModule { }
+export class SegurancaModule {
+}

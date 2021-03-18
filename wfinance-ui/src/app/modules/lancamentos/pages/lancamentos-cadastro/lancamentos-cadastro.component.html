@@ -55,7 +55,7 @@
                             type="button">
                       <em class="fas fa-calendar-alt"></em>
                     </button>
-                </div>
+                  </div>
                 </div>
               </div>
 
@@ -113,8 +113,10 @@
                        #descricao="ngModel" [(ngModel)]="lancamento.descricao"
                        minlength="5" required wfInputValidation
                        type="text" class="form-control" placeholder="Ex: Material escolar">
-                <wf-input-validation-message [campo]="descricao" erro="required" mensagem="Informar campo"></wf-input-validation-message>
-                <wf-input-validation-message [campo]="descricao" erro="minlength" mensagem="Informar ao menos 5 letras"></wf-input-validation-message>
+                <wf-input-validation-message [campo]="descricao" erro="required"
+                                             mensagem="Informar campo"></wf-input-validation-message>
+                <wf-input-validation-message [campo]="descricao" erro="minlength"
+                                             mensagem="Informar ao menos 5 letras"></wf-input-validation-message>
               </div>
 
               <div class="col-md-3 mb-3">

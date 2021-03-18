@@ -12,7 +12,8 @@ export abstract class ListagemDadosComponent<T, F = any> implements OnInit {
   protected constructor(readonly title: Title,
                         readonly tituloPagina: string = '',
                         readonly activatedRoute: ActivatedRoute,
-                        readonly dadosService: ListagemDadosService) { }
+                        readonly dadosService: ListagemDadosService) {
+  }
   
   ngOnInit(): void {
     const pagina = this.activatedRoute.snapshot.queryParamMap.get('pagina') || '';
@@ -31,7 +32,7 @@ export abstract class ListagemDadosComponent<T, F = any> implements OnInit {
       });
   }
   
-  protected carregarPesquisa(pagina: number, queryParam: {(queryParamMap: ParamMap): F}) {
+  protected carregarPesquisa(pagina: number, queryParam: { (queryParamMap: ParamMap): F }) {
     const filtro: F = queryParam(this.activatedRoute.snapshot.queryParamMap);
     this.dadosService.resumo(filtro, DataTablePaginacaoDefault.pagina(pagina))
       .subscribe((response: any) => {

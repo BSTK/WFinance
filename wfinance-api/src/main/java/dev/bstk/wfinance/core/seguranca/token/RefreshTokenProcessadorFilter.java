@@ -25,8 +25,8 @@ public class RefreshTokenProcessadorFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         final boolean interceptarRequisicao = request.getRequestURI().endsWith(PATH_OAUTH_TOKEN)
-                && request.getParameter(GRANT_TYPE).equals(REFRESH_TOKEN)
-                && Objects.nonNull(request.getCookies());
+            && request.getParameter(GRANT_TYPE).equals(REFRESH_TOKEN)
+            && Objects.nonNull(request.getCookies());
 
         if (interceptarRequisicao) {
             for (Cookie cookie : request.getCookies()) {

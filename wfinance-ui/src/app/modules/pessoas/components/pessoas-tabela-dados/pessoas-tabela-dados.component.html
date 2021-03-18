@@ -30,7 +30,7 @@
         <span class="p-1"></span>
         <span *ngIf="autenticadorService.temPermissao('ROLE_CADASTRAR_PESSOA')"
               class="icon" placement="top" (click)="ativar(pessoa)"
-                           [ngbTooltip]="pessoa.ativo ? 'Inativar' : 'Ativar'">
+              [ngbTooltip]="pessoa.ativo ? 'Inativar' : 'Ativar'">
 
           <em class="fas " [ngClass]="pessoa.ativo
                            ? 'fa-thumbs-up ativo'

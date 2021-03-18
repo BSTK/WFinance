@@ -39,7 +39,7 @@ const ROUTES: Routes = [
 ];
 
 export const APP_ROUTING_PROVIDER: any[] = [
-  { provide: APP_BASE_HREF, useValue: '/wfinance'}
+  {provide: APP_BASE_HREF, useValue: '/wfinance'}
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES, {useHash: true});

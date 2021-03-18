@@ -22,7 +22,7 @@ public final class RefreshTokenRequestWrapper extends HttpServletRequestWrapper 
     public Map<String, String[]> getParameterMap() {
         final ParameterMap<String, String[]> map = new ParameterMap<>();
         map.putAll(getRequest().getParameterMap());
-        map.put(REFRESH_TOKEN, new String[] { refreshToken });
+        map.put(REFRESH_TOKEN, new String[]{refreshToken});
         map.setLocked(Boolean.TRUE);
         return map;
     }

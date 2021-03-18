@@ -16,7 +16,7 @@ jobs:
       #       - v1-dependencies-{{ checksum "package-lock.json" }}
 
       # Usa-se 'npm ci' para instalar as dependencias como se fosse um "NPM Install"
-      - run: 
+      - run:
           name: Npm CI
           command: cd wfinance-ui && npm ci
 
@@ -37,8 +37,8 @@ jobs:
 
       # TODO: CONFIGURAR lint
       # - run: cd wfinance-ui && npm run lint
-      
-      - run: 
+
+      - run:
           name: Npm Build Prod
           command: cd wfinance-ui && npm run build:prod
 

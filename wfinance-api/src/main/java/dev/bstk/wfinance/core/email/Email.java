@@ -16,16 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 public class Email implements Serializable {
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final String assunto;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final String remetente;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final String menssagem;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final List<String> destinatarios;
 
 }

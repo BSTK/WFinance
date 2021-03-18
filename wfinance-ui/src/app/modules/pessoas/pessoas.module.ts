@@ -26,4 +26,5 @@ import {PessoasTabelaDadosComponent} from './components/pessoas-tabela-dados/pes
     RouterModule.forChild(PESSOAS_ROUTES)
   ]
 })
-export class PessoasModule { }
+export class PessoasModule {
+}

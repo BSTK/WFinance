@@ -12,41 +12,42 @@ import {ListagemDadosService} from '../../../shared/components/listagem-dados/li
   providedIn: 'root'
 })
 export class CategoriasService implements ListagemDadosService {
-
+  
   readonly PARAMS_NOME = 'nome';
   readonly PARAMS_PAGINA_ATUAL = 'page';
   readonly PARAMS_ITENS_POR_PAGINA = 'size';
-
-  constructor(private readonly httpClient: HttpClient) { }
+  
+  constructor(private readonly httpClient: HttpClient) {
+  }
   
   carregar(paginacao: Paginacao): Observable<any[]> {
     const params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
-
-    return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, { params });
+    
+    return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, {params});
   }
-
+  
   resumo(filtro: CategoriasFiltro, paginacao: Paginacao): Observable<any[]> {
     let params = new HttpParams()
       .append(this.PARAMS_PAGINA_ATUAL, paginacao.pagina.toString())
       .append(this.PARAMS_ITENS_POR_PAGINA, paginacao.itensPorPagina.toString());
-
+    
     if (notEmpty(filtro.nome)) {
       params = params.append(this.PARAMS_NOME, filtro.nome);
     }
-
-    return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, { params });
+    
+    return this.httpClient.get<any[]>(Api.URLS.categorias.categorias, {params});
   }
   
   categoria(categoriaId: number): Observable<Categoria> {
     return this.httpClient.get<Categoria>(`${Api.URLS.categorias.categorias}/${categoriaId}`);
   }
-
+  
   excluir(categoria: Categoria): Observable<void> {
     return this.httpClient.delete<void>(`${Api.URLS.categorias.categorias}/${categoria.id}`);
   }
-
+  
   salvar(categoria: Categoria): Observable<Categoria> {
     return this.httpClient.post<Categoria>(Api.URLS.categorias.categorias, categoria);
   }

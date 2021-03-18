@@ -5,13 +5,14 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './cabecalho-pagina.component.html'
 })
 export class CabecalhoPaginaComponent implements OnInit {
-
+  
   @Input() readonly titulo = '';
   @Input() readonly subtitulo = '';
-
-  constructor() { }
-
+  
+  constructor() {
+  }
+  
   ngOnInit(): void {
   }
-
+  
 }

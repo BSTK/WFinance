@@ -7,13 +7,14 @@ import {AutenticadorService} from '../../../modules/seguranca/services/autentica
   templateUrl: './topbar.component.html'
 })
 export class TopbarComponent {
-
+  
   constructor(private readonly router: Router,
-              readonly autenticadorService: AutenticadorService) { }
-
+              readonly autenticadorService: AutenticadorService) {
+  }
+  
   logout() {
     this.autenticadorService.logout();
-    this.router.navigate(['/login']);
+    /// this.router.navigate(['/login']);
   }
-
+  
 }

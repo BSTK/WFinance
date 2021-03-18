@@ -19,10 +19,12 @@ public class EmailHtml implements Serializable {
     @NotNull
     private final Email email;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final String templateHtml;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private final Map<String, Object> parametros;
 
 }

@@ -1,10 +1,10 @@
-import {NgForm} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
-import {Title} from "@angular/platform-browser";
-import {ActivatedRoute, Router} from "@angular/router";
+import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LancamentosService} from "../../services/lancamentos.service";
-import {DialogService} from "../../../../shared/components/dialog/dialog.service";
+import {LancamentosService} from '../../services/lancamentos.service';
+import {DialogService} from '../../../../shared/components/dialog/dialog.service';
 import {
   DESPESA,
   Lancamento,
@@ -12,8 +12,8 @@ import {
   LancamentoPessoa,
   RECEITA,
   TipoLancamento
-} from "../../services/lancamento.model";
-import {isNull, notNull} from "../../../../shared/utils/object-utils";
+} from '../../services/lancamento.model';
+import {isNull, notNull} from '../../../../shared/utils/object-utils';
 
 @Component({
   selector: 'wf-lancamentos-cadastro',
@@ -21,21 +21,21 @@ import {isNull, notNull} from "../../../../shared/utils/object-utils";
   styleUrls: ['./lancamentos-cadastro.component.scss']
 })
 export class LancamentosCadastroComponent implements OnInit {
-
-  @ViewChild(NgForm, { static: false })
+  
+  @ViewChild(NgForm, {static: false})
   form: NgForm;
-
+  
   readonly tipoLancamentoReceita: TipoLancamento = RECEITA;
   readonly tipoLancamentoDespesa: TipoLancamento = DESPESA;
-
+  
   tituloDespesaReceita = 'Novo';
   tituloPagina = 'Novo Lançamento';
   tipoLancamentoSelecionado: TipoLancamento = RECEITA;
-
+  
   pessoas: LancamentoPessoa[] = [];
   categorias: LancamentoCategoria[] = [];
   lancamento: Lancamento = new Lancamento();
-
+  
   constructor(private readonly titulo: Title,
               private readonly router: Router,
               private readonly toast: ToastrService,
@@ -43,21 +43,21 @@ export class LancamentosCadastroComponent implements OnInit {
               private readonly activatedRoute: ActivatedRoute,
               private readonly lancamentosService: LancamentosService) {
   }
-
+  
   ngOnInit(): void {
     this.titulo.setTitle('WF - Novo Lançamento');
     this.carregarComboPessoas();
     this.carregarComboCategorias();
     this.carregarLancamentoEmEdicao();
   }
-
+  
   salvar() {
     this.lancamento.tipo = this.tipoLancamentoSelecionado.valor;
     this.lancamentosService.salvar(this.lancamento)
       .subscribe((lancamento: Lancamento) => {
         if (lancamento) {
           let mensagemSucesso = '';
-
+          
           if (isNull(this.lancamento.id)) {
             mensagemSucesso = `Lançamento: ${lancamento.descricao} cadastrado com sucesso!`;
             this.lancamento = new Lancamento();
@@ -65,16 +65,16 @@ export class LancamentosCadastroComponent implements OnInit {
               tipoLancamentoSelecionado: RECEITA
             });
           }
-
+          
           if (notNull(this.lancamento.id)) {
             mensagemSucesso = `Lançamento: ${lancamento.descricao} atualizado com sucesso!`;
           }
-
+          
           this.toast.success(mensagemSucesso);
         }
       });
   }
-
+  
   private carregarComboCategorias() {
     this.lancamentosService.categorias()
       .subscribe((categorias: LancamentoCategoria[]) => {
@@ -83,7 +83,7 @@ export class LancamentosCadastroComponent implements OnInit {
         }
       });
   }
-
+  
   private carregarComboPessoas() {
     this.lancamentosService.pessoas()
       .subscribe((pessoas: LancamentoPessoa[]) => {
@@ -92,15 +92,15 @@ export class LancamentosCadastroComponent implements OnInit {
         }
       });
   }
-
+  
   private carregarLancamentoEmEdicao() {
-     const lacamentoIdEmEdicao = this.activatedRoute.snapshot.params['lacamentoId'];
-
-     if (lacamentoIdEmEdicao) {
-       this.tituloDespesaReceita = 'Editar';
-       this.tituloPagina = 'Editar Lançamento';
-       this.titulo.setTitle('WF - Editar Lançamento');
-       this.lancamentosService.lancamento(lacamentoIdEmEdicao)
+    const lacamentoIdEmEdicao = this.activatedRoute.snapshot.params['lacamentoId'];
+    
+    if (lacamentoIdEmEdicao) {
+      this.tituloDespesaReceita = 'Editar';
+      this.tituloPagina = 'Editar Lançamento';
+      this.titulo.setTitle('WF - Editar Lançamento');
+      this.lancamentosService.lancamento(lacamentoIdEmEdicao)
         .subscribe((lancamento: Lancamento) => {
           if (lancamento) {
             this.lancamento = lancamento;
@@ -108,5 +108,5 @@ export class LancamentosCadastroComponent implements OnInit {
         });
     }
   }
-
+  
 }

@@ -5,10 +5,11 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './page-nao-autorizado.component.html'
 })
 export class PageNaoAutorizadoComponent implements OnInit {
-
-  constructor() { }
-
+  
+  constructor() {
+  }
+  
   ngOnInit(): void {
   }
-
+  
 }

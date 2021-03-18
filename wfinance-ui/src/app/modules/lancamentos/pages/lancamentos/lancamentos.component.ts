@@ -21,7 +21,7 @@ import {
   templateUrl: './lancamentos.component.html'
 })
 export class LancamentosComponent extends ListagemDadosComponent<Lancamento, LancamentosFiltro> {
-
+  
   constructor(private readonly router: Router,
               private readonly toast: ToastrService,
               private readonly dialogService: DialogService,
@@ -33,32 +33,32 @@ export class LancamentosComponent extends ListagemDadosComponent<Lancamento, Lan
       activatedRoute,
       lancamentosService);
   }
-
+  
   pesquisar(filtro: LancamentosFiltro) {
     const observable = filtroValido(filtro)
       ? this.lancamentosService.resumo(filtro, DataTablePaginacaoDefault.pagina())
       : this.lancamentosService.carregar(DataTablePaginacaoDefault.pagina());
-
+    
     observable.subscribe((response: any) => {
       if (response && response.content) {
         this.dataSource = ResponseToDataSource<Lancamento>(response);
       }
     });
   }
-
+  
   paginacao(pagina: number) {
     this.router.navigate([], navigationExtrasPagina(pagina));
     const queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || '';
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_TODOS === queryParam || isEmpty(queryParam)) {
       this.carregar(pagina);
     }
-
+    
     if (NavigateQuery.NAVIGATE_QUERY_PESQUISA === queryParam) {
       this.carregarPesquisa(pagina, lancamentoFiltroQueryParam);
     }
   }
-
+  
   excluir(lancamento: Lancamento) {
     if (lancamento) {
       const dialogConfig = confirmDialogConfigExclusao(lancamento);
@@ -78,12 +78,12 @@ export class LancamentosComponent extends ListagemDadosComponent<Lancamento, Lan
       });
     }
   }
-
+  
   /// TODO: 1 - Implementar método de atualizar
   editar(lancamento: Lancamento) {
     if (lancamento) {
       this.router.navigate(['lancamentos/cadastro/' + lancamento.id]);
     }
   }
-
+  
 }

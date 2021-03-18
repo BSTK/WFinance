@@ -9,19 +9,21 @@ import {navigationExtras} from '../../../../shared/router/router-navigation';
   styleUrls: ['./lancamentos-pesquisa.component.scss']
 })
 export class LancamentosPesquisaComponent implements OnInit {
-
+  
   readonly filtro: LancamentosFiltro = new LancamentosFiltro();
-
+  
   @Output()
   readonly eventPesquisar: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(private router: Router) { }
-
-  ngOnInit(): void { }
-
+  
+  constructor(private router: Router) {
+  }
+  
+  ngOnInit(): void {
+  }
+  
   pesquisar() {
     this.router.navigate([], navigationExtras(this.filtro));
     this.eventPesquisar.emit(this.filtro);
   }
-
+  
 }

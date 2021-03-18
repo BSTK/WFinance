@@ -9,7 +9,7 @@ export const ROTA_CATEGORIA_CADASTRO = 'categorias/cadastro/';
 export const confirmDialogConfigExclusao = (categoria: Categoria): ConfirmDialogConfig => {
   return {
     titulo: 'Deseja excluir categoria?',
-    texto: `Excluindo categoria "${ categoria.nome }"`,
+    texto: `Excluindo categoria "${categoria.nome}"`,
     tipo: ConfirmDialogConfigTipo.EXCLUSAO
   };
 };

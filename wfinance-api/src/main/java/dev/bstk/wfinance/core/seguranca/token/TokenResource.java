@@ -2,7 +2,7 @@ package dev.bstk.wfinance.core.seguranca.token;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +20,7 @@ public class TokenResource {
     @Value("${wfinance.configuracao.cookie-secure}")
     private boolean cookieSecure;
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public void logout(final HttpServletRequest request, final HttpServletResponse response) {
         final var cookie = new Cookie(REFRESH_TOKEN, null);
         cookie.setPath(request.getContextPath() + PATH_OAUTH_TOKEN);

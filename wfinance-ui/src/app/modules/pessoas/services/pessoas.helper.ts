@@ -8,7 +8,7 @@ export const ROTA_PESSOA_CADASTRO = 'pessoas/cadastro/';
 export const confirmDialogConfigExclusao = (pessoa: Pessoa): ConfirmDialogConfig => {
   return {
     titulo: 'Deseja excluir fornecedor?',
-    texto: `Excluindo fornecedor '${ pessoa.nome }'`,
+    texto: `Excluindo fornecedor '${pessoa.nome}'`,
     tipo: ConfirmDialogConfigTipo.EXCLUSAO
   };
 };

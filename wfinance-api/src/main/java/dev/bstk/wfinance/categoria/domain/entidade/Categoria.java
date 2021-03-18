@@ -32,7 +32,8 @@ public class Categoria implements Serializable {
     @Column(name = "COR")
     private String cor;
 
-    public Categoria() { }
+    public Categoria() {
+    }
 
     public Categoria(@NotNull @NotEmpty final String nome,
                      @NotNull @NotEmpty final String cor) {

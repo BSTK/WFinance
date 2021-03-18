@@ -37,8 +37,8 @@ public class DadosIbgeService {
         try {
             final EstadoResponse[] estados = template.getForObject(estadosUrl, EstadoResponse[].class);
             final List<EstadoResponse> estadosReponse = CollectionHelper.isEmpty(estados)
-                                            ? new ArrayList<>()
-                                            : Arrays.asList(estados);
+                ? new ArrayList<>()
+                : Arrays.asList(estados);
 
             estadosReponse.sort(Comparator.comparing(EstadoResponse::getSigla));
 
@@ -53,8 +53,8 @@ public class DadosIbgeService {
         try {
             final CidadeResponse[] cidades = template.getForObject(cidadesUrl.replace("$UF", uf), CidadeResponse[].class);
             final List<CidadeResponse> cidadeResponse = CollectionHelper.isEmpty(cidades)
-                                            ? new ArrayList<>()
-                                            : Arrays.asList(cidades);
+                ? new ArrayList<>()
+                : Arrays.asList(cidades);
 
             cidadeResponse.sort(Comparator.comparing(CidadeResponse::getNome));
 

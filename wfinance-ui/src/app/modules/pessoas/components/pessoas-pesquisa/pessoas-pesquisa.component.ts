@@ -1,6 +1,6 @@
-import {Router} from "@angular/router";
-import {PessoasFiltro} from "../../services/pessoa.model";
-import {navigationExtras} from "../../../../shared/router";
+import {Router} from '@angular/router';
+import {PessoasFiltro} from '../../services/pessoa.model';
+import {navigationExtras} from '../../../../shared/router';
 import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
@@ -9,17 +9,18 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./pessoas-pesquisa.component.scss']
 })
 export class PessoasPesquisaComponent {
-
+  
   readonly filtro: PessoasFiltro = new PessoasFiltro();
-
+  
   @Output()
   readonly eventPesquisar: EventEmitter<PessoasFiltro> = new EventEmitter<PessoasFiltro>();
-
-  constructor(private readonly router: Router) { }
-
+  
+  constructor(private readonly router: Router) {
+  }
+  
   pesquisar() {
     this.router.navigate([], navigationExtras(this.filtro));
     this.eventPesquisar.emit(this.filtro);
   }
-
+  
 }

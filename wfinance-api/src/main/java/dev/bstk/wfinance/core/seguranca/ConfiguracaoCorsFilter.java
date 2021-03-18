@@ -31,7 +31,7 @@ public class ConfiguracaoCorsFilter implements Filter {
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         final boolean interceptarCors = HttpMethod.OPTIONS.name().equals(request.getMethod())
-                                     && request.getHeader(HttpHeaders.ORIGIN).equals(origem);
+            && request.getHeader(HttpHeaders.ORIGIN).equals(origem);
 
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origem);
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, Boolean.TRUE.toString());

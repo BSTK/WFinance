@@ -9,31 +9,32 @@ import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
   providedIn: 'root'
 })
 export class DialogService {
-
+  
   constructor(private readonly toast: ToastrService,
-              private readonly modalService: NgbModal) { }
-
+              private readonly modalService: NgbModal) {
+  }
+  
   public sucesso(titulo: string, texto: string) {
     this.toast.success(texto, titulo);
   }
-
+  
   public aviso(titulo: string, texto: string) {
     this.toast.warning(texto, titulo);
   }
-
+  
   public confirm(config: ConfirmDialogConfig): Observable<boolean> {
     const options: NgbModalOptions = {
       size: 'md',
       centered: true,
       backdrop: 'static'
     };
-
+    
     const dialogComponentRef = this.modalService.open(DialogComponent, options);
     dialogComponentRef.componentInstance.tipo = config.tipo;
     dialogComponentRef.componentInstance.texto = config.texto;
     dialogComponentRef.componentInstance.titulo = config.titulo;
-
+    
     return from(dialogComponentRef.result);
   }
-
+  
 }

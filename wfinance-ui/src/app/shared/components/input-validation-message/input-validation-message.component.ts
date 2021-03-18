@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgModel} from "@angular/forms";
+import {NgModel} from '@angular/forms';
 
 @Component({
   selector: 'wf-input-validation-message',
@@ -8,12 +8,14 @@ import {NgModel} from "@angular/forms";
   `
 })
 export class InputValidationMessageComponent implements OnInit {
-
+  
   @Input() readonly campo: NgModel;
   @Input() readonly mensagem: string;
-
-  constructor() { }
-
-  ngOnInit(): void { }
-
+  
+  constructor() {
+  }
+  
+  ngOnInit(): void {
+  }
+  
 }

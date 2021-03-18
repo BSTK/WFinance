@@ -39,7 +39,7 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, errosOcorridosNaRequest, headers, status, request);
     }
 
-    @ExceptionHandler(value = { EnderecoJaCadastradoException.class })
+    @ExceptionHandler(value = {EnderecoJaCadastradoException.class})
     public ResponseEntity<Object> handlerException(EnderecoJaCadastradoException ex,
                                                    WebRequest request) {
 
@@ -47,7 +47,7 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { DadosInvalidosException.class })
+    @ExceptionHandler(value = {DadosInvalidosException.class})
     public ResponseEntity<Object> handlerException(DadosInvalidosException ex,
                                                    WebRequest request) {
 
@@ -55,7 +55,7 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { EmptyResultDataAccessException.class })
+    @ExceptionHandler(value = {EmptyResultDataAccessException.class})
     public ResponseEntity<Object> handlerException(EmptyResultDataAccessException ex,
                                                    WebRequest request) {
 
@@ -63,7 +63,7 @@ public class ExceptionErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errosOcorridosNaRequest, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler(value = { IntegracaoException.class })
+    @ExceptionHandler(value = {IntegracaoException.class})
     public ResponseEntity<Object> handlerException(IntegracaoException ex,
                                                    WebRequest request) {
 

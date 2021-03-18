@@ -43,8 +43,7 @@ public class CategoriaResource {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam(value = "nome", defaultValue = "", required = false)
-                                                              final String nome,
+    public ResponseEntity<Page<CategoriaResponse>> categorias(@RequestParam(value = "nome", defaultValue = "", required = false) final String nome,
                                                               final Pageable pageable) {
         final var categorias = categoriaService.categorias(nome, pageable);
         final var categoriasResponse = response(categorias);

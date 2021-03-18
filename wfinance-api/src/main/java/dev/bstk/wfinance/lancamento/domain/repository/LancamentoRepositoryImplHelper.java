@@ -8,7 +8,8 @@ import static dev.bstk.wfinance.core.helper.StringHelper.orEmpty;
 
 final class LancamentoRepositoryImplHelper {
 
-    private LancamentoRepositoryImplHelper() { }
+    private LancamentoRepositoryImplHelper() {
+    }
 
     private static final String QUERY_PARAM_DESCRICAO = "descricao";
     private static final String QUERY_PARAM_DATA_VENCIMENTO_DE = "dataVencimentoDe";
