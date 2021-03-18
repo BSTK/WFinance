@@ -33,27 +33,24 @@ public class ConfiguracaoCorsFilter implements Filter {
         final boolean interceptarCors = HttpMethod.OPTIONS.name().equals(request.getMethod())
             && request.getHeader(HttpHeaders.ORIGIN).equals(origem);
 
-        response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origem);
-        response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, Boolean.TRUE.toString());
-
         if (interceptarCors) {
             final String metodosHttpPermitidos = String.format(
                 FORMAT_METODOS_HTTP_PERMITIDOS,
                 HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE,
-                HttpMethod.OPTIONS, HttpMethod.TRACE, HttpMethod.PATCH, HttpMethod.HEAD
-            );
+                HttpMethod.OPTIONS, HttpMethod.TRACE, HttpMethod.PATCH, HttpMethod.HEAD);
 
             final String headersHttpPermitidos = String.format(
                 FORMAT_HEADERS_HTTP_PERMITIDOS,
                 HttpHeaders.AUTHORIZATION,
                 HttpHeaders.CONTENT_TYPE,
-                HttpHeaders.ACCEPT
-            );
+                HttpHeaders.ACCEPT);
 
             response.setStatus(HttpServletResponse.SC_OK);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, MAX_AGE);
+            response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origem);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, metodosHttpPermitidos);
             response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, headersHttpPermitidos);
+            response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, Boolean.TRUE.toString());
 
         } else {
             chain.doFilter(request, response);
